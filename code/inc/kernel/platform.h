@@ -102,11 +102,5 @@
 	__DATE__ "-"\
 	__TIME__
 
-#ifdef RENGINE3D_EXPORTS
-#define RENGINE3D_API __declspec(dllexport)
-#else
-#define RENGINE3D_API __declspec(dllimport)
-#endif
-
 #endif
 

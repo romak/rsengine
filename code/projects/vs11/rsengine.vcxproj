@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\inc\kernel\platform.h" />
     <ClInclude Include="..\..\inc\kernel\precompiled.h" />
   </ItemGroup>
   <ItemGroup>

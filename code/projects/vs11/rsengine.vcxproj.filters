@@ -24,6 +24,9 @@
     <ClInclude Include="..\..\inc\kernel\precompiled.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\platform.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
