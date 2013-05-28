@@ -19,6 +19,15 @@
     <Filter Include="src\kernel">
       <UniqueIdentifier>{b9a25b53-4d0b-4ef3-bc51-2078654700e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\mathlib">
+      <UniqueIdentifier>{a33ff9be-2339-485a-be07-93e2a24f127c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\input">
+      <UniqueIdentifier>{e1696423-e09d-4b69-8b99-0423d6f451ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\render">
+      <UniqueIdentifier>{ea756d8c-8895-457e-9ccd-0f646ea00ac9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\precompiled.h">
@@ -27,9 +36,138 @@
     <ClInclude Include="..\..\inc\kernel\platform.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\crc.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\kerneltypes.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\debug.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\refcount.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\args.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\idynlib.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\iarchive.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\icmdsystem.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ifile.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\isubsystem.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ifilesystem.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ikernel.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ilog.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ilogwriter.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ixml.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\mat4.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\mathlib.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\vec2.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\vec3.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\vec4.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\boundbox.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\boundsphere.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\frustum.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\plane.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\quat.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\mathlib\transform.h">
+      <Filter>inc\mathlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\imutex.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\isystem.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\iupdateable.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\iupdatesystem.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\ivarsystem.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\node.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\actionkeyboard.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\actionmouse.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\iinputaction.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\iinputdevice.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\iinputsystem.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\ikeyboarddevice.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\imousedevice.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\input\inputtypes.h">
+      <Filter>inc\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\rendertypes.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\imesh.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\crc.cpp">
       <Filter>src\kernel</Filter>
     </ClCompile>
   </ItemGroup>

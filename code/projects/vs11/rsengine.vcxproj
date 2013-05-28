@@ -11,10 +11,53 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\inc\input\actionkeyboard.h" />
+    <ClInclude Include="..\..\inc\input\actionmouse.h" />
+    <ClInclude Include="..\..\inc\input\iinputaction.h" />
+    <ClInclude Include="..\..\inc\input\iinputdevice.h" />
+    <ClInclude Include="..\..\inc\input\iinputsystem.h" />
+    <ClInclude Include="..\..\inc\input\ikeyboarddevice.h" />
+    <ClInclude Include="..\..\inc\input\imousedevice.h" />
+    <ClInclude Include="..\..\inc\input\inputtypes.h" />
+    <ClInclude Include="..\..\inc\kernel\args.h" />
+    <ClInclude Include="..\..\inc\kernel\crc.h" />
+    <ClInclude Include="..\..\inc\kernel\debug.h" />
+    <ClInclude Include="..\..\inc\kernel\iarchive.h" />
+    <ClInclude Include="..\..\inc\kernel\icmdsystem.h" />
+    <ClInclude Include="..\..\inc\kernel\idynlib.h" />
+    <ClInclude Include="..\..\inc\kernel\ifile.h" />
+    <ClInclude Include="..\..\inc\kernel\ifilesystem.h" />
+    <ClInclude Include="..\..\inc\kernel\ikernel.h" />
+    <ClInclude Include="..\..\inc\kernel\ilog.h" />
+    <ClInclude Include="..\..\inc\kernel\ilogwriter.h" />
+    <ClInclude Include="..\..\inc\kernel\imutex.h" />
+    <ClInclude Include="..\..\inc\kernel\isubsystem.h" />
+    <ClInclude Include="..\..\inc\kernel\isystem.h" />
+    <ClInclude Include="..\..\inc\kernel\iupdateable.h" />
+    <ClInclude Include="..\..\inc\kernel\iupdatesystem.h" />
+    <ClInclude Include="..\..\inc\kernel\ivarsystem.h" />
+    <ClInclude Include="..\..\inc\kernel\ixml.h" />
+    <ClInclude Include="..\..\inc\kernel\kerneltypes.h" />
+    <ClInclude Include="..\..\inc\kernel\node.h" />
     <ClInclude Include="..\..\inc\kernel\platform.h" />
     <ClInclude Include="..\..\inc\kernel\precompiled.h" />
+    <ClInclude Include="..\..\inc\kernel\refcount.h" />
+    <ClInclude Include="..\..\inc\mathlib\boundbox.h" />
+    <ClInclude Include="..\..\inc\mathlib\boundsphere.h" />
+    <ClInclude Include="..\..\inc\mathlib\frustum.h" />
+    <ClInclude Include="..\..\inc\mathlib\mat4.h" />
+    <ClInclude Include="..\..\inc\mathlib\mathlib.h" />
+    <ClInclude Include="..\..\inc\mathlib\plane.h" />
+    <ClInclude Include="..\..\inc\mathlib\quat.h" />
+    <ClInclude Include="..\..\inc\mathlib\transform.h" />
+    <ClInclude Include="..\..\inc\mathlib\vec2.h" />
+    <ClInclude Include="..\..\inc\mathlib\vec3.h" />
+    <ClInclude Include="..\..\inc\mathlib\vec4.h" />
+    <ClInclude Include="..\..\inc\render\imesh.h" />
+    <ClInclude Include="..\..\inc\render\rendertypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\kernel\crc.cpp" />
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
