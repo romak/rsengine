@@ -55,12 +55,19 @@
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
+    <ClInclude Include="..\..\src\kernel\win\dynlibwin.h" />
+    <ClInclude Include="..\..\src\kernel\win\mutexwin.h" />
+    <ClInclude Include="..\..\src\kernel\win\systemwin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\crc.cpp" />
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\src\kernel\win\dllmain.cpp" />
+    <ClCompile Include="..\..\src\kernel\win\dynlibwin.cpp" />
+    <ClCompile Include="..\..\src\kernel\win\mutexwin.cpp" />
+    <ClCompile Include="..\..\src\kernel\win\systemwin.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}</ProjectGuid>

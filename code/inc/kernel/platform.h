@@ -63,6 +63,9 @@
 #if defined( __WIN32__ ) || defined( _WIN32 )
 #   define PLATFORM PLATFORM_WIN32
 #   define PLATFORM_STR "WIN32"
+	#define WIN32_LEAN_AND_MEAN 
+	#include <shlobj.h>
+
 #elif defined( __APPLE_CC__) || defined( __APPLE__ )
 #   define PLATFORM PLATFORM_APPLE
 #   define PLATFORM_STR "APPLE"

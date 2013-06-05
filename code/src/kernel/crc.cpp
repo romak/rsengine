@@ -17,9 +17,8 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include "kernel/precompiled.h"
 #pragma hdrstop
+#include "kernel/precompiled.h"
 
 namespace rengine3d {
 

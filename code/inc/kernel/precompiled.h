@@ -54,6 +54,7 @@
 #include "kernel\iupdateable.h"
 #include "kernel\iupdatesystem.h"
 #include "kernel\imutex.h"
+#include "kernel\isystem.h"
 
 #include "input\inputtypes.h"
 #include "input\iinputaction.h"
