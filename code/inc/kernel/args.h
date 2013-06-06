@@ -20,8 +20,6 @@
 #ifndef __CARGS_H__
 #define __CARGS_H__
 
-#include "kernel/kerneltypes.h"
-
 namespace rengine3d {
 
 	const int MAX_COMMAND_ARGS		= 32;

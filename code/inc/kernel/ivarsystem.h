@@ -17,7 +17,6 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef __IVAR_SYSTEM_H__
 #define __IVAR_SYSTEM_H__
 

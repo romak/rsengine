@@ -49,6 +49,7 @@
 #include "kernel\ivarsystem.h"
 #include "kernel\iarchive.h"
 #include "kernel\ilog.h"
+#include "kernel\ilogwriter.h"
 #include "kernel\ikernel.h"
 #include "kernel\node.h"
 #include "kernel\iupdateable.h"

@@ -17,7 +17,6 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef __IDYNLIB_H__
 #define __IDYNLIB_H__
 

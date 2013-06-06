@@ -17,7 +17,6 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef __CNODE_H__
 #define __CNODE_H__
 

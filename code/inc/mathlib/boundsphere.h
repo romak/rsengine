@@ -16,6 +16,7 @@
 * You should have received a copy of the GNU General Public License
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #ifndef __CBOUNDSPHERE_H__
 #define __CBOUNDSPHERE_H__
 

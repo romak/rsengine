@@ -16,6 +16,7 @@
 * You should have received a copy of the GNU General Public License
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #ifndef __ILOG_WRITER_H__
 #define __ILOG_WRITER_H__
 

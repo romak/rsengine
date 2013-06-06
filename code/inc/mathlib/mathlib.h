@@ -29,7 +29,7 @@
 #endif
 
 namespace rengine3d {
-
+/*
 	class CVec2;
 	class CVec3;
 	class CVec4;
@@ -40,7 +40,7 @@ namespace rengine3d {
 	class CBoundSphere;
 	class CFrustum;
 	class CRect;
-
+*/
 	//! Константа для числа PI.
 	const real PI			= 3.14159265359f;
 
