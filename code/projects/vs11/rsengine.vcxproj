@@ -55,12 +55,14 @@
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
+    <ClInclude Include="..\..\src\kernel\kernel.h" />
     <ClInclude Include="..\..\src\kernel\win\dynlibwin.h" />
     <ClInclude Include="..\..\src\kernel\win\mutexwin.h" />
     <ClInclude Include="..\..\src\kernel\win\systemwin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\crc.cpp" />
+    <ClCompile Include="..\..\src\kernel\kernel.cpp" />
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>

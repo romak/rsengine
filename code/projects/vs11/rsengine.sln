@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rsengine", "rsengine.vcxproj", "{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{C59EC501-6080-4E80-9AE5-1CDB951DD0DA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF} = {4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

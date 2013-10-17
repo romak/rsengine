@@ -27,9 +27,6 @@ namespace rengine3d {
 	public:
 		virtual ~IKernel(){};
 
-		static IKernel* GetKernel(void* hwnd = NULL);
-		static void ReleaseKernel();
-
 		virtual bool RegisterSubSystem(ISubSystem* subSystem) = 0;
 		virtual ISubSystem* GetSubSystem(string_t name) = 0;
 
@@ -49,6 +46,9 @@ namespace rengine3d {
 		virtual void Quit() = 0;
 	};
 
+
+	extern "C" IKernel* GetKernel(void* hwnd = NULL);
+	extern void ReleaseKernel();
 }
 
 #endif
