@@ -2,11 +2,16 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rsengine", "rsengine.vcxproj", "{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D787F96-116B-4BEC-9292-878237379ACD} = {6D787F96-116B-4BEC-9292-878237379ACD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{C59EC501-6080-4E80-9AE5-1CDB951DD0DA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF} = {4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "external", "external.vcxproj", "{6D787F96-116B-4BEC-9292-878237379ACD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +27,10 @@ Global
 		{C59EC501-6080-4E80-9AE5-1CDB951DD0DA}.Debug|Win32.Build.0 = Debug|Win32
 		{C59EC501-6080-4E80-9AE5-1CDB951DD0DA}.Release|Win32.ActiveCfg = Release|Win32
 		{C59EC501-6080-4E80-9AE5-1CDB951DD0DA}.Release|Win32.Build.0 = Release|Win32
+		{6D787F96-116B-4BEC-9292-878237379ACD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6D787F96-116B-4BEC-9292-878237379ACD}.Debug|Win32.Build.0 = Debug|Win32
+		{6D787F96-116B-4BEC-9292-878237379ACD}.Release|Win32.ActiveCfg = Release|Win32
+		{6D787F96-116B-4BEC-9292-878237379ACD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

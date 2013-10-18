@@ -19,45 +19,31 @@
 
 #pragma hdrstop
 #include "kernel/precompiled.h"
-#include "dynlibwin.h"
+#include "logwritertext.h"
 
 namespace rengine3d {
 
-	CDynLibWin::CDynLibWin() {
+	CLogWriterText::CLogWriterText(const string_t& fileName): m_fileName(fileName) {
+		 fopen_s(&m_handle,m_fileName.c_str(), "w");
 	}
 
-	CDynLibWin::~CDynLibWin() {
-		this->Unload();
+	CLogWriterText::~CLogWriterText() {
+		if (m_handle) 
+			fclose(m_handle);
 	}
 
-	bool CDynLibWin::Load(const string_t& path) {
-		if (m_hModule)
-			return false; // Error!
-
-		// Load library
-		m_hModule = ::LoadLibraryExA(path.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
-
-		// Return whether loading of the library was successful
-
-		return ((m_hModule) ? true: false);
-	}
-
-	bool CDynLibWin::IsLoaded() const {
-		return (m_hModule != nullptr);
-	}
-
-	bool CDynLibWin::Unload() {
-		if (m_hModule != nullptr) {
-			if (::FreeLibrary(m_hModule)) {
-				m_hModule = nullptr;
-				return true;
-			}
+	void CLogWriterText::Write(const string_t& message) {
+		if (m_handle) {
+			fprintf(m_handle, message.c_str());
+			fflush(m_handle);
 		}
-		return false;
 	}
 
-	void* CDynLibWin::GetSymbol(const string_t& symbol) const {
-		return m_hModule ? ::GetProcAddress(m_hModule, symbol.c_str()) : nullptr;
+	void CLogWriterText::Clear() {
+		if (m_handle) {
+			fopen_s(&m_handle, m_fileName.c_str(), "w");
+			fflush(m_handle);
+		}
 	}
 
 }

@@ -55,18 +55,29 @@
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
+    <ClInclude Include="..\..\src\kernel\file.h" />
+    <ClInclude Include="..\..\src\kernel\filezip.h" />
     <ClInclude Include="..\..\src\kernel\kernel.h" />
+    <ClInclude Include="..\..\src\kernel\log.h" />
+    <ClInclude Include="..\..\src\kernel\logwritertext.h" />
+    <ClInclude Include="..\..\src\kernel\updatesystem.h" />
+    <ClInclude Include="..\..\src\kernel\varsystem.h" />
     <ClInclude Include="..\..\src\kernel\win\dynlibwin.h" />
     <ClInclude Include="..\..\src\kernel\win\mutexwin.h" />
     <ClInclude Include="..\..\src\kernel\win\systemwin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\crc.cpp" />
+    <ClCompile Include="..\..\src\kernel\file.cpp" />
+    <ClCompile Include="..\..\src\kernel\filezip.cpp" />
     <ClCompile Include="..\..\src\kernel\kernel.cpp" />
+    <ClCompile Include="..\..\src\kernel\log.cpp" />
+    <ClCompile Include="..\..\src\kernel\logwritertext.cpp" />
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\src\kernel\win\dllmain.cpp" />
+    <ClCompile Include="..\..\src\kernel\updatesystem.cpp" />
+    <ClCompile Include="..\..\src\kernel\varsystem.cpp" />
     <ClCompile Include="..\..\src\kernel\win\dynlibwin.cpp" />
     <ClCompile Include="..\..\src\kernel\win\mutexwin.cpp" />
     <ClCompile Include="..\..\src\kernel\win\systemwin.cpp" />
@@ -110,11 +121,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile />
-      <AdditionalIncludeDirectories>../../inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../src/deps;../../inc</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>

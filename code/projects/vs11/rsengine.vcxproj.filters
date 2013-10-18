@@ -31,6 +31,9 @@
     <Filter Include="src\kernel\win">
       <UniqueIdentifier>{a2e5d380-c08c-4568-839f-b594e88cd4cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\kernel\filesystem">
+      <UniqueIdentifier>{96e0dab9-ac63-4b55-b358-00bb074e7184}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\precompiled.h">
@@ -177,6 +180,24 @@
     <ClInclude Include="..\..\src\kernel\kernel.h">
       <Filter>src\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\kernel\logwritertext.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\log.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\varsystem.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\updatesystem.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\file.h">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\filezip.h">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -184,9 +205,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\kernel\crc.cpp">
       <Filter>src\kernel</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\kernel\win\dllmain.cpp">
-      <Filter>src\kernel\win</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\kernel\win\dynlibwin.cpp">
       <Filter>src\kernel\win</Filter>
@@ -199,6 +217,24 @@
     </ClCompile>
     <ClCompile Include="..\..\src\kernel\kernel.cpp">
       <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\logwritertext.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\log.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\varsystem.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\updatesystem.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\file.cpp">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\filezip.cpp">
+      <Filter>src\kernel\filesystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
