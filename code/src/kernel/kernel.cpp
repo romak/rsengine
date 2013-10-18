@@ -20,6 +20,14 @@
 #pragma hdrstop
 #include "kernel/precompiled.h"
 #include "kernel.h"
+#include "log.h"
+#include "logwritertext.h"
+#include "system.h"
+#include "varsystem.h"
+#include "cmdsystem.h"
+#include "filesystem.h"
+#include "updatesystem.h"
+#include "enginevars.h"
 
 namespace rengine3d {
 
@@ -98,7 +106,7 @@ namespace rengine3d {
 		m_log			= NULL;
 		m_varSystem		= NULL;
 		m_quit			= false;
-		m_logFileName	= "rengine3d.log";
+		m_logFileName	= logFileName.GetString();
 	}
 
 	CKernel::~CKernel() {
@@ -107,7 +115,7 @@ namespace rengine3d {
 	bool CKernel::Init(void) {
 		if (m_initialized) 
 			return true;
-/*
+
 		m_logWriter = new CLogWriterText(m_logFileName);
 		m_log		= new CLog(m_logFileName, m_logWriter);
 
@@ -119,10 +127,10 @@ namespace rengine3d {
 		m_varSystem		= new CVarSystem;
 		m_cmdSystem		= new CCmdSystem;
 #ifdef  USE_SDL
-		m_renderDriver	= new CRenderDriverSDL(m_varSystem, m_fileSystem);
+//		m_renderDriver	= new CRenderDriverSDL(m_varSystem, m_fileSystem);
 #endif
 		m_updateSystem	= new CUpdateSystem;
-		m_inputSystem	= new CInputSystem(m_renderDriver);
+//		m_inputSystem	= new CInputSystem(m_renderDriver);
 
 		varSystem		= m_varSystem;
 
@@ -130,16 +138,18 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_fileSystem);
 		this->RegisterSubSystem(m_varSystem);
 		this->RegisterSubSystem(m_cmdSystem);
-		this->RegisterSubSystem(m_renderDriver);
+//		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
-		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
+//		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
 
 		if (!InitSubSystems() ){
 			return false;
 		}
 
-		m_updateSystem->AddUpdaterVariable(m_inputSystem);
-*/
+//		m_updateSystem->AddUpdaterVariable(m_inputSystem);
+
+		Log("Registered %d subsystems.\n", m_subSystems.size());
+
 		m_initialized = true;
 
 		return m_initialized;
@@ -253,6 +263,10 @@ namespace rengine3d {
 			if (subSys)
 				subSys->Shutdown();
 		}
+	}
+
+	bool CKernel::LoadConfig( string_t fileName ) {
+		return true;
 	}
 
 	ILog* CKernel::GetLog( void ) {

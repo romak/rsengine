@@ -30,6 +30,8 @@ namespace rengine3d {
 		virtual bool RegisterSubSystem(ISubSystem* subSystem) = 0;
 		virtual ISubSystem* GetSubSystem(string_t name) = 0;
 
+		virtual bool LoadConfig( string_t fileName ) = 0;
+
 		virtual ILog* GetLog( void ) = 0;
 		virtual IFileSystem* GetFileSystem( void ) = 0;
 		//virtual IVarSystem* GetVarSystem(void) = 0;
@@ -37,7 +39,6 @@ namespace rengine3d {
 		//virtual ISystem* GetSystem(void) = 0;
 		//virtual IUpdateSystem* GetUpdateSystem(void) = 0;
 		//virtual IInputSystem* GetInputSystem(void) = 0;
-
 		//virtual IRenderDriver* GetRenderDriver() = 0;
 
 		virtual void SetLogFileName(string_t fileName) = 0;
@@ -47,7 +48,7 @@ namespace rengine3d {
 	};
 
 
-	extern "C" IKernel* GetKernel(void* hwnd = NULL);
+	extern IKernel* GetKernel(void* hwnd = NULL);
 	extern void ReleaseKernel();
 }
 

@@ -43,7 +43,7 @@ namespace rengine3d {
 	}
 
 	bool CUpdateSystem::Init(void) {
-		Log("Initializing UpdateSystem...\n");
+		Log("  Initializing UpdateSystem...\n");
 		this->AddContainer("Default");
 		Log("  Created default container.\n");
 		return true;

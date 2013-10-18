@@ -198,6 +198,24 @@
     <ClInclude Include="..\..\src\kernel\filezip.h">
       <Filter>src\kernel\filesystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\kernel\archivezip.h">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\filesystem.h">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\xml.h">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\enginevars.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\cmdsystem.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\system.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -235,6 +253,24 @@
     </ClCompile>
     <ClCompile Include="..\..\src\kernel\filezip.cpp">
       <Filter>src\kernel\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\archivezip.cpp">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\filesystem.cpp">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\xml.cpp">
+      <Filter>src\kernel\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\enginevars.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\cmdsystem.cpp">
+      <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\system.cpp">
+      <Filter>src\kernel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

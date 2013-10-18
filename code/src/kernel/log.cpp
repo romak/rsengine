@@ -57,12 +57,21 @@ namespace rengine3d {
 		vsprintf_s(text, format, ap);
 		va_end(ap);
 
-		m_logWriter->Write(text);
+		time_t aclock;
+		time( &aclock );
+		struct tm * utcTime= localtime( &aclock );
+		//tm* utcTime = gmtime(&aclock);	
+
+		char buff[32];
+		sprintf(buff, "%2d:%2d:%2d: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
+		string_t str = buff;
+		str += text;
+
+		m_logWriter->Write(str);
 
 #if defined(PLATFORM_WIN32) && defined(_DEBUG)
-		OutputDebugStringA( text );
+		OutputDebugString(str.c_str());
 #endif
-
 	}
 
 	void CLog::Warning(const char *format, ...) {
@@ -82,7 +91,7 @@ namespace rengine3d {
 		m_logWriter->Write(str);
 
 #if defined(PLATFORM_WIN32) && defined(_DEBUG)
-		OutputDebugStringA( text );
+		OutputDebugStringA( str.c_str() );
 #endif
 	}
 
@@ -103,9 +112,8 @@ namespace rengine3d {
 		m_logWriter->Write(str);
 
 #if defined(PLATFORM_WIN32) && defined(_DEBUG)
-		OutputDebugStringA( text );
+		OutputDebugStringA( str.c_str() );
 #endif
-
 	}
 
 }

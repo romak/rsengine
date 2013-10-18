@@ -22,8 +22,6 @@
 #include "unzip/unzip.h"
 #include "filezip.h"
 
-#include "kernel/debug.h"
-
 namespace rengine3d {
 
 	CFileZip::CFileZip( void* zipHandle ): IFile( ) {
