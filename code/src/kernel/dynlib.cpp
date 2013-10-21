@@ -17,25 +17,39 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CDYNLIBWIN_H__
-#define __CDYNLIBWIN_H__
+#pragma hdrstop
+#include "kernel/precompiled.h"
+#include "dynlib.h"
+#include "win\dynlibwin.h"
 
 namespace rengine3d {
 
-	class CDynLibWin: public IDynLib {
-		friend class CDynLib;
-	private:
-		CDynLibWin();
-		virtual ~CDynLibWin();
+	CDynLib::CDynLib(): m_dynLib(NULL) {
+		#if PLATFORM == PLATFORM_WIN32
+			m_dynLib = new CDynLibWin();
+		#elif defined(PLATFORM_LINUX)
+		#else
+		#endif
+	}
 
-		virtual bool Load(const string_t& path) override;
-		virtual bool IsLoaded() const override;
-		virtual bool Unload() override;
-		virtual void *GetSymbol(const string_t& symbol) const override;
-	private:
-		HMODULE m_hModule;
-	};
+	CDynLib::~CDynLib() {		
+		SafeDelete(m_dynLib);
+	}
 
-}
+	bool CDynLib::Load(const string_t& path) {		
+		return m_dynLib->Load(path);
+	}
 
-#endif
+	bool CDynLib::IsLoaded() const {		
+		return m_dynLib->IsLoaded();
+	}
+
+	bool CDynLib::Unload() {
+		return m_dynLib->Unload();
+	}
+
+	void* CDynLib::GetSymbol(const string_t& symbol) const {		
+		return m_dynLib->GetSymbol(symbol);
+	}
+
+};

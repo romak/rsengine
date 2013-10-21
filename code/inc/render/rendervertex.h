@@ -17,24 +17,27 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CDYNLIBWIN_H__
-#define __CDYNLIBWIN_H__
+#ifndef __IRENDERVERTEX_H__
+#define __IRENDERVERTEX_H__
 
 namespace rengine3d {
 
-	class CDynLibWin: public IDynLib {
-		friend class CDynLib;
-	private:
-		CDynLibWin();
-		virtual ~CDynLibWin();
-
-		virtual bool Load(const string_t& path) override;
-		virtual bool IsLoaded() const override;
-		virtual bool Unload() override;
-		virtual void *GetSymbol(const string_t& symbol) const override;
-	private:
-		HMODULE m_hModule;
+	class IRenderVertex {
+	public:
+		IRenderVertex();
+		virtual ~IRenderVertex();
+	public:
+		bool	m_visible;
+		CVec3	m_posWorld;
+		CVec4	m_posScreen;
 	};
+
+	r_inline IRenderVertex::IRenderVertex() {
+		m_visible = false;
+	}
+
+	r_inline IRenderVertex::~IRenderVertex() {
+	}
 
 }
 

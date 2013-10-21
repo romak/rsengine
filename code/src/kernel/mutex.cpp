@@ -17,25 +17,31 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CDYNLIBWIN_H__
-#define __CDYNLIBWIN_H__
+#pragma hdrstop
+#include "kernel/precompiled.h"
+#include "mutex.h"
+#include "win\mutexwin.h"
 
 namespace rengine3d {
 
-	class CDynLibWin: public IDynLib {
-		friend class CDynLib;
-	private:
-		CDynLibWin();
-		virtual ~CDynLibWin();
+	CMutex::CMutex(): m_mutex(NULL) {
+		#if PLATFORM == PLATFORM_WIN32
+			m_mutex = new CMutexWin();
+		#elif defined(PLATFORM_LINUX)
+		#else
+		#endif
+	}
 
-		virtual bool Load(const string_t& path) override;
-		virtual bool IsLoaded() const override;
-		virtual bool Unload() override;
-		virtual void *GetSymbol(const string_t& symbol) const override;
-	private:
-		HMODULE m_hModule;
-	};
+	CMutex::~CMutex() {
+		SafeDelete(m_mutex);
+	}
+
+	bool CMutex::Lock() {
+		return m_mutex->Lock();
+	}
+
+	bool CMutex::UnLock() {
+		return m_mutex->UnLock();
+	}
 
 }
-
-#endif

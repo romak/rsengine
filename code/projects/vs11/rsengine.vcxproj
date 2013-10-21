@@ -55,8 +55,10 @@
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
+    <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\src\kernel\archivezip.h" />
     <ClInclude Include="..\..\src\kernel\cmdsystem.h" />
+    <ClInclude Include="..\..\src\kernel\dynlib.h" />
     <ClInclude Include="..\..\src\kernel\enginevars.h" />
     <ClInclude Include="..\..\src\kernel\file.h" />
     <ClInclude Include="..\..\src\kernel\filesystem.h" />
@@ -64,6 +66,7 @@
     <ClInclude Include="..\..\src\kernel\kernel.h" />
     <ClInclude Include="..\..\src\kernel\log.h" />
     <ClInclude Include="..\..\src\kernel\logwritertext.h" />
+    <ClInclude Include="..\..\src\kernel\mutex.h" />
     <ClInclude Include="..\..\src\kernel\system.h" />
     <ClInclude Include="..\..\src\kernel\updatesystem.h" />
     <ClInclude Include="..\..\src\kernel\varsystem.h" />
@@ -76,6 +79,7 @@
     <ClCompile Include="..\..\src\kernel\archivezip.cpp" />
     <ClCompile Include="..\..\src\kernel\cmdsystem.cpp" />
     <ClCompile Include="..\..\src\kernel\crc.cpp" />
+    <ClCompile Include="..\..\src\kernel\dynlib.cpp" />
     <ClCompile Include="..\..\src\kernel\enginevars.cpp" />
     <ClCompile Include="..\..\src\kernel\file.cpp" />
     <ClCompile Include="..\..\src\kernel\filesystem.cpp" />
@@ -83,6 +87,7 @@
     <ClCompile Include="..\..\src\kernel\kernel.cpp" />
     <ClCompile Include="..\..\src\kernel\log.cpp" />
     <ClCompile Include="..\..\src\kernel\logwritertext.cpp" />
+    <ClCompile Include="..\..\src\kernel\mutex.cpp" />
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

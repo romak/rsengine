@@ -70,6 +70,7 @@
 #include "input\actionmouse.h"
 
 #include "render\rendertypes.h"
+#include "render\rendervertex.h"
 #include "render\imesh.h"
 
 #endif /* !__PRECOMPILED_H__ */

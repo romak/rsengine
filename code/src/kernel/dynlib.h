@@ -17,25 +17,23 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CDYNLIBWIN_H__
-#define __CDYNLIBWIN_H__
+#ifndef __CDYNLIB_H__
+#define __CDYNLIB_H__
 
 namespace rengine3d {
 
-	class CDynLibWin: public IDynLib {
-		friend class CDynLib;
-	private:
-		CDynLibWin();
-		virtual ~CDynLibWin();
+	class CDynLib {
+	public:
+		CDynLib();
+		~CDynLib();
 
-		virtual bool Load(const string_t& path) override;
-		virtual bool IsLoaded() const override;
-		virtual bool Unload() override;
-		virtual void *GetSymbol(const string_t& symbol) const override;
+		bool Load(const string_t& path);
+		bool IsLoaded() const;
+		bool Unload();
+		void *GetSymbol(const string_t& symbol) const;
 	private:
-		HMODULE m_hModule;
+		IDynLib* m_dynLib;
 	};
-
 }
 
 #endif
