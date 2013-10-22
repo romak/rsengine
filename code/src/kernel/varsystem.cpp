@@ -149,7 +149,7 @@ namespace rengine3d {
 			}
 		}
 
-		Log("\tRegistered %d static vars.\n", numVars);
+		Log("\t\tRegistered %d static vars.\n", numVars);
 
 	}
 
