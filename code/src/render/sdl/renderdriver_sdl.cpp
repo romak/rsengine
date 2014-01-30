@@ -83,11 +83,11 @@ namespace rengine3d {
 
 		if(m_multiSampling > 0) {
 			if(SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1)==-1) {
-				Error("CRenderDriverSDL::Init: Multisample buffers not supported!\n");
+				Error("Multisample buffers not supported!\n");
 			}
 			else{
 				if(SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, m_multiSampling)==-1) {
-					Error("CRenderDriverSDL::Init: Couldn't set multisampling samples to %d\n", m_multiSampling);
+					Error("Couldn't set multisampling samples to %d\n", m_multiSampling);
 				}
 			}
 		}
@@ -99,7 +99,6 @@ namespace rengine3d {
 		Log("\tSetting video mode: %d x %d - %d bpp\n",m_width, m_height, m_bpp);
 
 		m_window = SDL_CreateWindow("rsengine3d", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
-		//SDL_SetWindowDisplayMode
 
 		if (SDL_SetWindowDisplayMode(m_window, NULL) < 0) {
 			Error("SetVideoMode failed in SDL_SetWindowDisplayMode: %dx%d:%d %d (\"%hs\")",w, h, bpp, fs ? 1 : 0, SDL_GetError());
@@ -128,17 +127,6 @@ namespace rengine3d {
 		else
 			SDL_SetWindowGrab(m_window, SDL_FALSE);
 			
-		//	m_screen = SDL_SetVideoMode( m_width, m_height, m_bpp, flags);
-		//if(m_screen==NULL ){
-		//	Error("Could not set display mode setting a lower one!\n");
-		//	m_screen = SDL_SetVideoMode( 800, 600, m_bpp, flags);
-		//	if(m_screen==NULL) {
-		//		Error("Unable to initialize display!\n");
-		//		return false;
-		//	}
-		//}
-
-	
 		return true;
 	}
 

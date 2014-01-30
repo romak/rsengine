@@ -135,7 +135,7 @@ namespace rengine3d {
 		m_renderDriver	= new CRenderDriverSDL(m_fileSystem, m_varSystem);
 #endif
 		m_updateSystem	= new CUpdateSystem;
-//		m_inputSystem	= new CInputSystem(m_renderDriver);
+		//		m_inputSystem	= new CInputSystem(m_renderDriver);
 
 		varSystem		= m_varSystem;
 
@@ -145,13 +145,13 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_cmdSystem);
 		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
-//		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
+		//		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
 
 		if (!InitSubSystems() ){
 			return false;
 		}
 
-//		m_updateSystem->AddUpdaterVariable(m_inputSystem);
+		//		m_updateSystem->AddUpdaterVariable(m_inputSystem);
 
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 
@@ -288,15 +288,99 @@ namespace rengine3d {
 	}
 
 	void CKernel::SDL_OnEvent(SDL_Event* Event) {
-		if(Event->type == SDL_QUIT) {
+		switch(Event->type) {
+
+		case SDL_KEYDOWN: {
+			break; }
+		case SDL_KEYUP: {
+			break; }
+		case SDL_MOUSEMOTION: {
+			break; }
+
+		case SDL_MOUSEBUTTONDOWN: {
+			switch(Event->button.button) {
+			case SDL_BUTTON_LEFT: {
+				Log("Left mouse button down\n");
+				break; }
+			case SDL_BUTTON_RIGHT: {
+				Log("Right mouse button down\n");
+				break; }
+			case SDL_BUTTON_MIDDLE: {
+				Log("Middle mouse button down\n");
+				break; }
+			}
+			break; }
+
+		case SDL_MOUSEBUTTONUP:	{
+			switch(Event->button.button) {
+			case SDL_BUTTON_LEFT: {
+				break; }
+			case SDL_BUTTON_RIGHT: {
+				break; }
+			case SDL_BUTTON_MIDDLE: {
+				break; }
+			}
+			break; }
+
+		case SDL_QUIT: {
 			m_quit = true;
+			break; }
+
+		case SDL_SYSWMEVENT: {
+			break; }
+
+		case SDL_WINDOWEVENT: {
+			switch(Event->window.event) {
+			case SDL_WINDOWEVENT_SHOWN: {
+				Log("Window %d shown\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_HIDDEN: {
+				Log("Window %d exposed\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_EXPOSED: {
+				Log("Window %d exposed\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_MOVED: {
+				Log("Window %d moved to %d,%d\n", Event->window.windowID, Event->window.data1,Event->window.data2);
+				break; }
+			case SDL_WINDOWEVENT_RESIZED: {
+				Log("Window %d resized to %dx%d\n", Event->window.windowID, Event->window.data1, Event->window.data2);
+				break; }
+			case SDL_WINDOWEVENT_MINIMIZED: {
+				Log("Window %d minimized\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_MAXIMIZED: {
+				Log("Window %d maximized\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_RESTORED: {
+				Log("Window %d restored\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_ENTER: {
+				Log("Mouse entered window %d\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_LEAVE: {
+				Log("Mouse left window %d\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_FOCUS_GAINED: {
+				Log("Window %d gained keyboard focus\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_FOCUS_LOST: {
+				Log("Window %d lost keyboard focus\n", Event->window.windowID);
+				break; }
+			case SDL_WINDOWEVENT_CLOSE: {
+				Log("Window %d closed\n", Event->window.windowID);
+				break; }
+			}
+			break; }
+		default: {
+			break;}
 		}
 	}
 
 	void CKernel::Run() {
 #ifdef  USE_SDL
 		SDL_Event Event;
-		
+
 		while(!m_quit) {
 			while(SDL_PollEvent(&Event)) {
 				SDL_OnEvent(&Event);
