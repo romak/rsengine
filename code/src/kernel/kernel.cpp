@@ -32,6 +32,7 @@
 #include "filesystem.h"
 #include "updatesystem.h"
 #include "enginevars.h"
+#include "../render/sdl/renderdriver_sdl.h"
 
 namespace rengine3d {
 
@@ -131,7 +132,7 @@ namespace rengine3d {
 		m_varSystem		= new CVarSystem;
 		m_cmdSystem		= new CCmdSystem;
 #ifdef  USE_SDL
-//		m_renderDriver	= new CRenderDriverSDL(m_varSystem, m_fileSystem);
+		m_renderDriver	= new CRenderDriverSDL(m_fileSystem, m_varSystem);
 #endif
 		m_updateSystem	= new CUpdateSystem;
 //		m_inputSystem	= new CInputSystem(m_renderDriver);
@@ -142,7 +143,7 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_fileSystem);
 		this->RegisterSubSystem(m_varSystem);
 		this->RegisterSubSystem(m_cmdSystem);
-//		this->RegisterSubSystem(m_renderDriver);
+		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
 //		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
 
@@ -155,6 +156,10 @@ namespace rengine3d {
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 
 		m_updateSystem->Print();
+
+		if (!m_renderDriver->SetDisplayMode(800, 600, 32, 0, false)) {
+			return false;
+		}
 
 		m_initialized = true;
 
@@ -289,7 +294,7 @@ namespace rengine3d {
 	}
 
 	void CKernel::Run() {
-
+#ifdef  USE_SDL
 		SDL_Event Event;
 		
 		while(!m_quit) {
@@ -301,9 +306,8 @@ namespace rengine3d {
 			m_updateSystem->OnDraw();
 			// TODO: scene render
 			//m_renderDriver->SwapBuffers();
-
 		}
-
+#endif
 		//OnCleanup();
 	}
 

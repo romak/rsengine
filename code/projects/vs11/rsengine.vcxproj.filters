@@ -34,6 +34,12 @@
     <Filter Include="src\kernel\filesystem">
       <UniqueIdentifier>{96e0dab9-ac63-4b55-b358-00bb074e7184}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\render">
+      <UniqueIdentifier>{8c7480ce-e189-4d6e-a01a-fa0546d5295b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\render\sdl">
+      <UniqueIdentifier>{7afa239e-ff35-46bb-8dd1-069be2d2fccd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\platform.h">
@@ -228,6 +234,12 @@
     <ClInclude Include="..\..\inc\kernel\ievent.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\render\irenderdriver.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\sdl\renderdriver_sdl.h">
+      <Filter>src\render\sdl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -289,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\kernel\mutex.cpp">
       <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\sdl\renderdriver_sdl.cpp">
+      <Filter>src\render\sdl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

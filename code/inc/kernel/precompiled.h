@@ -73,5 +73,6 @@
 #include "render\rendertypes.h"
 #include "render\rendervertex.h"
 #include "render\imesh.h"
+#include "render\irenderdriver.h"
 
 #endif /* !__PRECOMPILED_H__ */

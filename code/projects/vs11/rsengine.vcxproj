@@ -55,6 +55,7 @@
     <ClInclude Include="..\..\inc\mathlib\vec3.h" />
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
+    <ClInclude Include="..\..\inc\render\irenderdriver.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\src\kernel\archivezip.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="..\..\src\kernel\win\mutexwin.h" />
     <ClInclude Include="..\..\src\kernel\win\systemwin.h" />
     <ClInclude Include="..\..\src\kernel\xml.h" />
+    <ClInclude Include="..\..\src\render\sdl\renderdriver_sdl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\archivezip.cpp" />
@@ -100,6 +102,7 @@
     <ClCompile Include="..\..\src\kernel\win\mutexwin.cpp" />
     <ClCompile Include="..\..\src\kernel\win\systemwin.cpp" />
     <ClCompile Include="..\..\src\kernel\xml.cpp" />
+    <ClCompile Include="..\..\src\render\sdl\renderdriver_sdl.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}</ProjectGuid>
