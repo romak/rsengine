@@ -44,11 +44,11 @@ namespace rengine3d {
 
 		virtual void OnInit(void);
 		virtual void OnShutdown(void);
-		virtual void Draw(void);
-		virtual void Update(real timeStep);
+		virtual void OnDraw(void);
+		virtual void OnUpdate(real timeStep);
 
-		virtual void PostSceneDraw(void);
-		virtual void PostGUIDraw(void);
+		virtual void OnPostSceneDraw(void);
+		virtual void OnPostGUIDraw(void);
 
 		virtual bool AddUpdater(IUpdateable* updater, const string_t& container);
 		virtual bool AddContainer(const string_t& name);

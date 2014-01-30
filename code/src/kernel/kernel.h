@@ -53,6 +53,9 @@ namespace rengine3d {
 
 		virtual void Run() ;
 		virtual void Quit();
+
+		void SDL_OnEvent(SDL_Event* Event);
+
 	public:
 		static IKernel*	m_kernel;
 	protected:

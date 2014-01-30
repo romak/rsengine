@@ -22,26 +22,16 @@
 
 namespace rengine3d {
 
-	class IUpdateable: public CRefCount {
+	class IUpdateable: public CRefCount, public IEvent {
 	public:
 		IUpdateable(){};
 		IUpdateable(const string_t& name): m_updatableName(name){};
 
 		virtual ~IUpdateable(){};
-		virtual const string_t& GetUpdateableName(void) { return m_updatableName; };
-
-		virtual bool OnInit(void){ return true;};
-		virtual void OnShutdown(void){};
-		virtual void OnDraw(void){};
-
-		virtual void OnUpdate(real timeStep){};
-
-		virtual void OnPostSceneDraw(){}
-		virtual void OnPostGUIDraw(){}
+		virtual const string_t& GetName(void) { return m_updatableName; };
 	protected:
 		string_t	m_updatableName;
 	};
-
 }
 
 #endif

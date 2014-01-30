@@ -47,7 +47,7 @@ void CMainApp::Run() {
 
 int _tmain(int argc, _TCHAR* argv[]) {
 	CMainApp* app = new CMainApp;
-
+	//app->Run();
 	SafeDelete(app);
 
 	return 0;

@@ -46,6 +46,8 @@ namespace rengine3d {
 		Log("  Initializing UpdateSystem...\n");
 		this->AddContainer("Default");
 		Log("  Created default container.\n");
+		this->OnInit();
+
 		return true;
 	}
 
@@ -60,19 +62,21 @@ namespace rengine3d {
 		updatersContainerIt_t	containerIt;
 		updatersListIt_t		updaterIt;
 
-		Log("Updater list:\n");
+		Log("\tRegistered %d update containers.\n", m_updaterContainer.size());
+		Log("\tUpdater containers list:\n");
+
 		for ( containerIt = m_updaterContainer.begin(); containerIt!=m_updaterContainer.end();++containerIt) {
-			Log("  %s:\n", containerIt->first.c_str());
 			updatersList_t updatersList = containerIt->second;
+			Log("\t\t'%s', registered %d updateables :\n", containerIt->first.c_str(), updatersList.size());
 			for ( updaterIt = updatersList.begin(); updaterIt!=updatersList.end();++updaterIt) {
-				Log("    %s\n", (*updaterIt)->GetUpdateableName().c_str());
+				Log("    %s\n", (*updaterIt)->GetName().c_str());
 			}
 		}
 
 		Log("Updater variables:\n");
 
 		for ( updatersListIt_t it = m_updaterVars.begin(); it!=m_updaterVars.end();++it) {
-			Log("  %s\n", (*it)->GetUpdateableName().c_str());
+			Log("  %s\n", (*it)->GetName().c_str());
 		}
 	}
 
@@ -108,7 +112,7 @@ namespace rengine3d {
 		}
 	}
 
-	void CUpdateSystem::Draw(void) {
+	void CUpdateSystem::OnDraw(void) {
 		for ( updatersListIt_t it = m_updaterVars.begin(); it!=m_updaterVars.end();++it) {
 			(*it)->OnDraw();
 		}
@@ -124,7 +128,7 @@ namespace rengine3d {
 		}
 	}
 
-	void CUpdateSystem::Update(real timeStep) {
+	void CUpdateSystem::OnUpdate(real timeStep) {
 		for ( updatersListIt_t it = m_updaterVars.begin(); it!=m_updaterVars.end();++it) {
 			(*it)->OnUpdate(timeStep);
 		}
@@ -140,7 +144,7 @@ namespace rengine3d {
 		}
 	}
 
-	void CUpdateSystem::PostSceneDraw(void) {
+	void CUpdateSystem::OnPostSceneDraw(void) {
 		for ( updatersListIt_t it = m_updaterVars.begin(); it!=m_updaterVars.end();++it) {
 			(*it)->OnPostSceneDraw();
 		}
@@ -156,7 +160,7 @@ namespace rengine3d {
 		}
 	}
 
-	void CUpdateSystem::PostGUIDraw(void) {
+	void CUpdateSystem::OnPostGUIDraw(void) {
 		for ( updatersListIt_t it = m_updaterVars.begin(); it!=m_updaterVars.end();++it) {
 			(*it)->OnPostGUIDraw();
 		}
@@ -207,6 +211,7 @@ namespace rengine3d {
 	}
 
 	void CUpdateSystem::ShowStatistics(const string_t& updateable, const string_t& container) {
+
 	}
 
 }

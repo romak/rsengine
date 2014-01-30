@@ -36,11 +36,11 @@ namespace rengine3d {
 
 		virtual void OnInit(void) = 0;
 		virtual void OnShutdown(void) = 0;
-		virtual void Draw(void) = 0;
-		virtual void Update(real timeStep) = 0;
+		virtual void OnDraw(void) = 0;
+		virtual void OnUpdate(real timeStep) = 0;
 
-		virtual void PostSceneDraw() = 0;
-		virtual void PostGUIDraw() = 0;
+		virtual void OnPostSceneDraw() = 0;
+		virtual void OnPostGUIDraw() = 0;
 
 		virtual bool AddUpdater(IUpdateable* updater, const string_t& container = "Default") = 0;
 		virtual bool AddContainer(const string_t& name) = 0;

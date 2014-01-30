@@ -19,6 +19,10 @@
 
 #pragma hdrstop
 #include "kernel/precompiled.h"
+
+#include "sdl/SDL_config.h"
+#include "sdl/SDL.h"
+
 #include "kernel.h"
 #include "log.h"
 #include "logwritertext.h"
@@ -150,6 +154,8 @@ namespace rengine3d {
 
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 
+		m_updateSystem->Print();
+
 		m_initialized = true;
 
 		return m_initialized;
@@ -159,10 +165,14 @@ namespace rengine3d {
 
 		Log("Shutdowns Engine...\n");
 
+		m_updateSystem->OnShutdown();
+
 		ReleaseSubSystems();
 
 		SafeDelete(m_logWriter);
 		SafeDelete(m_log);
+
+		SDL_Quit();
 
 		m_initialized = false;
 
@@ -180,7 +190,6 @@ namespace rengine3d {
 	string_t CKernel::GetVersion(void) {
 		return "0.0.1";
 	}
-
 
 	IRenderDriver* CKernel::GetRenderDriver(void)	{ 
 		return m_renderDriver;	
@@ -273,16 +282,29 @@ namespace rengine3d {
 		return m_log;
 	}
 
-	void CKernel::Run() {
-		/*
-		while (!m_quit) {
-			m_updateSystem->Update(0);
-
-			m_updateSystem->Draw();
-			// TODO: scene render
-			m_renderDriver->SwapBuffers();
+	void CKernel::SDL_OnEvent(SDL_Event* Event) {
+		if(Event->type == SDL_QUIT) {
+			m_quit = true;
 		}
-		*/
+	}
+
+	void CKernel::Run() {
+
+		SDL_Event Event;
+		
+		while(!m_quit) {
+			while(SDL_PollEvent(&Event)) {
+				SDL_OnEvent(&Event);
+			}
+
+			m_updateSystem->OnUpdate(0);
+			m_updateSystem->OnDraw();
+			// TODO: scene render
+			//m_renderDriver->SwapBuffers();
+
+		}
+
+		//OnCleanup();
 	}
 
 	void CKernel::Quit(){
