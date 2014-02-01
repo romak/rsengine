@@ -291,8 +291,10 @@ namespace rengine3d {
 		switch(Event->type) {
 
 		case SDL_KEYDOWN: {
+			Log("Key down\n");
 			break; }
 		case SDL_KEYUP: {
+			Log("Key up\n");
 			break; }
 		case SDL_MOUSEMOTION: {
 			break; }
