@@ -26,10 +26,10 @@ namespace rengine3d {
 
 	}event_t;
 
-	class IEvent {
+	class ISystemEvent {
 	public:
-		IEvent(){};
-		virtual ~IEvent(){};
+		ISystemEvent(){};
+		virtual ~ISystemEvent(){};
 		
 		virtual void OnInit(void){};
 		virtual void OnShutdown(void){};

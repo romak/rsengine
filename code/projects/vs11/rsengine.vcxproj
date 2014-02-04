@@ -25,7 +25,6 @@
     <ClInclude Include="..\..\inc\kernel\iarchive.h" />
     <ClInclude Include="..\..\inc\kernel\icmdsystem.h" />
     <ClInclude Include="..\..\inc\kernel\idynlib.h" />
-    <ClInclude Include="..\..\inc\kernel\ievent.h" />
     <ClInclude Include="..\..\inc\kernel\ifile.h" />
     <ClInclude Include="..\..\inc\kernel\ifilesystem.h" />
     <ClInclude Include="..\..\inc\kernel\ikernel.h" />
@@ -34,6 +33,7 @@
     <ClInclude Include="..\..\inc\kernel\imutex.h" />
     <ClInclude Include="..\..\inc\kernel\isubsystem.h" />
     <ClInclude Include="..\..\inc\kernel\isystem.h" />
+    <ClInclude Include="..\..\inc\kernel\isystemevent.h" />
     <ClInclude Include="..\..\inc\kernel\iupdateable.h" />
     <ClInclude Include="..\..\inc\kernel\iupdatesystem.h" />
     <ClInclude Include="..\..\inc\kernel\ivarsystem.h" />

@@ -231,14 +231,14 @@
     <ClInclude Include="..\..\inc\kernel\precompiled.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\kernel\ievent.h">
-      <Filter>inc\kernel</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\render\irenderdriver.h">
       <Filter>inc\render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\render\sdl\renderdriver_sdl.h">
       <Filter>src\render\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\isystemevent.h">
+      <Filter>inc\kernel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

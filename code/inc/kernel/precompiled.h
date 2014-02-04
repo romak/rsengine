@@ -24,7 +24,7 @@
 #include "kernel\kerneltypes.h"
 #include "kernel\debug.h"
 #include "kernel\crc.h"
-#include "kernel\ievent.h"
+#include "kernel\isystemevent.h"
 
 #include "mathlib\mathlib.h"
 #include "mathlib\vec2.h"
