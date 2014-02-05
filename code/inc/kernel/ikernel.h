@@ -34,12 +34,12 @@ namespace rengine3d {
 
 		virtual ILog* GetLog( void ) = 0;
 		virtual IFileSystem* GetFileSystem( void ) = 0;
-		//virtual IVarSystem* GetVarSystem(void) = 0;
+		virtual IVarSystem* GetVarSystem(void) = 0;
 		virtual ICmdSystem* GetCmdSystem( void ) = 0;
-		//virtual ISystem* GetSystem(void) = 0;
-		//virtual IUpdateSystem* GetUpdateSystem(void) = 0;
-		//virtual IInputSystem* GetInputSystem(void) = 0;
-		//virtual IRenderDriver* GetRenderDriver() = 0;
+		virtual ISystem* GetSystem(void) = 0;
+		virtual IUpdateSystem* GetUpdateSystem(void) = 0;
+		virtual IInputSystem* GetInputSystem(void) = 0;
+		virtual IRenderDriver* GetRenderDriver() = 0;
 
 		virtual void SetLogFileName(string_t fileName) = 0;
 

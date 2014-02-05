@@ -26,6 +26,9 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 		kernel->Shutdown();
 		return;
 	}
+
+	varSys = kernel->GetVarSystem();
+
 }
 
 CMainApp::~CMainApp() {
@@ -49,7 +52,6 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	CMainApp* app = new CMainApp;
 	app->Run();
 	SafeDelete(app);
-
 	return 0;
 }
 

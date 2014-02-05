@@ -20,9 +20,6 @@
 #pragma hdrstop
 #include "kernel/precompiled.h"
 
-#include "sdl/SDL_config.h"
-#include "sdl/SDL.h"
-
 #include "kernel.h"
 #include "log.h"
 #include "logwritertext.h"
@@ -32,7 +29,12 @@
 #include "filesystem.h"
 #include "updatesystem.h"
 #include "enginevars.h"
+
+#ifdef  USE_SDL
+#include "sdl/SDL_config.h"
+#include "sdl/SDL.h"
 #include "../render/sdl/renderdriver_sdl.h"
+#endif
 
 namespace rengine3d {
 
@@ -287,7 +289,9 @@ namespace rengine3d {
 		return m_log;
 	}
 
-	void CKernel::SDL_OnEvent(SDL_Event* Event) {
+#ifdef  USE_SDL
+	void CKernel::SDL_OnEvent(void* _Event) {
+		SDL_Event* Event = (SDL_Event*)_Event;
 		switch(Event->type) {
 
 		case SDL_KEYDOWN: {
@@ -378,6 +382,8 @@ namespace rengine3d {
 			break;}
 		}
 	}
+
+#endif
 
 	void CKernel::Run() {
 #ifdef  USE_SDL

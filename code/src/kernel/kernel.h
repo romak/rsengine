@@ -47,15 +47,16 @@ namespace rengine3d {
 		virtual ICmdSystem* GetCmdSystem( void )	{ return m_cmdSystem;  }; 
 		virtual ISystem* GetSystem(void)			{ return m_system;	   };
 		virtual IUpdateSystem* GetUpdateSystem(void){ return m_updateSystem;};
-		//		virtual IInputSystem* GetInputSystem(void)			{ return m_inputSystem;	   };
+		virtual IInputSystem* GetInputSystem(void)			{ return m_inputSystem;	   };
 		virtual IRenderDriver* GetRenderDriver(void);
 		virtual void SetLogFileName(string_t fileName)	{ m_logFileName = fileName;	};
 
 		virtual void Run() ;
 		virtual void Quit();
 
-		void SDL_OnEvent(SDL_Event* Event);
-
+#ifdef  USE_SDL
+		void SDL_OnEvent(void* Event);
+#endif
 	public:
 		static IKernel*	m_kernel;
 	protected:
@@ -78,7 +79,7 @@ namespace rengine3d {
 		ISystem*			m_system;
 		IUpdateSystem*		m_updateSystem;
 		IRenderDriver*		m_renderDriver;
-		//		CInputSystem*		m_inputSystem;
+		IInputSystem*		m_inputSystem;
 	};
 
 }

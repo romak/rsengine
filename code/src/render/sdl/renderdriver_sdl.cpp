@@ -48,11 +48,11 @@ namespace rengine3d {
 	}
 
 	string_t CRenderDriverSDL::GetVersion(void) {
-		return "0.0.1";
+		return "0.0.2";
 	}
 
 	bool CRenderDriverSDL::Init() {
-		Log("  Initializing RenderDriverSDL...\n");
+		Log("  Initializing render driver SDL...\n");
 		return true;
 	}
 
