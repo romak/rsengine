@@ -17,6 +17,7 @@ public:
 private:
 	IKernel*		kernel;
 	IVarSystem*		varSys;
+	ISystem*		m_sys;
 };
 
 CMainApp::CMainApp(): IUpdateable("CMainApp") {	
@@ -27,7 +28,10 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 		return;
 	}
 
-	varSys = kernel->GetVarSystem();
+	varSys	= kernel->GetVarSystem();
+	m_sys	= kernel->GetSystem();
+
+	m_sys->SetWindowCaption("test application");
 
 }
 

@@ -42,6 +42,8 @@ namespace rengine3d {
 		virtual uint64 GetMicroseconds() const = 0;
 		virtual void Sleep(uint64 milliseconds) const = 0;
 		virtual char GetSeparator() const = 0;
+
+		virtual void SetWindowCaption(void* window, const string_t& caption) = 0;
 	};
 }
 

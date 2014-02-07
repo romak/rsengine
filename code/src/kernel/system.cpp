@@ -117,4 +117,8 @@ namespace rengine3d {
 		return m_system->GetSeparator();
 	}
 
+	void CSystem::SetWindowCaption(void* window, const string_t& caption) {
+		m_system->SetWindowCaption(window, caption);
+	}
+
 }

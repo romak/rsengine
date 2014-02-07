@@ -27,12 +27,16 @@
 
 namespace rengine3d {
 
-	CRenderDriverSDL::CRenderDriverSDL(IFileSystem* fs, IVarSystem* vs) {
+	CRenderDriverSDL::CRenderDriverSDL(IFileSystem* fs, IVarSystem* vs, ISystem* sys) {
 		m_width = 800;
 		m_height = 600;
 		m_bpp = 32;
 		m_multiSampling = 0;
 		m_fs = false;
+
+		m_fileSys	= fs;
+		m_varSys	= vs;
+		m_sys		= sys;
 	}
 
 	CRenderDriverSDL::~CRenderDriverSDL() {

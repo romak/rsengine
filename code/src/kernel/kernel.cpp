@@ -134,7 +134,7 @@ namespace rengine3d {
 		m_varSystem		= new CVarSystem;
 		m_cmdSystem		= new CCmdSystem;
 #ifdef  USE_SDL
-		m_renderDriver	= new CRenderDriverSDL(m_fileSystem, m_varSystem);
+		m_renderDriver	= new CRenderDriverSDL(m_fileSystem, m_varSystem, m_system);
 #endif
 		m_updateSystem	= new CUpdateSystem;
 		//		m_inputSystem	= new CInputSystem(m_renderDriver);

@@ -24,7 +24,7 @@ namespace rengine3d {
 
 	class CRenderDriverSDL: public IRenderDriver {
 	public:
-		CRenderDriverSDL(IFileSystem* fs, IVarSystem* vs);
+		CRenderDriverSDL(IFileSystem* fs, IVarSystem* vs, ISystem*	sys);
 		virtual ~CRenderDriverSDL();
 
 		virtual bool Init();
@@ -43,9 +43,12 @@ namespace rengine3d {
 		uint m_multiSampling;
 		uint m_fs;
 
+		IFileSystem*	m_fileSys;
+		IVarSystem*		m_varSys;
+		ISystem*		m_sys;
+
 		SDL_Surface*	m_screen;
 		SDL_Window*		m_window;
-
 	};
 }
 

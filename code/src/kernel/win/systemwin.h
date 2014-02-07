@@ -52,6 +52,7 @@ namespace rengine3d {
 		virtual uint64 GetMicroseconds() const override;
 		virtual void Sleep(uint64 milliseconds) const override;
 		virtual char GetSeparator() const override;
+		virtual void SetWindowCaption(void* hwnd, const string_t& caption) override;
 	};
 }
 
