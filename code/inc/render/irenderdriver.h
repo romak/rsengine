@@ -31,7 +31,9 @@ namespace rengine3d {
 		virtual void Shutdown(void) = 0;
 
 		virtual bool SetDisplayMode(uint w, uint h, uint bpp, uint multiSampling, bool fs) = 0;
+		virtual void SetWindowCaption(const string_t& caption) = 0;
 
+		virtual void ShowCursor(bool show) = 0;
 	};
 
 }

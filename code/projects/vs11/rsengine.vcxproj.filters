@@ -40,6 +40,9 @@
     <Filter Include="src\render\sdl">
       <UniqueIdentifier>{7afa239e-ff35-46bb-8dd1-069be2d2fccd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\input">
+      <UniqueIdentifier>{ca32336f-0329-445b-b605-39b3b0d17497}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\platform.h">

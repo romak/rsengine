@@ -21,6 +21,7 @@
 #include "kernel/precompiled.h"
 #include "sdl/SDL_config.h"
 #include "sdl/SDL.h"
+#include <SDL\SDL_opengl.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
 #include "renderdriver_sdl.h"
@@ -37,6 +38,7 @@ namespace rengine3d {
 		m_fileSys	= fs;
 		m_varSys	= vs;
 		m_sys		= sys;
+		m_window	= NULL;
 	}
 
 	CRenderDriverSDL::~CRenderDriverSDL() {
@@ -62,6 +64,7 @@ namespace rengine3d {
 
 	void CRenderDriverSDL::Shutdown(void) {
 		Log("  Shutdown RenderDriverSDL...\n");
+		SDL_VideoQuit();
 	}
 
 	bool CRenderDriverSDL::SetDisplayMode(uint w, uint h, uint bpp, uint multiSampling, bool fs) {
@@ -132,6 +135,14 @@ namespace rengine3d {
 			SDL_SetWindowGrab(m_window, SDL_FALSE);
 			
 		return true;
+	}
+
+	void CRenderDriverSDL::SetWindowCaption(const string_t& caption) {
+		SDL_SetWindowTitle(m_window, caption.c_str());
+	}
+
+	void CRenderDriverSDL::ShowCursor(bool show) {
+		SDL_ShowCursor(show);
 	}
 
 

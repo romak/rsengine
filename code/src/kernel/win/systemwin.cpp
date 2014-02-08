@@ -21,11 +21,6 @@
 #include "kernel/precompiled.h"
 #include "systemwin.h"
 
-#ifdef  USE_SDL
-#include "sdl/SDL_config.h"
-#include "sdl/SDL.h"
-#endif
-
 namespace rengine3d {
 
 	static LARGE_INTEGER  m_performanceFrequency;
@@ -189,12 +184,6 @@ namespace rengine3d {
 
 	char CSystemWin::GetSeparator() const {
 		return '\\';
-	}
-
-	void CSystemWin::SetWindowCaption(void* window, const string_t& caption) {
-#ifdef  USE_SDL
-		SDL_SetWindowTitle((SDL_Window*)window, caption.c_str());
-#endif
 	}
 
 

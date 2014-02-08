@@ -24,7 +24,7 @@
 namespace rengine3d {
 
 	CVar version		( "version", BUILD_STRING,	CVAR_KERNEL		| CVAR_STRING | CVAR_READONLY, "engine version" );
-	CVar developer		( "developer", "0",			CVAR_KERNEL		| CVAR_INT, "developer mode" );
+	CVar developer		( "developer", "1",			CVAR_KERNEL		| CVAR_INT, "developer mode" );
 	CVar r_fullscreen	( "r_fullscreen", "0",		CVAR_RENDERER	| CVAR_BOOL | CVAR_ARCHIVE, "renderer full screen mode" );
 	CVar r_width		( "r_width", "800",			CVAR_RENDERER	| CVAR_INT | CVAR_ARCHIVE, "renderer screen width" );
 	CVar r_height		( "r_height", "600",		CVAR_RENDERER	| CVAR_INT | CVAR_ARCHIVE, "renderer screen height" ); 

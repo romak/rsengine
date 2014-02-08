@@ -17,7 +17,8 @@ public:
 private:
 	IKernel*		kernel;
 	IVarSystem*		varSys;
-	ISystem*		m_sys;
+	ISystem*		sys;
+	IRenderDriver*	renderDriver;
 };
 
 CMainApp::CMainApp(): IUpdateable("CMainApp") {	
@@ -28,10 +29,11 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 		return;
 	}
 
-	varSys	= kernel->GetVarSystem();
-	m_sys	= kernel->GetSystem();
+	varSys			= kernel->GetVarSystem();
+	sys				= kernel->GetSystem();
+	renderDriver	= kernel->GetRenderDriver();
 
-	m_sys->SetWindowCaption("test application");
+	renderDriver->SetWindowCaption("test application");
 
 }
 

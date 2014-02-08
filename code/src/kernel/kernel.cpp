@@ -159,7 +159,7 @@ namespace rengine3d {
 
 		m_updateSystem->Print();
 
-		if (!m_renderDriver->SetDisplayMode(800, 600, 32, 0, false)) {
+		if (!m_renderDriver->SetDisplayMode(r_width.GetInt(), r_height.GetInt(), 32, 0, r_fullscreen.GetBool())) {
 			return false;
 		}
 
