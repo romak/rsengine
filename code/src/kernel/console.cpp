@@ -17,28 +17,16 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __IINPUTSYSTEM_H__
-#define __IINPUTSYSTEM_H__
+#pragma hdrstop
+#include "kernel/precompiled.h"
+#include "console.h"
 
 namespace rengine3d {
 
-	typedef std::map<string_t, IInputAction*>	actionMap_t;
-	typedef actionMap_t::iterator				actionMapIt_t;
+	CConsole::CConsole() {
+	}
 
-	class IInputSystem: public IUpdateable, public ISubSystem {
-	public:
-		IInputSystem(){};
-		virtual ~IInputSystem(){};
+	CConsole::~CConsole() {
+	}
 
-		virtual void AddAction(IInputAction* action) = 0;
-		virtual IInputAction* GetAction(string_t name) = 0;
-		virtual bool RemoveAction(string_t name) = 0;
-
-		virtual bool CheckAction(const string_t name) = 0;
-
-		virtual IKeyboardDevice* GetKeyboardDevice(void) = 0;
-		virtual IMouseDevice* GetMouseDevice(void) = 0;
-	};
 }
-
-#endif

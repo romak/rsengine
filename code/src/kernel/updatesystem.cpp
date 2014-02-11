@@ -211,6 +211,7 @@ namespace rengine3d {
 	}
 
 	void CUpdateSystem::ShowStatistics(const string_t& updateable, const string_t& container) {
+		// TODO: show statistics
 
 	}
 

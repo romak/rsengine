@@ -71,6 +71,7 @@
 #include "kernel\imutex.h"
 #include "kernel\isystem.h"
 #include "kernel\ikernel.h"
+#include "kernel\iconsole.h"
 
 #include "render\rendertypes.h"
 #include "render\rendervertex.h"

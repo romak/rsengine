@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\inc\kernel\debug.h" />
     <ClInclude Include="..\..\inc\kernel\iarchive.h" />
     <ClInclude Include="..\..\inc\kernel\icmdsystem.h" />
+    <ClInclude Include="..\..\inc\kernel\iconsole.h" />
     <ClInclude Include="..\..\inc\kernel\idynlib.h" />
     <ClInclude Include="..\..\inc\kernel\ifile.h" />
     <ClInclude Include="..\..\inc\kernel\ifilesystem.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\src\kernel\archivezip.h" />
     <ClInclude Include="..\..\src\kernel\cmdsystem.h" />
+    <ClInclude Include="..\..\src\kernel\console.h" />
     <ClInclude Include="..\..\src\kernel\dynlib.h" />
     <ClInclude Include="..\..\src\kernel\enginevars.h" />
     <ClInclude Include="..\..\src\kernel\file.h" />
@@ -81,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\archivezip.cpp" />
     <ClCompile Include="..\..\src\kernel\cmdsystem.cpp" />
+    <ClCompile Include="..\..\src\kernel\console.cpp" />
     <ClCompile Include="..\..\src\kernel\crc.cpp" />
     <ClCompile Include="..\..\src\kernel\dynlib.cpp" />
     <ClCompile Include="..\..\src\kernel\enginevars.cpp" />

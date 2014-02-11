@@ -80,6 +80,7 @@ namespace rengine3d {
 		IUpdateSystem*		m_updateSystem;
 		IRenderDriver*		m_renderDriver;
 		IInputSystem*		m_inputSystem;
+		IConsole*			m_console;
 	};
 
 }

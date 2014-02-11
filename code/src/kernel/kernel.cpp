@@ -27,6 +27,7 @@
 #include "varsystem.h"
 #include "cmdsystem.h"
 #include "filesystem.h"
+#include "console.h"
 #include "updatesystem.h"
 #include "enginevars.h"
 
@@ -179,7 +180,9 @@ namespace rengine3d {
 		SafeDelete(m_logWriter);
 		SafeDelete(m_log);
 
+#ifdef  USE_SDL
 		SDL_Quit();
+#endif
 
 		m_initialized = false;
 
@@ -276,8 +279,9 @@ namespace rengine3d {
 				continue;
 			}
 
-			if (subSys)
+			if (subSys) {
 				subSys->Shutdown();
+			}
 		}
 	}
 
@@ -397,7 +401,7 @@ namespace rengine3d {
 			m_updateSystem->OnUpdate(0);
 			m_updateSystem->OnDraw();
 			// TODO: scene render
-			//m_renderDriver->SwapBuffers();
+			// m_renderDriver->SwapBuffers();
 		}
 #endif
 		//OnCleanup();

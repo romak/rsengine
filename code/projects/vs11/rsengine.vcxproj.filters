@@ -243,6 +243,12 @@
     <ClInclude Include="..\..\inc\kernel\isystemevent.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\iconsole.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\console.h">
+      <Filter>src\kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -307,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\render\sdl\renderdriver_sdl.cpp">
       <Filter>src\render\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\console.cpp">
+      <Filter>src\kernel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
