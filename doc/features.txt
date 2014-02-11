@@ -1,0 +1,8 @@
+1. Rendering
+2. Scene management
+3. Space partitioning
+4. Audio
+5. Input
+6. Scripting
+7. GUI
+
