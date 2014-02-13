@@ -33,9 +33,6 @@ namespace rengine3d {
 		virtual bool KeyPressed() = 0;
 		virtual keyPress_t GetKey(void) = 0;
 
-		virtual void OnKeyPress(int key, int action) = 0;
-		virtual void OnCharPress(int character, int action) = 0;
-
 		virtual uint GetModifiers(void) = 0;
 
 		virtual string_t KeyToString(keyboardKey_t key) = 0;

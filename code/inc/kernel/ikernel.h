@@ -36,6 +36,7 @@ namespace rengine3d {
 		virtual IFileSystem* GetFileSystem( void ) = 0;
 		virtual IVarSystem* GetVarSystem(void) = 0;
 		virtual ICmdSystem* GetCmdSystem( void ) = 0;
+		virtual IConsole* GetConsole(void) = 0;
 		virtual ISystem* GetSystem(void) = 0;
 		virtual IUpdateSystem* GetUpdateSystem(void) = 0;
 		virtual IInputSystem* GetInputSystem(void) = 0;

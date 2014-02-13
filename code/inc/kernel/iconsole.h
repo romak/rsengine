@@ -24,6 +24,7 @@ namespace rengine3d {
 
 	class IConsole: public IUpdateable, public ISubSystem {
 	public:
+		IConsole(const string_t& name) : IUpdateable(name){};
 		virtual ~IConsole(){};
 		
 		virtual void Clear() = 0;

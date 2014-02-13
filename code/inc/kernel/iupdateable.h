@@ -28,7 +28,7 @@ namespace rengine3d {
 		IUpdateable(const string_t& name): m_updatableName(name){};
 
 		virtual ~IUpdateable(){};
-		virtual const string_t& GetName(void) { return m_updatableName; };
+		virtual const string_t& GetClassName(void) { return m_updatableName; };
 	protected:
 		string_t	m_updatableName;
 	};

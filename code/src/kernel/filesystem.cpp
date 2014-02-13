@@ -55,7 +55,7 @@ namespace rengine3d {
 
 	bool CFileSystem::Init(void) {
 
-		Log("  Initializing FileSystem...\n");
+		Log("\tInitializing FileSystem...\n");
 
 #if PLATFORM == PLATFORM_WIN32
 		WCHAR	buf[256];
@@ -96,7 +96,7 @@ namespace rengine3d {
 	void CFileSystem::Shutdown(void) {
 		size_t i;
 
-		Log("  Shutdown FileSystem...\n");
+		Log("\tShutdown FileSystem...\n");
 
 		for ( i = 0; i < m_archives.size(); i++ ) 
 			SafeDelete(m_archives[i]);

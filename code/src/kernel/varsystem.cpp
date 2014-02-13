@@ -176,7 +176,7 @@ namespace rengine3d {
 	}
 
 	bool CVarSystem::Init(void) {
-		Log("  Initializing VarSystem...\n");
+		Log("\tInitializing VarSystem...\n");
 		CVar::RegisterStaticVars();
 
 		m_initialized = true;
@@ -185,7 +185,7 @@ namespace rengine3d {
 	}
 
 	void CVarSystem::Shutdown(void) {
-		Log("  Shutdown VarSystem...\n");
+		Log("\tShutdown VarSystem...\n");
 
 		for ( varList_t::iterator it = m_variables.begin(); it != m_variables.end(); ++it ) {
 			if (!( it->second->GetFlags() & CVAR_STATIC ))

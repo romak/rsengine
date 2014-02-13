@@ -21,10 +21,34 @@
 #define __CCONSOLE_H__
 
 namespace rengine3d {
+
 	class CConsole: public IConsole {
 	public:
-		CConsole();
+		CConsole(IKernel* kernel);
 		virtual ~CConsole();
+
+		virtual bool Init(void);
+		virtual void Shutdown(void);
+
+		virtual string_t GetName(void);
+		virtual string_t GetDescription(void);
+		virtual string_t GetVersion(void);
+
+		virtual void Clear();
+		virtual bool IsActive();
+		virtual void Print(const char *text);
+
+		virtual void OnInit(void);
+		virtual void OnShutdown(void);
+
+		virtual void OnDraw(void);
+		virtual void OnUpdate(real timeStep);
+
+        virtual void OnKeyDown(int sym, int mod, uint unicode);
+        virtual void OnKeyUp(int sym, int mod, uint unicode);
+	private:
+		bool		m_active;
+		IKernel*	m_kernel;
 	};
 
 }

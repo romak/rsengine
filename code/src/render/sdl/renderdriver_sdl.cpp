@@ -28,16 +28,16 @@
 
 namespace rengine3d {
 
-	CRenderDriverSDL::CRenderDriverSDL(IFileSystem* fs, IVarSystem* vs, ISystem* sys) {
+	CRenderDriverSDL::CRenderDriverSDL(IKernel* kernel) {
 		m_width = 800;
 		m_height = 600;
 		m_bpp = 32;
 		m_multiSampling = 0;
 		m_fs = false;
 
-		m_fileSys	= fs;
-		m_varSys	= vs;
-		m_sys		= sys;
+		m_fileSys	= kernel->GetFileSystem();
+		m_varSys	= kernel->GetVarSystem();
+		m_sys		= kernel->GetSystem();
 		m_window	= NULL;
 	}
 
@@ -58,12 +58,12 @@ namespace rengine3d {
 	}
 
 	bool CRenderDriverSDL::Init() {
-		Log("  Initializing render driver SDL...\n");
+		Log("\tInitializing render driver SDL...\n");
 		return true;
 	}
 
 	void CRenderDriverSDL::Shutdown(void) {
-		Log("  Shutdown RenderDriverSDL...\n");
+		Log("\tShutdown RenderDriverSDL...\n");
 		SDL_VideoQuit();
 	}
 

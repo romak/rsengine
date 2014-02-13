@@ -199,7 +199,7 @@ namespace rengine3d {
 		if (m_child) {
 			Log("%s   id = %d\n", m_name.c_str(), m_id);
 		}else {
-			Log("  %s id = %d\n", m_name.c_str(), m_id);
+			Log("\t%s id = %d\n", m_name.c_str(), m_id);
 		}
 		count++;
 		for (node = m_child; node; node = node->m_sibling) {

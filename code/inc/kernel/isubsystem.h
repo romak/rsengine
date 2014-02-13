@@ -25,6 +25,7 @@ namespace rengine3d {
 	//!  Interface for engine subsystems 
 	class ISubSystem: public CRefCount {
 	public:
+		ISubSystem():m_initialized(false){};
 		virtual bool Init(void) = 0;
 		virtual void Shutdown(void) = 0;
 

@@ -75,12 +75,12 @@ namespace rengine3d {
 
 	bool CSystemWin::Init(void){
 		m_initialized = true;
-		Log("  Initializing windows system...\n");
+		Log("\tInitializing windows system...\n");
 		return m_initialized;
 	}
 
 	void CSystemWin::Shutdown(void){
-		Log("  Shutdown windows system...\n");
+		Log("\tShutdown windows system...\n");
 
 		m_initialized = false;
 	}

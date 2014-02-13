@@ -55,7 +55,6 @@ namespace rengine3d {
 		}
 	}
 
-
 	// Helper function for log events
 	void Log(const char *format, ...) {
 		char	text[4096];
@@ -108,6 +107,11 @@ namespace rengine3d {
 	// !!! class declaration begin
 
 	CKernel::CKernel() {
+
+#if defined(PLATFORM_WIN32) && defined(_DEBUG)
+		_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+#endif
+
 		m_initialized	= false;
 		m_fileSystem	= NULL;
 		m_logWriter		= NULL;
@@ -134,11 +138,12 @@ namespace rengine3d {
 		m_fileSystem	= new CFileSystem();
 		m_varSystem		= new CVarSystem;
 		m_cmdSystem		= new CCmdSystem;
-#ifdef  USE_SDL
-		m_renderDriver	= new CRenderDriverSDL(m_fileSystem, m_varSystem, m_system);
-#endif
 		m_updateSystem	= new CUpdateSystem;
-		//		m_inputSystem	= new CInputSystem(m_renderDriver);
+		m_console		= new CConsole(this);
+#ifdef  USE_SDL
+		m_renderDriver	= new CRenderDriverSDL(this);
+#endif
+		//m_inputSystem	= new CInputSystem(m_renderDriver);
 
 		varSystem		= m_varSystem;
 
@@ -146,6 +151,7 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_fileSystem);
 		this->RegisterSubSystem(m_varSystem);
 		this->RegisterSubSystem(m_cmdSystem);
+		this->RegisterSubSystem(m_console);
 		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
 		//		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
@@ -155,6 +161,8 @@ namespace rengine3d {
 		}
 
 		//		m_updateSystem->AddUpdaterVariable(m_inputSystem);
+
+		m_updateSystem->AddUpdaterVariable(m_console);
 
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 
@@ -171,9 +179,9 @@ namespace rengine3d {
 
 	void CKernel::Shutdown(void) {
 
-		Log("Shutdowns Engine...\n");
+		Log("Shutdown Engine...\n");
 
-		m_updateSystem->OnShutdown();
+		m_updateSystem->Shutdown();
 
 		ReleaseSubSystems();
 
@@ -238,7 +246,7 @@ namespace rengine3d {
 	}
 
 	bool CKernel::InitSubSystems() {
-		Log("  Initializing all subsystem...\n");
+		Log("\tInitializing all subsystem...\n");
 		int numErrors = 0;
 
 		for( subSystemsVec_t::iterator it = m_subSystems.begin(); it != m_subSystems.end(); ++it ) {
@@ -299,10 +307,11 @@ namespace rengine3d {
 		switch(Event->type) {
 
 		case SDL_KEYDOWN: {
-			Log("Key down\n");
+			m_console->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			//Log("Key down\n");
 			break; }
 		case SDL_KEYUP: {
-			Log("Key up\n");
+			//Log("Key up\n");
 			break; }
 		case SDL_MOUSEMOTION: {
 			break; }
@@ -310,13 +319,13 @@ namespace rengine3d {
 		case SDL_MOUSEBUTTONDOWN: {
 			switch(Event->button.button) {
 			case SDL_BUTTON_LEFT: {
-				Log("Left mouse button down\n");
+				//Log("Left mouse button down\n");
 				break; }
 			case SDL_BUTTON_RIGHT: {
-				Log("Right mouse button down\n");
+				//Log("Right mouse button down\n");
 				break; }
 			case SDL_BUTTON_MIDDLE: {
-				Log("Middle mouse button down\n");
+				//Log("Middle mouse button down\n");
 				break; }
 			}
 			break; }
@@ -342,43 +351,43 @@ namespace rengine3d {
 		case SDL_WINDOWEVENT: {
 			switch(Event->window.event) {
 			case SDL_WINDOWEVENT_SHOWN: {
-				Log("Window %d shown\n", Event->window.windowID);
+				//Log("Window %d shown\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_HIDDEN: {
-				Log("Window %d exposed\n", Event->window.windowID);
+				//Log("Window %d hidden\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_EXPOSED: {
-				Log("Window %d exposed\n", Event->window.windowID);
+				//Log("Window %d exposed\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_MOVED: {
-				Log("Window %d moved to %d,%d\n", Event->window.windowID, Event->window.data1,Event->window.data2);
+				//Log("Window %d moved to %d,%d\n", Event->window.windowID, Event->window.data1,Event->window.data2);
 				break; }
 			case SDL_WINDOWEVENT_RESIZED: {
-				Log("Window %d resized to %dx%d\n", Event->window.windowID, Event->window.data1, Event->window.data2);
+				//Log("Window %d resized to %dx%d\n", Event->window.windowID, Event->window.data1, Event->window.data2);
 				break; }
 			case SDL_WINDOWEVENT_MINIMIZED: {
-				Log("Window %d minimized\n", Event->window.windowID);
+				//Log("Window %d minimized\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_MAXIMIZED: {
-				Log("Window %d maximized\n", Event->window.windowID);
+				//Log("Window %d maximized\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_RESTORED: {
-				Log("Window %d restored\n", Event->window.windowID);
+				//Log("Window %d restored\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_ENTER: {
-				Log("Mouse entered window %d\n", Event->window.windowID);
+				//Log("Mouse entered window %d\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_LEAVE: {
-				Log("Mouse left window %d\n", Event->window.windowID);
+				//Log("Mouse left window %d\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_FOCUS_GAINED: {
-				Log("Window %d gained keyboard focus\n", Event->window.windowID);
+				//Log("Window %d gained keyboard focus\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_FOCUS_LOST: {
-				Log("Window %d lost keyboard focus\n", Event->window.windowID);
+				//Log("Window %d lost keyboard focus\n", Event->window.windowID);
 				break; }
 			case SDL_WINDOWEVENT_CLOSE: {
-				Log("Window %d closed\n", Event->window.windowID);
+				//Log("Window %d closed\n", Event->window.windowID);
 				break; }
 			}
 			break; }
@@ -400,11 +409,11 @@ namespace rengine3d {
 
 			m_updateSystem->OnUpdate(0);
 			m_updateSystem->OnDraw();
+
 			// TODO: scene render
 			// m_renderDriver->SwapBuffers();
 		}
 #endif
-		//OnCleanup();
 	}
 
 	void CKernel::Quit(){

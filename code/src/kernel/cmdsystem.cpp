@@ -45,7 +45,7 @@ namespace rengine3d {
 
 	bool CCmdSystem::Init(void) {
 
-		Log("  Initializing CmdSystem...\n");
+		Log("\tInitializing CmdSystem...\n");
 		this->AddCommand( "listvars", listVars_f, cmdFlags_Kernel, "List engine registered variables");
 
 		m_initialized = true;;
@@ -54,7 +54,7 @@ namespace rengine3d {
 	}
 
 	void CCmdSystem::Shutdown(void) {
-		Log("  Shutdown CmdSystem...\n");
+		Log("\tShutdown CmdSystem...\n");
 
 		for ( commandMap_t::iterator it = m_commands.begin(); it != m_commands.end(); ++it ) {
 			if ( it->second ) {

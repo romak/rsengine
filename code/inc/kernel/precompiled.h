@@ -70,8 +70,8 @@
 #include "kernel\iupdatesystem.h"
 #include "kernel\imutex.h"
 #include "kernel\isystem.h"
-#include "kernel\ikernel.h"
 #include "kernel\iconsole.h"
+#include "kernel\ikernel.h"
 
 #include "render\rendertypes.h"
 #include "render\rendervertex.h"

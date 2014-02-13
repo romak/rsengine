@@ -23,10 +23,78 @@
 
 namespace rengine3d {
 
-	CConsole::CConsole() {
+	const string_t CONSOLE_VERSION = "0.0.1";
+
+	CConsole::CConsole(IKernel* kernel): IConsole("CConsole"), m_active(false), m_kernel(kernel) {
 	}
 
 	CConsole::~CConsole() {
+		this->Shutdown();
+	}
+
+	string_t CConsole::GetName(void) {
+		return "CConsole";
+	}
+
+	string_t CConsole::GetDescription(void) {
+		return "Console";
+	}
+
+	string_t CConsole::GetVersion(void) {
+		return CONSOLE_VERSION;
+	}
+
+	bool CConsole::Init(void) {
+		if (m_initialized) 
+			return true;
+
+		Log("\tInitializing Console...\n");
+		m_initialized = true;
+		return m_initialized;
+	}
+
+	void CConsole::Shutdown(void) {
+		Log("\tShutdown Console...\n");
+		m_initialized = false;
+	}
+
+	void CConsole::Clear() {
+	}
+
+	bool CConsole::IsActive() {
+		return m_active;
+	}
+
+	void CConsole::Print(const char *text) {
+	}
+
+	void CConsole::OnInit(void) {
+	}
+
+	void CConsole::OnShutdown(void) {
+	}
+
+	void CConsole::OnDraw(void) {
+		if (!m_active)
+			return;
+
+	}
+
+	void CConsole::OnUpdate(real timeStep){
+		if (!m_active)
+			return;
+
+	}
+
+	void CConsole::OnKeyDown(int sym, int mod, uint unicode) {
+		if (!m_active)
+			return;
+	}
+
+    void CConsole::OnKeyUp(int sym, int mod, uint unicode) {
+		if (!m_active)
+			return;
+
 	}
 
 }

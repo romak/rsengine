@@ -43,17 +43,17 @@ namespace rengine3d {
 	}
 
 	bool CUpdateSystem::Init(void) {
-		Log("  Initializing UpdateSystem...\n");
+		Log("\tInitializing UpdateSystem...\n");
 		this->AddContainer("Default");
-		Log("  Created default container.\n");
+		Log("\tCreated default container.\n");
 		this->OnInit();
 
 		return true;
 	}
 
 	void CUpdateSystem::Shutdown(void) {
-		Log("  Shutdown UpdateSystem...\n");
-		this->OnShutdown();
+		Log("\tShutdown UpdateSystem...\n");
+		//this->OnShutdown();
 		m_updaterVars.clear();
 		m_updaterContainer.clear();
 	}
@@ -69,14 +69,14 @@ namespace rengine3d {
 			updatersList_t updatersList = containerIt->second;
 			Log("\t\t'%s', registered %d updateables :\n", containerIt->first.c_str(), updatersList.size());
 			for ( updaterIt = updatersList.begin(); updaterIt!=updatersList.end();++updaterIt) {
-				Log("    %s\n", (*updaterIt)->GetName().c_str());
+				Log("    %s\n", (*updaterIt)->GetClassName().c_str());
 			}
 		}
 
 		Log("Updater variables:\n");
 
 		for ( updatersListIt_t it = m_updaterVars.begin(); it!=m_updaterVars.end();++it) {
-			Log("  %s\n", (*it)->GetName().c_str());
+			Log("  %s\n", (*it)->GetClassName().c_str());
 		}
 	}
 
