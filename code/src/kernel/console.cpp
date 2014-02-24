@@ -86,15 +86,4 @@ namespace rengine3d {
 
 	}
 
-	void CConsole::OnKeyDown(int sym, int mod, uint unicode) {
-		if (!m_active)
-			return;
-	}
-
-    void CConsole::OnKeyUp(int sym, int mod, uint unicode) {
-		if (!m_active)
-			return;
-
-	}
-
 }

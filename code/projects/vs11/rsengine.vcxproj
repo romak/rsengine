@@ -59,6 +59,7 @@
     <ClInclude Include="..\..\inc\render\irenderdriver.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
+    <ClInclude Include="..\..\src\input\inputsystem.h" />
     <ClInclude Include="..\..\src\kernel\archivezip.h" />
     <ClInclude Include="..\..\src\kernel\cmdsystem.h" />
     <ClInclude Include="..\..\src\kernel\console.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="..\..\src\render\sdl\renderdriver_sdl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\input\inputsystem.cpp" />
     <ClCompile Include="..\..\src\kernel\archivezip.cpp" />
     <ClCompile Include="..\..\src\kernel\cmdsystem.cpp" />
     <ClCompile Include="..\..\src\kernel\console.cpp" />

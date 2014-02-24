@@ -31,6 +31,8 @@
 #include "updatesystem.h"
 #include "enginevars.h"
 
+#include "../input/inputsystem.h"
+
 #ifdef  USE_SDL
 #include "sdl/SDL_config.h"
 #include "sdl/SDL.h"
@@ -143,7 +145,7 @@ namespace rengine3d {
 #ifdef  USE_SDL
 		m_renderDriver	= new CRenderDriverSDL(this);
 #endif
-		//m_inputSystem	= new CInputSystem(m_renderDriver);
+		m_inputSystem	= new CInputSystem();
 
 		varSystem		= m_varSystem;
 
@@ -154,7 +156,7 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_console);
 		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
-		//		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
+		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
 
 		if (!InitSubSystems() ){
 			return false;
@@ -180,8 +182,6 @@ namespace rengine3d {
 	void CKernel::Shutdown(void) {
 
 		Log("Shutdown Engine...\n");
-
-		m_updateSystem->Shutdown();
 
 		ReleaseSubSystems();
 
@@ -307,10 +307,13 @@ namespace rengine3d {
 		switch(Event->type) {
 
 		case SDL_KEYDOWN: {
-			m_console->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			//m_updateSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key down\n");
 			break; }
 		case SDL_KEYUP: {
+			m_inputSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			// m_updateSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key up\n");
 			break; }
 		case SDL_MOUSEMOTION: {

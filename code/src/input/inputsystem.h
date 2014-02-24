@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -17,37 +17,39 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CCONSOLE_H__
-#define __CCONSOLE_H__
+#ifndef __CINPUTSYSTEM_H__
+#define __CINPUTSYSTEM_H__
 
 namespace rengine3d {
 
-	class CConsole: public IConsole {
+	class CInputSystem: public IInputSystem {
 	public:
-		CConsole(IKernel* kernel);
-		virtual ~CConsole();
-
-		virtual bool Init(void);
-		virtual void Shutdown(void);
+		CInputSystem();
+		virtual ~CInputSystem();
 
 		virtual string_t GetName(void);
 		virtual string_t GetDescription(void);
 		virtual string_t GetVersion(void);
 
-		virtual void Clear();
-		virtual bool IsActive();
-		virtual void Print(const char *text);
+		virtual bool Init();
+		virtual void Shutdown(void) ;
 
-		virtual void OnInit(void);
-		virtual void OnShutdown(void);
+		virtual void AddAction(IInputAction* action);
+		virtual IInputAction* GetAction(string_t name);
+		virtual bool RemoveAction(string_t name);
 
-		virtual void OnDraw(void);
-		virtual void OnUpdate(real timeStep);
+		virtual bool CheckAction(const string_t name);
+
+        virtual void OnKeyDown(int sym, int mod, uint unicode);
+        virtual void OnKeyUp(int sym, int mod, uint unicode);
+
+		virtual IKeyboardDevice* GetKeyboardDevice(void);
+		virtual IMouseDevice* GetMouseDevice(void);
 
 	private:
-		bool		m_active;
-		IKernel*	m_kernel;
+		IInputSystem* m_inputSystem;
 	};
 
 }
+
 #endif

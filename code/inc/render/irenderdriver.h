@@ -27,9 +27,6 @@ namespace rengine3d {
 		IRenderDriver(){};
 		virtual ~IRenderDriver(){};
 
-		virtual bool Init() = 0;
-		virtual void Shutdown(void) = 0;
-
 		virtual bool SetDisplayMode(uint w, uint h, uint bpp, uint multiSampling, bool fs) = 0;
 		virtual void SetWindowCaption(const string_t& caption) = 0;
 

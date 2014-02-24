@@ -43,6 +43,9 @@
     <Filter Include="src\input">
       <UniqueIdentifier>{ca32336f-0329-445b-b605-39b3b0d17497}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\input\sdl">
+      <UniqueIdentifier>{958efaf3-4a54-40cd-8aaa-903678bb78bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\platform.h">
@@ -249,6 +252,9 @@
     <ClInclude Include="..\..\src\kernel\console.h">
       <Filter>src\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\input\inputsystem.h">
+      <Filter>src\input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -316,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\kernel\console.cpp">
       <Filter>src\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\inputsystem.cpp">
+      <Filter>src\input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
