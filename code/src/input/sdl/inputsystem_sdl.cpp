@@ -19,17 +19,18 @@
 
 #pragma hdrstop
 #include "kernel/precompiled.h"
-#include "sdl/SDL_config.h"
-#include "sdl/SDL.h"
 #include "inputsystem_sdl.h"
+#include "keyboard_sdl.h"
 
 namespace rengine3d {
 
 	CInputSystemSDL::CInputSystemSDL() {
-
+		m_keyboard = new CKeyboardSDL(this);
+		m_events.clear();
 	}
 
 	CInputSystemSDL::~CInputSystemSDL() {
+		SafeDelete(m_keyboard)
 		this->Shutdown();
 	}
 
@@ -43,9 +44,28 @@ namespace rengine3d {
 	}
 
 	void CInputSystemSDL::Update(real timeStep) {
+
+		m_keyboard->Update();
+
+	}
+
+	void CInputSystemSDL::EndUpdate(void) {
+		m_events.clear();
 	}
 
 	void CInputSystemSDL::ProcessEvent(void* _event) {
+		SDL_Event* Event = (SDL_Event*)_event;
+		switch(Event->type) {
+
+		case SDL_KEYDOWN: {
+			//m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			//m_updateSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			//Log("Key down\n");
+			break; }
+		}
+
+
+		m_events.push_back(*Event);
 	}
 
 	string_t CInputSystemSDL::GetName(void) {
@@ -82,6 +102,10 @@ namespace rengine3d {
 
 	IMouseDevice* CInputSystemSDL::GetMouseDevice(void) {
 		return NULL;
+	}
+
+	sdlEventVector_t CInputSystemSDL::GetEvents(void) {
+		return m_events;
 	}
 
 }

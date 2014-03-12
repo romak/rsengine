@@ -31,6 +31,7 @@ namespace rengine3d {
 		virtual ~IInputSystem(){};
 
 		virtual void Update(real timeStep) = 0;
+		virtual void EndUpdate(void) = 0;
 
 		virtual void ProcessEvent(void* _event) = 0;
 

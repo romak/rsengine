@@ -20,7 +20,14 @@
 #ifndef __CINPUTSYSTEM_SDL_H__
 #define __CINPUTSYSTEM_SDL_H__
 
+#include "sdl/SDL_config.h"
+#include "sdl/SDL.h"
+
 namespace rengine3d {
+
+	class CKeyboardSDL;
+
+	typedef std::vector<SDL_Event>		sdlEventVector_t;
 
 	class CInputSystemSDL: public IInputSystem {
 	public:
@@ -35,6 +42,7 @@ namespace rengine3d {
 		virtual void Shutdown(void) ;
 
 		virtual void Update(real timeStep);
+		virtual void EndUpdate(void);
 
 		virtual void ProcessEvent(void* _event);
 
@@ -46,8 +54,11 @@ namespace rengine3d {
 
 		virtual IKeyboardDevice* GetKeyboardDevice(void);
 		virtual IMouseDevice* GetMouseDevice(void);
+
+		sdlEventVector_t GetEvents(void);
 	private:
-		std::list<SDL_Event*> m_events;
+		sdlEventVector_t	m_events;
+		CKeyboardSDL*		m_keyboard;
 	};
 
 }

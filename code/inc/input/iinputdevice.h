@@ -31,8 +31,6 @@ namespace rengine3d {
 		virtual void Shutdown(void) = 0;
 
 		virtual void Update(void)=0;
-		//virtual void PushEvent(void* _event) = 0;
-		//virtual void Clear(void) = 0;
 
 		virtual inputDeviceType_t GetType(void) = 0;
 		virtual string_t GetName(void) = 0;

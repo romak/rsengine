@@ -310,6 +310,8 @@ namespace rengine3d {
 			//m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//m_updateSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key down\n");
+			m_inputSystem->ProcessEvent(Event);
+
 			break; }
 		case SDL_KEYUP: {
 			//m_inputSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
@@ -406,13 +408,16 @@ namespace rengine3d {
 		SDL_Event Event;
 
 		while(!m_quit) {
+
 			while(SDL_PollEvent(&Event)) {
 				SDL_OnEvent(&Event);
-				m_inputSystem->ProcessEvent(&Event);
 			}
+			m_inputSystem->Update(0);
 
 			m_updateSystem->OnUpdate(0);
 			m_updateSystem->OnDraw();
+
+			m_inputSystem->EndUpdate();
 
 			// TODO: scene render
 			// m_renderDriver->SwapBuffers();
