@@ -252,8 +252,8 @@
     <ClInclude Include="..\..\src\kernel\console.h">
       <Filter>src\kernel</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\input\inputsystem.h">
-      <Filter>src\input</Filter>
+    <ClInclude Include="..\..\src\input\sdl\inputsystem_sdl.h">
+      <Filter>src\input\sdl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -323,8 +323,8 @@
     <ClCompile Include="..\..\src\kernel\console.cpp">
       <Filter>src\kernel</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\input\inputsystem.cpp">
-      <Filter>src\input</Filter>
+    <ClCompile Include="..\..\src\input\sdl\inputsystem_sdl.cpp">
+      <Filter>src\input\sdl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

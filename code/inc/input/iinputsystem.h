@@ -30,6 +30,10 @@ namespace rengine3d {
 		IInputSystem(){};
 		virtual ~IInputSystem(){};
 
+		virtual void Update(real timeStep) = 0;
+
+		virtual void ProcessEvent(void* _event) = 0;
+
 		virtual void AddAction(IInputAction* action) = 0;
 		virtual IInputAction* GetAction(string_t name) = 0;
 		virtual bool RemoveAction(string_t name) = 0;

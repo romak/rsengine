@@ -17,15 +17,15 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CINPUTSYSTEM_H__
-#define __CINPUTSYSTEM_H__
+#ifndef __CINPUTSYSTEM_SDL_H__
+#define __CINPUTSYSTEM_SDL_H__
 
 namespace rengine3d {
 
-	class CInputSystem: public IInputSystem {
+	class CInputSystemSDL: public IInputSystem {
 	public:
-		CInputSystem();
-		virtual ~CInputSystem();
+		CInputSystemSDL();
+		virtual ~CInputSystemSDL();
 
 		virtual string_t GetName(void);
 		virtual string_t GetDescription(void);
@@ -34,20 +34,20 @@ namespace rengine3d {
 		virtual bool Init();
 		virtual void Shutdown(void) ;
 
+		virtual void Update(real timeStep);
+
+		virtual void ProcessEvent(void* _event);
+
 		virtual void AddAction(IInputAction* action);
 		virtual IInputAction* GetAction(string_t name);
 		virtual bool RemoveAction(string_t name);
 
 		virtual bool CheckAction(const string_t name);
 
-        virtual void OnKeyDown(int sym, int mod, uint unicode);
-        virtual void OnKeyUp(int sym, int mod, uint unicode);
-
 		virtual IKeyboardDevice* GetKeyboardDevice(void);
 		virtual IMouseDevice* GetMouseDevice(void);
-
 	private:
-		IInputSystem* m_inputSystem;
+		std::list<SDL_Event*> m_events;
 	};
 
 }

@@ -31,12 +31,12 @@
 #include "updatesystem.h"
 #include "enginevars.h"
 
-#include "../input/inputsystem.h"
 
 #ifdef  USE_SDL
 #include "sdl/SDL_config.h"
 #include "sdl/SDL.h"
 #include "../render/sdl/renderdriver_sdl.h"
+#include "../input/sdl/inputsystem_sdl.h"
 #endif
 
 namespace rengine3d {
@@ -144,8 +144,8 @@ namespace rengine3d {
 		m_console		= new CConsole(this);
 #ifdef  USE_SDL
 		m_renderDriver	= new CRenderDriverSDL(this);
+		m_inputSystem	= new CInputSystemSDL();
 #endif
-		m_inputSystem	= new CInputSystem();
 
 		varSystem		= m_varSystem;
 
@@ -307,12 +307,12 @@ namespace rengine3d {
 		switch(Event->type) {
 
 		case SDL_KEYDOWN: {
-			m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			//m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//m_updateSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key down\n");
 			break; }
 		case SDL_KEYUP: {
-			m_inputSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
+			//m_inputSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			// m_updateSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key up\n");
 			break; }
@@ -408,6 +408,7 @@ namespace rengine3d {
 		while(!m_quit) {
 			while(SDL_PollEvent(&Event)) {
 				SDL_OnEvent(&Event);
+				m_inputSystem->ProcessEvent(&Event);
 			}
 
 			m_updateSystem->OnUpdate(0);
