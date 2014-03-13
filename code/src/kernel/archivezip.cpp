@@ -105,5 +105,4 @@ namespace rengine3d {
 	IArchive* CArchiveZip::CreateInstance( void ) {
 		return new CArchiveZip;
 	}
-
 }

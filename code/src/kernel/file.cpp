@@ -142,5 +142,4 @@ namespace rengine3d {
 	bool CFile::IsOpen( void ) {
 		return m_isOpen;
 	}
-
 }

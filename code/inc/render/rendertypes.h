@@ -22,7 +22,7 @@
 
 namespace rengine3d {
 
-	// --- Renderer types ---
+	// Renderer types
 	typedef enum {
 		renderCaps_VertexBufferObject,
 		renderCaps_TwoSideStencil,
@@ -64,7 +64,6 @@ namespace rengine3d {
 		cullMode_Count
 	} cullMode_t;
 
-
 	typedef enum {
 		blendFunc_Zero,
 		blendFunc_One,
@@ -80,23 +79,22 @@ namespace rengine3d {
 		blendFunc_Count
 	} blendFunc_t;
 
-	// --- Texture types ---
-	/*
+	// Texture types
 	typedef enum  {
-	textureFormat_RGB8, 
-	textureFormat_BGR8,
-	textureFormat_RGBX8,
-	textureFormat_BGRX8,
-	textureFormat_RGBA8,
-	textureFormat_BGRA8,
-	textureFormat_DXT1,
-	textureFormat_DXT3,
-	textureFormat_DXT5,
-	textureFormat_RGBA16F,
-	textureFormat_RGBA32F,
-	textureFormat_Count
+		textureFormat_RGB8, 
+		textureFormat_BGR8,
+		textureFormat_RGBX8,
+		textureFormat_BGRX8,
+		textureFormat_RGBA8,
+		textureFormat_BGRA8,
+		textureFormat_DXT1,
+		textureFormat_DXT3,
+		textureFormat_DXT5,
+		textureFormat_RGBA16F,
+		textureFormat_RGBA32F,
+		textureFormat_Count
 	} textureFormat_t;	
-	*/
+
 	//! Возможные типы текстур
 	typedef enum {
 		textureType_Normal,
@@ -141,16 +139,15 @@ namespace rengine3d {
 		filterType_Mip	= (1<<2)				//! Mip-mapping filter
 	} filterType_t;
 
-	/*
 	//! Адресация в текстурке
 	typedef enum {
-	texture_Addressing_Unknown,
-	texture_Addressing_Clamp,
-	texture_Addressing_Wrap,
-	texture_Addressing_Border,
-	texture_Addressing_Mirror
+		texture_Addressing_Unknown,
+		texture_Addressing_Clamp,
+		texture_Addressing_Wrap,
+		texture_Addressing_Border,
+		texture_Addressing_Mirror
 	} texture_Addressing_t;
-	*/
+
 	typedef enum {
 		textureParam_ColorFunc,
 		textureParam_AlphaFunc,
@@ -199,7 +196,7 @@ namespace rengine3d {
 		textureFunc_Count
 	} textureFunc_t;
 
-	// --- Vertex buffer types ---
+	// Vertex buffer types
 	typedef enum {
 		vbDrawType_Triangle,
 		vbDrawType_Quad,
@@ -238,14 +235,13 @@ namespace rengine3d {
 		3  //Texture4
 	};
 
-
-	// --- Matrix routines ---
+	// Matrix routines
 	typedef enum  {
 		matrixType_ModelView	= 0,
 		matrixType_Projection	= 1,
 		matrixType_Texture		= 2,
 		matrixType_Count		= 3
-	} matrixType_t;
+	} matrixMode_t;
 
 	typedef enum {
 		depthTestFunc_Never,
@@ -271,8 +267,7 @@ namespace rengine3d {
 		alphaTestFunc_Count
 	} alphaTestFunc_t;
 
-	// --- Stencils types ---
-
+	// Stencils types
 	typedef enum  {
 		stencilFunc_Never,
 		stencilFunc_Less,
@@ -303,15 +298,15 @@ namespace rengine3d {
 		stencilFace_Count,
 	} stencilFace_t;
 
-
 	typedef enum {
 		indicesType_uint,
 		indicesType_ushort,
 	} indicesType_t;
 
-	// --- Constant ---
+	// Constants
 	const int MAX_TEXTURE_UNITS	= 8;
 	const int MAX_NUM_OF_LIGHTS = 30;
+	const int MAX_CLIP_PLANES	= 6;
 
 }
 

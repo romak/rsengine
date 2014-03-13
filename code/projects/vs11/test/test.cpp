@@ -45,7 +45,7 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 
 	inputSys->AddAction(new CActionKeyboard("Escape", inputSys, key_ESCAPE));
 
-	renderDriver->SetWindowCaption("test application");
+	renderDriver->SetWindowCaption("#test application#");
 
 }
 
@@ -54,10 +54,17 @@ CMainApp::~CMainApp() {
 }
 
 void CMainApp::OnUpdate(real timeStep) {
+	uint keyMod = keyboardDevice->GetModifiers();
+
 	if (inputSys->CheckAction("Escape")) {
 		kernel->Quit();
 	}
 
+	if ((keyboardDevice->KeyIsDown(key_RETURN)) && (keyMod & keyModifier_Alt)) {
+		bool fs = !renderDriver->GetFullScreen();
+		renderDriver->SetFullScreen(fs);
+		Log("Alt Key enter -)\n");
+	}
 
 	if (keyboardDevice->KeyIsDown(key_UP)) {
 		Log("Key up -)\n");
