@@ -162,8 +162,6 @@ namespace rengine3d {
 			return false;
 		}
 
-		//		m_updateSystem->AddUpdaterVariable(m_inputSystem);
-
 		m_updateSystem->AddUpdaterVariable(m_console);
 
 		Log("Registered %d subsystems.\n", m_subSystems.size());

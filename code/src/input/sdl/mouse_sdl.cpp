@@ -27,9 +27,6 @@ namespace rengine3d {
 	CMouseSDL::CMouseSDL(CInputSystemSDL* inputSys, IRenderDriver* renderDriver):m_inputSys(inputSys), m_renderDriver(renderDriver) {
 		m_buttonArray.resize(mouseButton_Count);
 		m_buttonArray.assign(m_buttonArray.size(),false);
-		m_maxPercent = 0.7f;
-		m_minPercent = 0.1f;
-		m_bufferSize = 6;
 	}
 
 	CMouseSDL::~CMouseSDL() {
@@ -107,10 +104,10 @@ namespace rengine3d {
 		}
 
 		int x,y; 
+
 		SDL_GetRelativeMouseState(&x, &y);
 		m_relPos = CVec2((float)x,(float)y);
 		m_relPos = (m_relPos/screenSize)*virtualSize;
-
 	}
 
 	void CMouseSDL::SetCursorPos(int x, int y) {

@@ -51,17 +51,10 @@ namespace rengine3d {
 		CInputSystemSDL*		m_inputSys;
 		CVec2					m_absPos;
 		CVec2					m_relPos;
-
-		real					m_maxPercent;
-		real					m_minPercent;
-		int						m_bufferSize;
 		bool					m_wheelUpMoved;
 		bool					m_wheelDownMoved;
-
 		std::vector<bool>		m_buttonArray;
-
 		IRenderDriver*			m_renderDriver;
-
 	};
 
 }

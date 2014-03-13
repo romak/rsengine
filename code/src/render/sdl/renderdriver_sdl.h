@@ -41,13 +41,12 @@ namespace rengine3d {
 		virtual string_t GetName(void);
 		virtual string_t GetDescription(void);
 		virtual string_t GetVersion(void);
-
 	private:
-		uint m_width;
-		uint m_height;
-		uint m_bpp;
-		uint m_multiSampling;
-		uint m_fs;
+		uint			m_width;
+		uint			m_height;
+		uint			m_bpp;
+		uint			m_multiSampling;
+		uint			m_fs;
 
 		IKernel*		m_kernel;
 		IFileSystem*	m_fileSys;

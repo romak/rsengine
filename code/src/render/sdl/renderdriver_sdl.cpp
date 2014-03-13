@@ -29,16 +29,19 @@
 namespace rengine3d {
 
 	CRenderDriverSDL::CRenderDriverSDL(IKernel* kernel) {
-		m_width = 800;
-		m_height = 600;
-		m_bpp = 32;
-		m_multiSampling = 0;
-		m_fs = false;
+		m_width			= 800;
+		m_height		= 600;
+		m_screenSize	= CVec2((real)m_width, (real)m_height);
+		m_virtualSize	= CVec2(800.0, 600.0);
 
-		m_fileSys	= kernel->GetFileSystem();
-		m_varSys	= kernel->GetVarSystem();
-		m_sys		= kernel->GetSystem();
-		m_window	= NULL;
+		m_bpp			= 32;
+		m_multiSampling = 0;
+		m_fs			= false;
+
+		m_fileSys		= kernel->GetFileSystem();
+		m_varSys		= kernel->GetVarSystem();
+		m_sys			= kernel->GetSystem();
+		m_window		= NULL;
 	}
 
 	CRenderDriverSDL::~CRenderDriverSDL() {
@@ -73,6 +76,7 @@ namespace rengine3d {
 		m_bpp = bpp;
 		m_multiSampling = multiSampling;
 		m_fs = fs;
+		m_screenSize	= CVec2((real)m_width, (real)m_height);
 
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
 	

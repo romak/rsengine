@@ -21,6 +21,7 @@ private:
 	IRenderDriver*		renderDriver;
 	IUpdateSystem*		updateSys;
 	IKeyboardDevice*	keyboardDevice;
+	IMouseDevice*		mouseDevice;
 	IInputSystem*		inputSys;
 };
 
@@ -38,6 +39,7 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 	renderDriver	= kernel->GetRenderDriver();
 	inputSys		= kernel->GetInputSystem();
 	keyboardDevice	= inputSys->GetKeyboardDevice();
+	mouseDevice		= inputSys->GetMouseDevice();
 
 	updateSys->AddUpdater(this);
 
@@ -60,11 +62,6 @@ void CMainApp::OnUpdate(real timeStep) {
 	if (keyboardDevice->KeyIsDown(key_UP)) {
 		Log("Key up -)\n");
 	}
-
-	//if (keyboardDevice->KeyIsDown(key_ESCAPE)) {
-	//	kernel->Quit();
-	//}
-
 }
 
 void CMainApp::OnDraw() {

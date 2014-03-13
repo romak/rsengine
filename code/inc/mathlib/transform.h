@@ -25,22 +25,34 @@ namespace rengine3d {
 	class CTransform {
 	public:
 		CTransform();
+
 		void SetPosition(const CVec3& pos);
-		void SetRotate(const CQuat& rot);
+		void SetRotation(const CQuat& rot);
 		void SetScale(const CVec3& scale);
 
 		const CVec3& GetPosition(void);
-		const CQuat& GetRotate(void);
+		const CQuat& GetRotation(void);
 		const CVec3& GetScale(void);
 		const CMat4& GetMatrix(void);
 
 		bool IsNeedUpdate(void);
-	protected:
-		CVec3	m_position;
-		CQuat	m_rotate;
-		CVec3	m_scale;
-		CMat4	m_matrix;
-		bool	m_needUpdate;
+	public:
+		CVec3		m_position;
+		CQuat		m_rotation;
+		CVec3		m_scale;
+		CVec3		m_eulerAngles;
+
+		CVec3		m_localPosition;
+		CQuat		m_localRotation;
+		CVec3		m_localScale;
+		CVec3		m_localEulerAngles;
+
+		CMat4		m_worldToLocalMatrix;
+		CVec3		m_forward;
+		CVec3		m_right;
+		CVec3		m_up;
+		//CTransform	m_parent;
+		bool		m_needUpdate;
 	};
 
 	r_inline CTransform::CTransform() {
@@ -53,8 +65,8 @@ namespace rengine3d {
 		m_needUpdate	= true;
 	}
 
-	r_inline void CTransform::SetRotate(const CQuat& rot) {
-		m_rotate		= rot;
+	r_inline void CTransform::SetRotation(const CQuat& rot) {
+		m_rotation		= rot;
 		m_needUpdate	= true;
 	}
 
@@ -67,8 +79,8 @@ namespace rengine3d {
 		return  m_position;
 	}
 
-	r_inline const CQuat& CTransform::GetRotate(void){
-		return m_rotate;
+	r_inline const CQuat& CTransform::GetRotation(void){
+		return m_rotation;
 	}
 
 	r_inline const CVec3& CTransform::GetScale(void){
@@ -79,15 +91,15 @@ namespace rengine3d {
 
 		// Recalc matrix
 		if (m_needUpdate) {
-			m_matrix		= m_rotate.ToMatrix4();
-			m_matrix[3][0]	= m_position.x;
-			m_matrix[3][1]	= m_position.y;
-			m_matrix[3][2]	= m_position.z;
+			m_worldToLocalMatrix		= m_rotation.ToMatrix4();
+			m_worldToLocalMatrix[3][0]	= m_position.x;
+			m_worldToLocalMatrix[3][1]	= m_position.y;
+			m_worldToLocalMatrix[3][2]	= m_position.z;
 
 			m_needUpdate = false;
 		}
 
-		return m_matrix;
+		return m_worldToLocalMatrix;
 	}
 
 	r_inline bool CTransform::IsNeedUpdate(void) {
