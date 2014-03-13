@@ -17,17 +17,17 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CKEYBOARD_SDL_H__
-#define __CKEYBOARD_SDL_H__
+#ifndef __CMOUSE_SDL_H__
+#define __CMOUSE_SDL_H__
 
 namespace rengine3d {
 
 	class CInputSystemSDL;
 
-	class CKeyboardSDL: public IKeyboardDevice {
+	class CMouseSDL: public IMouseDevice {
 	public:
-		CKeyboardSDL(CInputSystemSDL* inputSys);
-		virtual ~CKeyboardSDL();
+		CMouseSDL(CInputSystemSDL* inputSys, IRenderDriver* renderDriver);
+		virtual ~CMouseSDL();
 
 		virtual bool Init(void);
 		virtual void Shutdown(void);
@@ -35,24 +35,36 @@ namespace rengine3d {
 		virtual inputDeviceType_t GetType(void);
 		virtual string_t GetName(void);
 
+		virtual void Reset(void);
 		virtual void Update(void);
 
-		virtual bool KeyIsDown(keyboardKey_t key);
-		virtual bool KeyPressed();
-		virtual keyPress_t GetKey(void);
+		virtual void SetCursorPos(int x, int y);
 
-		virtual uint GetModifiers(void);
+		virtual void SetSensitivity(real value);
+		virtual real GetSensitivity(void) const;
 
-		virtual string_t KeyToString(keyboardKey_t key);
-		virtual keyboardKey_t StringToKey(string_t str);
+		virtual CVec2 GetAbsPosition(void);
+		virtual CVec2 GetRelPosition(void);
+
+		virtual bool ButtonIsDown(mouseButton_t button);
 	private:
-		keyboardKey_t SDLToKey(int key);
-	private:
-		std::vector<bool>		m_keyArray; 
-		std::list<keyPress_t>	m_keysPressed;
 		CInputSystemSDL*		m_inputSys;
-		keyModifier_t			m_modifiers;
+		CVec2					m_absPos;
+		CVec2					m_relPos;
+
+		real					m_maxPercent;
+		real					m_minPercent;
+		int						m_bufferSize;
+		bool					m_wheelUpMoved;
+		bool					m_wheelDownMoved;
+
+		std::vector<bool>		m_buttonArray;
+
+		IRenderDriver*			m_renderDriver;
+
 	};
+
 }
 
 #endif
+

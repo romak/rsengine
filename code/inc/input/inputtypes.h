@@ -174,13 +174,15 @@ namespace rengine3d {
 		key_Count
 	} keyboardKey_t;
 
-	typedef enum {
+	typedef uint keyModifier_t;
+
+	enum keyModifier_Enums {
 		keyModifier_None	= 0x00000,
 		keyModifier_Shift	= 0x00100,
 		keyModifier_Ctrl	= 0x00200,
 		keyModifier_Alt		= 0x00400,
 		keyModifier_Count	= 5
-	} keyModifier_t;
+	};
 
 	typedef struct	{
 		keyboardKey_t	key;

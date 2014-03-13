@@ -258,6 +258,9 @@
     <ClInclude Include="..\..\src\input\sdl\keyboard_sdl.h">
       <Filter>src\input\sdl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\input\sdl\mouse_sdl.h">
+      <Filter>src\input\sdl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -330,6 +333,9 @@
       <Filter>src\input\sdl</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\input\sdl\keyboard_sdl.cpp">
+      <Filter>src\input\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\input\sdl\mouse_sdl.cpp">
       <Filter>src\input\sdl</Filter>
     </ClCompile>
   </ItemGroup>

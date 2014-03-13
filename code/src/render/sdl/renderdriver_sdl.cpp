@@ -145,6 +145,13 @@ namespace rengine3d {
 		SDL_ShowCursor(show);
 	}
 
+	CVec2 CRenderDriverSDL::GetScreenSize(void) {
+		return m_screenSize;
+	}
+
+	CVec2 CRenderDriverSDL::GetVirtualSize(void) {
+		return m_virtualSize;
+	}
 
 }
 

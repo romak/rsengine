@@ -31,6 +31,10 @@ namespace rengine3d {
 		virtual void SetWindowCaption(const string_t& caption) = 0;
 
 		virtual void ShowCursor(bool show) = 0;
+
+		virtual CVec2 GetScreenSize(void)=0;
+		virtual CVec2 GetVirtualSize(void)=0;
+
 	};
 
 }

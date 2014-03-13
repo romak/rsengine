@@ -26,12 +26,13 @@
 namespace rengine3d {
 
 	class CKeyboardSDL;
+	class CMouseSDL;
 
-	typedef std::vector<SDL_Event>		sdlEventVector_t;
+	typedef std::vector<SDL_Event> sdlEventVector_t;
 
 	class CInputSystemSDL: public IInputSystem {
 	public:
-		CInputSystemSDL();
+		CInputSystemSDL(IRenderDriver* renderDriver);
 		virtual ~CInputSystemSDL();
 
 		virtual string_t GetName(void);
@@ -58,7 +59,11 @@ namespace rengine3d {
 		sdlEventVector_t GetEvents(void);
 	private:
 		sdlEventVector_t	m_events;
+		actionMap_t			m_actionsMap;
+
 		CKeyboardSDL*		m_keyboard;
+		CMouseSDL*			m_mouse;
+		IRenderDriver*		m_renderDriver;
 	};
 
 }

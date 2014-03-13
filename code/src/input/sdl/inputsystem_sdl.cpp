@@ -21,31 +21,47 @@
 #include "kernel/precompiled.h"
 #include "inputsystem_sdl.h"
 #include "keyboard_sdl.h"
+#include "mouse_sdl.h"
 
 namespace rengine3d {
 
-	CInputSystemSDL::CInputSystemSDL() {
+	CInputSystemSDL::CInputSystemSDL(IRenderDriver* renderDriver):m_renderDriver(renderDriver) {
 		m_keyboard = new CKeyboardSDL(this);
+		m_mouse = new CMouseSDL(this, renderDriver);
+
 		m_events.clear();
 	}
 
 	CInputSystemSDL::~CInputSystemSDL() {
-		SafeDelete(m_keyboard)
+		SafeDelete(m_keyboard);
+		SafeDelete(m_mouse);
 		this->Shutdown();
 	}
 
 	bool CInputSystemSDL::Init() {
 		Log("\tInitializing SDL input system...\n");
+
+		if (!m_keyboard->Init()) {
+			return false;
+		}
+
 		return true;
 	}
 
 	void CInputSystemSDL::Shutdown(void) {
 		Log("\tShutdown SDL input system...\n");
+
+		for ( actionMapIt_t  it = m_actionsMap.begin(); it != m_actionsMap.end(); ++it ) {
+			SafeDelete(it->second);
+		}
+
+		m_actionsMap.clear();
 	}
 
 	void CInputSystemSDL::Update(real timeStep) {
 
 		m_keyboard->Update();
+		m_mouse->Update();
 
 	}
 
@@ -55,16 +71,6 @@ namespace rengine3d {
 
 	void CInputSystemSDL::ProcessEvent(void* _event) {
 		SDL_Event* Event = (SDL_Event*)_event;
-		switch(Event->type) {
-
-		case SDL_KEYDOWN: {
-			//m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
-			//m_updateSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
-			//Log("Key down\n");
-			break; }
-		}
-
-
 		m_events.push_back(*Event);
 	}
 
@@ -81,27 +87,41 @@ namespace rengine3d {
 	}
 
 	void CInputSystemSDL::AddAction(IInputAction* action) {
-
+		m_actionsMap.insert(actionMap_t::value_type(action->GetName(), action));	
 	}
 
 	IInputAction* CInputSystemSDL::GetAction(string_t name) {
-		return NULL;
+		actionMapIt_t it = m_actionsMap.find(name);
+		if (it==m_actionsMap.end())
+			return NULL;
+		return it->second;
 	}
 
 	bool CInputSystemSDL::RemoveAction(string_t name) {
+		actionMapIt_t it = m_actionsMap.find(name);
+		if (it==m_actionsMap.end())
+			return false;
+
+		IInputAction* action = it->second;
+		SafeDelete(action);
+		m_actionsMap.erase(name);
+
 		return true;
 	}
 
 	bool CInputSystemSDL::CheckAction(const string_t name) {
-		return true;
+		IInputAction* action = GetAction(name);
+		if (!action)
+			return false;
+		return action->IsPressed();
 	}
 
 	IKeyboardDevice* CInputSystemSDL::GetKeyboardDevice(void) {
-		return NULL;
+		return m_keyboard;
 	}
 
 	IMouseDevice* CInputSystemSDL::GetMouseDevice(void) {
-		return NULL;
+		return m_mouse;
 	}
 
 	sdlEventVector_t CInputSystemSDL::GetEvents(void) {

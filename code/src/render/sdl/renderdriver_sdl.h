@@ -35,6 +35,9 @@ namespace rengine3d {
 
 		virtual void ShowCursor(bool show);
 
+		virtual CVec2 GetScreenSize(void);
+		virtual CVec2 GetVirtualSize(void);
+
 		virtual string_t GetName(void);
 		virtual string_t GetDescription(void);
 		virtual string_t GetVersion(void);
@@ -53,6 +56,9 @@ namespace rengine3d {
 
 		SDL_Surface*	m_screen;
 		SDL_Window*		m_window;
+
+		CVec2			m_screenSize;
+		CVec2			m_virtualSize;
 	};
 }
 

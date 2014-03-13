@@ -144,7 +144,7 @@ namespace rengine3d {
 		m_console		= new CConsole(this);
 #ifdef  USE_SDL
 		m_renderDriver	= new CRenderDriverSDL(this);
-		m_inputSystem	= new CInputSystemSDL();
+		m_inputSystem	= new CInputSystemSDL(m_renderDriver);
 #endif
 
 		varSystem		= m_varSystem;
@@ -304,21 +304,20 @@ namespace rengine3d {
 #ifdef  USE_SDL
 	void CKernel::SDL_OnEvent(void* _Event) {
 		SDL_Event* Event = (SDL_Event*)_Event;
+
 		switch(Event->type) {
 
 		case SDL_KEYDOWN: {
-			//m_inputSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
-			//m_updateSystem->OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key down\n");
 			m_inputSystem->ProcessEvent(Event);
 
 			break; }
 		case SDL_KEYUP: {
-			//m_inputSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
-			// m_updateSystem->OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod, Event->key.keysym.scancode);
 			//Log("Key up\n");
+			m_inputSystem->ProcessEvent(Event);
 			break; }
 		case SDL_MOUSEMOTION: {
+			m_inputSystem->ProcessEvent(Event);
 			break; }
 
 		case SDL_MOUSEBUTTONDOWN: {
@@ -333,6 +332,8 @@ namespace rengine3d {
 				//Log("Middle mouse button down\n");
 				break; }
 			}
+			m_inputSystem->ProcessEvent(Event);
+
 			break; }
 
 		case SDL_MOUSEBUTTONUP:	{
@@ -344,6 +345,8 @@ namespace rengine3d {
 			case SDL_BUTTON_MIDDLE: {
 				break; }
 			}
+			m_inputSystem->ProcessEvent(Event);
+
 			break; }
 
 		case SDL_QUIT: {
@@ -412,9 +415,11 @@ namespace rengine3d {
 			while(SDL_PollEvent(&Event)) {
 				SDL_OnEvent(&Event);
 			}
+
 			m_inputSystem->Update(0);
 
 			m_updateSystem->OnUpdate(0);
+
 			m_updateSystem->OnDraw();
 
 			m_inputSystem->EndUpdate();
