@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -30,7 +30,6 @@
 #include "console.h"
 #include "updatesystem.h"
 #include "enginevars.h"
-
 
 #ifdef  USE_SDL
 #include "sdl/SDL_config.h"
@@ -146,7 +145,6 @@ namespace rengine3d {
 		m_renderDriver	= new CRenderDriverSDL(this);
 		m_inputSystem	= new CInputSystemSDL(m_renderDriver);
 #endif
-
 		varSystem		= m_varSystem;
 
 		this->RegisterSubSystem(m_system);
@@ -164,13 +162,14 @@ namespace rengine3d {
 
 		m_updateSystem->AddUpdaterVariable(m_console);
 
+		if (!m_renderDriver->SetDisplayMode(r_width.GetInt(), r_height.GetInt(), 32, 0, r_fullscreen.GetBool())) {
+			return false;
+		}
+
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 
 		m_updateSystem->Print();
 
-		if (!m_renderDriver->SetDisplayMode(r_width.GetInt(), r_height.GetInt(), 32, 0, r_fullscreen.GetBool())) {
-			return false;
-		}
 
 		m_initialized = true;
 
@@ -222,7 +221,7 @@ namespace rengine3d {
 			}
 		}
 
-		Log("  Registering subsystem: '%s'...\n", subSystem->GetName().c_str());
+		Log("Registering subsystem: '%s'...\n", subSystem->GetName().c_str());
 		m_subSystems.push_back(subSystem);
 
 		return true;
@@ -261,7 +260,7 @@ namespace rengine3d {
 	}
 
 	void CKernel::ReleaseSubSystems() {
-		Log("  Release all subsystem...\n");
+		Log("Release all subsystem...\n");
 
 		for( subSystemsVec_t::iterator it = m_subSystems.begin(); it != m_subSystems.end(); ++it ) {
 			ISubSystem* subSys = (*it);
@@ -277,7 +276,7 @@ namespace rengine3d {
 	}
 
 	void CKernel::ShutdownSubSystems() {
-		Log("  Shutdowns all subsystem...\n");
+		Log("Shutdowns all subsystem...\n");
 
 		for( subSystemsVec_t::iterator it = m_subSystems.begin(); it != m_subSystems.end(); ++it ) {
 			ISubSystem* subSys = (*it);

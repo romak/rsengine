@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -32,8 +32,6 @@ namespace rengine3d {
 		virtual bool Init(void);
 		virtual void Shutdown(void);
 
-		virtual bool IsInitialized(void) { return m_initialized; };
-
 		virtual string_t GetName(void);
 		virtual string_t GetDescription(void);
 		virtual string_t GetVersion(void);
@@ -48,8 +46,6 @@ namespace rengine3d {
 	private:
 		static void listVars_f( const CArgs& args  );
 	protected:
-		//bool				m_initialized;
-
 		typedef std::map< string_t, command_t* > commandMap_t;
 		commandMap_t		m_commands;
 		char				m_str[256];

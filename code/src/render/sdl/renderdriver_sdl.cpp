@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -69,12 +69,14 @@ namespace rengine3d {
 
 	bool CRenderDriverSDL::Init() {
 		Log("\tInitializing render driver SDL...\n");
-		return true;
+		m_initialized = true;
+		return m_initialized;
 	}
 
 	void CRenderDriverSDL::Shutdown(void) {
 		Log("\tShutdown RenderDriverSDL...\n");
 		SDL_VideoQuit();
+		m_initialized = false;
 	}
 
 	bool CRenderDriverSDL::SetDisplayMode(uint w, uint h, uint bpp, uint multiSampling, bool fs) {
@@ -114,7 +116,7 @@ namespace rengine3d {
 
 		if(m_fs) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-		Log("\tSetting video mode: %d x %d - %d bpp\n",m_width, m_height, m_bpp);
+		Log("Setting video mode: %d x %d - %d bpp\n",m_width, m_height, m_bpp);
 
 		m_window = SDL_CreateWindow("rsengine3d", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
 
@@ -161,6 +163,7 @@ namespace rengine3d {
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 			SDL_SetWindowFullscreen(m_window, flags);
 			SDL_SetWindowGrab(m_window, SDL_TRUE);
+			SDL_ShowCursor(false);
 		}else {
 			flags |= SDL_WINDOW_RESIZABLE;
 			SDL_SetWindowFullscreen(m_window, flags);

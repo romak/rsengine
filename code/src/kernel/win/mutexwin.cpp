@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *

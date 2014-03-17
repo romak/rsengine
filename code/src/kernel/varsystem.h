@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -96,8 +96,6 @@ namespace rengine3d {
 
 		virtual string_t GetClassName() { return "CVarSystem"; };
 	private:
-		//bool				m_initialized;
-
 		typedef std::map< string_t, IVar* > varList_t;
 		static varList_t	m_variables;
 	};

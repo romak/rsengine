@@ -34,12 +34,14 @@ namespace rengine3d {
 	}
 
 	bool CMouseSDL::Init(void) {
-		Log("\t\tInitializing SDL mouse device...\n");
-		return true;
+		Log("\tInitializing SDL mouse device...\n");
+		m_initialized = true;
+		return m_initialized;
 	}
 
 	void CMouseSDL::Shutdown(void) {
-		Log("\t\tShutdown SDL mouse device...\n");
+		Log("\tShutdown SDL mouse device...\n");
+		m_initialized = false;
 	}
 
 	inputDeviceType_t CMouseSDL::GetType(void) {

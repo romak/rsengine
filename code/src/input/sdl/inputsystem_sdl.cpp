@@ -45,7 +45,9 @@ namespace rengine3d {
 			return false;
 		}
 
-		return true;
+		m_initialized = true;
+
+		return m_initialized;
 	}
 
 	void CInputSystemSDL::Shutdown(void) {
@@ -56,6 +58,7 @@ namespace rengine3d {
 		}
 
 		m_actionsMap.clear();
+		m_initialized = false;
 	}
 
 	void CInputSystemSDL::Update(real timeStep) {

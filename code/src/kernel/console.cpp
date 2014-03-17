@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -50,6 +50,7 @@ namespace rengine3d {
 
 		Log("\tInitializing Console...\n");
 		m_initialized = true;
+
 		return m_initialized;
 	}
 

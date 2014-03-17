@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009-2013 - Roman Kalynchuk
+* Copyright (C) 2009-2014 - Roman Kalynchuk
 *
 * This file is part of rsengine.
 *
@@ -35,6 +35,7 @@ namespace rengine3d {
 		virtual inputDeviceType_t GetType(void) = 0;
 		virtual string_t GetName(void) = 0;
 	protected:
+		bool				m_initialized;
 		inputDeviceType_t	m_type;
 		string_t			m_name;
 	};

@@ -36,12 +36,14 @@ namespace rengine3d {
 	}
 
 	bool CKeyboardSDL::Init(void) {
-		Log("\t\tInitializing SDL keyboard device...\n");
-		return true;
+		Log("\tInitializing SDL keyboard device...\n");
+		m_initialized = true;
+		return m_initialized;
 	}
 
 	void CKeyboardSDL::Shutdown(void) {
-		Log("\t\tShutdown SDL keyboard device...\n");
+		Log("\tShutdown SDL keyboard device...\n");
+		m_initialized = false;
 	}
 
 	inputDeviceType_t CKeyboardSDL::GetType(void) {
