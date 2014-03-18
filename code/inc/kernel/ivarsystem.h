@@ -33,10 +33,11 @@ namespace rengine3d {
 		CVAR_KERNEL		= BIT(5), //! kernel variable
 		CVAR_RENDERER	= BIT(6), //! renderer variable
 		CVAR_GAME		= BIT(7), //! game variable
+		CVAR_INPUT		= BIT(8), //! input variable
 
-		CVAR_STATIC		= BIT(8), //! static declared variable
-		CVAR_MODIFIED	= BIT(9), //! set if variable is modified
-		CVAR_READONLY	= BIT(10),//! read only variable
+		CVAR_STATIC		= BIT(9), //! static declared variable
+		CVAR_MODIFIED	= BIT(10), //! set if variable is modified
+		CVAR_READONLY	= BIT(11),//! read only variable
 
 		CVAR_ARCHIVE	= BIT(16) //! variables saved to the config file
 	}varFlags_t;
@@ -91,6 +92,9 @@ namespace rengine3d {
 		virtual void Register( IVar* var ) = 0;
 		virtual IVar* CreateVar( string_t name, string_t value, int flags, string_t description ) = 0;
 		virtual IVar* Find( string_t name ) = 0;
+
+		virtual void SaveVariables(int flags, IXML* xml) = 0;
+		virtual void LoadVariables(IXML* xml) = 0;
 
 		virtual void SetString( string_t name, string_t value, int flags = 0 ) = 0;
 		virtual void SetInt( string_t name, int value, int flags = 0 ) = 0;

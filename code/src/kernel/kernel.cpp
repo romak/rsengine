@@ -21,6 +21,7 @@
 #include "kernel/precompiled.h"
 
 #include "kernel.h"
+#include "xml.h"
 #include "log.h"
 #include "logwritertext.h"
 #include "system.h"
@@ -114,10 +115,17 @@ namespace rengine3d {
 #endif
 
 		m_initialized	= false;
+
 		m_fileSystem	= NULL;
 		m_logWriter		= NULL;
 		m_log			= NULL;
 		m_varSystem		= NULL;
+		m_system		= NULL;
+		m_updateSystem	= NULL;
+		m_renderDriver	= NULL;
+		m_inputSystem	= NULL;
+		m_console		= NULL;
+
 		m_quit			= false;
 		m_logFileName	= logFileName.GetString();
 	}
@@ -156,20 +164,18 @@ namespace rengine3d {
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
 		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
 
+		this->LoadConfig("../../../../data/config/default.cfg");
+
 		if (!InitSubSystems() ){
 			return false;
 		}
 
 		m_updateSystem->AddUpdaterVariable(m_console);
 
-		if (!m_renderDriver->SetDisplayMode(r_width.GetInt(), r_height.GetInt(), 32, 0, r_fullscreen.GetBool())) {
-			return false;
-		}
 
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 
 		m_updateSystem->Print();
-
 
 		m_initialized = true;
 
@@ -179,6 +185,8 @@ namespace rengine3d {
 	void CKernel::Shutdown(void) {
 
 		Log("Shutdown Engine...\n");
+
+		this->SaveConfig("default.cfg");
 
 		ReleaseSubSystems();
 
@@ -291,6 +299,30 @@ namespace rengine3d {
 	}
 
 	bool CKernel::LoadConfig( string_t fileName ) {
+		IXML* xml = m_fileSystem->CreateXML();
+		if (!xml->Load(fileName.c_str())) {
+			SafeDelete(xml);
+			return false;
+		}
+
+		m_varSystem->LoadVariables(xml);
+
+		SafeDelete(xml);
+
+		return true;
+	}
+
+	bool CKernel::SaveConfig( string_t fileName ) {
+		IXML* xml = m_fileSystem->CreateXML();
+		if (!xml->Load(fileName.c_str())) {
+			SafeDelete(xml);
+			return false;
+		}
+
+		m_varSystem->SaveVariables(CVAR_ARCHIVE, xml);
+
+		SafeDelete(xml);
+
 		return true;
 	}
 
@@ -417,12 +449,15 @@ namespace rengine3d {
 
 			m_updateSystem->OnUpdate(0);
 
-			m_updateSystem->OnDraw();
-
 			m_inputSystem->EndUpdate();
 
 			// TODO: scene render
-			// m_renderDriver->SwapBuffers();
+
+			m_renderDriver->ClearScreen();
+
+			m_updateSystem->OnDraw();
+
+			m_renderDriver->SwapBuffers();
 		}
 #endif
 	}

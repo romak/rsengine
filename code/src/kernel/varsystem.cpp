@@ -153,14 +153,21 @@ namespace rengine3d {
 
 	}
 
-	// --- CVarSystem --- 
+	// CVarSystem
 
 	CVarSystem::CVarSystem() {
+
+		m_flagsName.insert( flagsName_t::value_type( CVAR_KERNEL, "kernel") );
+		m_flagsName.insert( flagsName_t::value_type( CVAR_RENDERER, "render") );
+		m_flagsName.insert( flagsName_t::value_type( CVAR_GAME, "game") );
+		m_flagsName.insert( flagsName_t::value_type( CVAR_INPUT, "input") );
+
 		m_initialized = false;
 	}
 
 	CVarSystem::~CVarSystem() {
 		this->Shutdown();
+		m_flagsName.clear();
 	}
 
 	string_t CVarSystem::GetName(void) {
@@ -334,6 +341,21 @@ namespace rengine3d {
 				Log( "  %s = %s\n", var->GetName(), var->GetString() );
 			}
 		}
+	}
+
+	void CVarSystem::SaveVariables(int flags, IXML* xml) {
+		IVar* var;
+
+		for ( varList_t::iterator it = m_variables.begin(); it != m_variables.end(); ++it ) {
+			var = it->second;
+			if ( var->GetFlags() & flags ) {
+
+			}
+		}
+	}
+
+	void CVarSystem::LoadVariables(IXML* xml) {
+		int a= 0;
 	}
 
 	// --- Help-in functions ---

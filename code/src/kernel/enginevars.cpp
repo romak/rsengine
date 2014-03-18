@@ -28,7 +28,10 @@ namespace rengine3d {
 	CVar r_fullscreen	( "r_fullscreen", "0",		CVAR_RENDERER	| CVAR_BOOL | CVAR_ARCHIVE, "renderer full screen mode" );
 	CVar r_width		( "r_width", "800",			CVAR_RENDERER	| CVAR_INT | CVAR_ARCHIVE, "renderer screen width" );
 	CVar r_height		( "r_height", "600",		CVAR_RENDERER	| CVAR_INT | CVAR_ARCHIVE, "renderer screen height" ); 
-	CVar v_sync			( "v_sync", "0",			CVAR_RENDERER	| CVAR_BOOL | CVAR_ARCHIVE, "renderer v_sync" ); 
+	CVar v_sync			( "v_sync", "1",			CVAR_RENDERER	| CVAR_BOOL | CVAR_ARCHIVE, "renderer v_sync" ); 
 	CVar r_clear		( "r_clear", "1",			CVAR_RENDERER	| CVAR_BOOL , "clear background every frame" );
+	CVar r_bpp			( "r_bpp", "32",			CVAR_RENDERER	| CVAR_INT | CVAR_ARCHIVE, "bits per pixel" ); 
+	CVar r_multisampling( "r_multisampling", "0",	CVAR_RENDERER	| CVAR_INT | CVAR_ARCHIVE, "multisamplig" ); 
+	
 	CVar logFileName	( "logFileName", "rengine3d.log",CVAR_KERNEL| CVAR_STRING | CVAR_ARCHIVE, "engine log file name" ); 
 }

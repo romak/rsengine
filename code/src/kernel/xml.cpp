@@ -20,8 +20,8 @@
 #pragma hdrstop
 #include "kernel/precompiled.h"
 
-#include "xml.h"
 #include "tinyxml/tinyxml.h"
+#include "xml.h"
 
 namespace rengine3d {
 

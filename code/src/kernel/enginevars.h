@@ -29,10 +29,12 @@ namespace rengine3d {
 	extern CVar r_fullscreen;
 	extern CVar r_width;
 	extern CVar r_height;
-	extern CVar v_sync;
 	extern CVar r_clear;
 	extern CVar r_posx;
 	extern CVar r_posy;
+	extern CVar r_bpp;
+	extern CVar v_sync;
+	extern CVar r_multisampling;
 	extern CVar logFileName;
 
 }

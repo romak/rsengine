@@ -69,6 +69,15 @@ namespace rengine3d {
 
 	bool CRenderDriverSDL::Init() {
 		Log("\tInitializing render driver SDL...\n");
+
+		if (!this->SetDisplayMode(r_width.GetInt(), r_height.GetInt(), r_bpp.GetInt(), r_multisampling.GetInt(), r_fullscreen.GetBool())) {
+			return false;
+		}
+
+		SetupOpenGL();
+
+		SDL_GL_SwapWindow(m_window);
+
 		m_initialized = true;
 		return m_initialized;
 	}
@@ -125,8 +134,8 @@ namespace rengine3d {
 			return false;
 		}
 
-		SDL_GLContext context = SDL_GL_CreateContext(m_window);
-		if (!context){
+		m_context = SDL_GL_CreateContext(m_window);
+		if (!m_context){
 			Error("SetVideoMode failed in SDL_GL_CreateContext: %dx%d:%d %d (\"%hs\")",w, h, bpp, fs? 1 : 0, SDL_GetError());
 			return false;
 		}
@@ -147,11 +156,9 @@ namespace rengine3d {
 		else
 			SDL_SetWindowGrab(m_window, SDL_FALSE);
 
-		SetupOpenGL();
+
 
 		this->SetVSync(v_sync.GetBool());
-
-		SDL_GL_SwapWindow(m_window);
 
 		return true;
 	}
@@ -217,7 +224,7 @@ namespace rengine3d {
 		Log("\t\tFragment Program: %d\n",GetCaps(renderCaps_GL_FragmentProgram));
 	}
 
-	void CRenderDriverSDL::Flush(void) {
+	void CRenderDriverSDL::FlushRendering(void) {
 		glFlush();
 	}
 

@@ -21,7 +21,7 @@
 #include "kernel/precompiled.h"
 #include "file.h"
 #include "filesystem.h"
-//#include "xml.h"
+#include "xml.h"
 
 #include <direct.h>
 #include <io.h>
@@ -321,8 +321,7 @@ namespace rengine3d {
 	}
 
 	IXML* CFileSystem::CreateXML(void) {
-	//	return new CXML(this);
-		return NULL;
+		return new CXML(this);
 	}
 
 	void CFileSystem::RegisterArchiveReader( IArchive* archive ) {

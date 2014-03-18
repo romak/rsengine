@@ -18,6 +18,8 @@
     <ClCompile Include="..\..\src\deps\unzip\unzip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\deps\tinyxml\tinystr.h" />
+    <ClInclude Include="..\..\src\deps\tinyxml\tinyxml.h" />
     <ClInclude Include="..\..\src\deps\unzip\unzip.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -31,6 +31,7 @@ namespace rengine3d {
 		virtual ISubSystem* GetSubSystem(string_t name) = 0;
 
 		virtual bool LoadConfig( string_t fileName ) = 0;
+		virtual bool SaveConfig( string_t fileName ) = 0;
 
 		virtual ILog* GetLog( void ) = 0;
 		virtual IFileSystem* GetFileSystem( void ) = 0;

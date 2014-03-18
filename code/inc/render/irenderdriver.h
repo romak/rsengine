@@ -27,8 +27,8 @@ namespace rengine3d {
 		IRenderDriver(){};
 		virtual ~IRenderDriver(){};
 
-		virtual void Flush(void) = 0;
 		virtual void SwapBuffers(void) = 0;
+		virtual void FlushRendering(void) = 0;
 
 		virtual void ClearScreen(void) = 0;
 

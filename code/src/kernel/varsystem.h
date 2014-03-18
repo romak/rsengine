@@ -92,12 +92,19 @@ namespace rengine3d {
 		virtual real GetFloat( string_t name );
 		virtual CVec3 GetVec3( string_t name );
 
+		virtual void SaveVariables(int flags, IXML* xml);
+		virtual void LoadVariables(IXML* xml);
+
 		virtual void Print( int flags = CVAR_ALL );
 
 		virtual string_t GetClassName() { return "CVarSystem"; };
 	private:
 		typedef std::map< string_t, IVar* > varList_t;
+		typedef std::map< varFlags_t, string_t > flagsName_t;
+
 		static varList_t	m_variables;
+		flagsName_t			m_flagsName;
+
 	};
 
 }

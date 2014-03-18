@@ -30,8 +30,8 @@ namespace rengine3d {
 		virtual bool Init();
 		virtual void Shutdown(void);
 
-		virtual void Flush(void);
 		virtual void SwapBuffers(void);
+		virtual void FlushRendering(void);
 
 		virtual void ClearScreen(void);
 
@@ -110,7 +110,7 @@ namespace rengine3d {
 
 		SDL_Surface*	m_screen;
 		SDL_Window*		m_window;
-
+		SDL_GLContext	m_context;
 		CVec2			m_screenSize;
 		CVec2			m_virtualSize;
 
