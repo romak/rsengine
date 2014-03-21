@@ -156,6 +156,7 @@ namespace rengine3d {
 		varSystem		= m_varSystem;
 
 		this->RegisterSubSystem(m_system);
+
 		this->RegisterSubSystem(m_fileSystem);
 		this->RegisterSubSystem(m_varSystem);
 		this->RegisterSubSystem(m_cmdSystem);

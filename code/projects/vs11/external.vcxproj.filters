@@ -4,36 +4,24 @@
     <Filter Include="unzip">
       <UniqueIdentifier>{614e9750-a4e5-440b-8b63-5d420c1cb8e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tinyxml">
-      <UniqueIdentifier>{007a35bf-7151-4431-a873-cdf166abbc56}</UniqueIdentifier>
+    <Filter Include="tinyxml2">
+      <UniqueIdentifier>{0ada341d-936e-440e-895d-7bdf99e945bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\deps\unzip\unzip.cpp">
       <Filter>unzip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\deps\tinyxml\tinystr.cpp">
-      <Filter>tinyxml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\deps\tinyxml\tinyxml.cpp">
-      <Filter>tinyxml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\deps\tinyxml\tinyxmlerror.cpp">
-      <Filter>tinyxml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\deps\tinyxml\tinyxmlparser.cpp">
-      <Filter>tinyxml</Filter>
+    <ClCompile Include="..\..\src\deps\tinyxml2\tinyxml2.cpp">
+      <Filter>tinyxml2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\deps\unzip\unzip.h">
       <Filter>unzip</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\deps\tinyxml\tinystr.h">
-      <Filter>tinyxml</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\deps\tinyxml\tinyxml.h">
-      <Filter>tinyxml</Filter>
+    <ClInclude Include="..\..\src\deps\tinyxml2\tinyxml2.h">
+      <Filter>tinyxml2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

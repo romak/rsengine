@@ -19,11 +19,13 @@
 
 #pragma hdrstop
 #include "kernel/precompiled.h"
-
-#include "tinyxml/tinyxml.h"
+#include "tinyxml2\tinyxml2.h"
 #include "xml.h"
 
+
 namespace rengine3d {
+
+	using namespace tinyxml2;
 
 #define TAB_SIZE                    "  "
 #define BUFFER_BLOCK_SIZE           1024*256
@@ -235,7 +237,7 @@ namespace rengine3d {
 
 		return m_childs[index];
 	}
-	
+
 	IXMLNode* CXMLNode::GetChildElement( const char* name ) {
 		size_t i;
 
@@ -319,9 +321,9 @@ namespace rengine3d {
 				return;
 			}
 
-		IXMLAttrib *attribute = new CXMLAttribute( name, _value );
+			IXMLAttrib *attribute = new CXMLAttribute( name, _value );
 
-		m_attributes.push_back( attribute );
+			m_attributes.push_back( attribute );
 
 	}
 
@@ -330,7 +332,7 @@ namespace rengine3d {
 			if ( strcmp(m_attributes[i]->GetName(), name ) == 0 ) {
 				return true;
 			}
-		return false;
+			return false;
 	}
 
 	void CXMLNode::SetAttribute( const char* name, int _value ) {
@@ -340,9 +342,9 @@ namespace rengine3d {
 				return;
 			}
 
-		IXMLAttrib *attribute = new CXMLAttribute( name, _value );
+			IXMLAttrib *attribute = new CXMLAttribute( name, _value );
 
-		m_attributes.push_back( attribute );
+			m_attributes.push_back( attribute );
 	}
 
 
@@ -354,7 +356,7 @@ namespace rengine3d {
 		m_childs.push_back( child );
 	}
 
-	// *** xml *** //
+	// xml 
 	CXML::CXML(IFileSystem* fs ): m_fileSystem(fs) {
 		m_version		= "1.0";
 		m_root			= NULL;
@@ -373,7 +375,8 @@ namespace rengine3d {
 
 	bool CXML::Load( const char* fileName ) {
 		char*			buffer;
-		TiXmlDocument	*tiXmlDocument;
+		//TiXmlDocument	*tiXmlDocument;
+		tinyxml2::XMLDocument* tiXmlDocument;
 
 		IFile* file = m_fileSystem->OpenFile( fileName, fileMode_Read );
 		if ( !file ) {
@@ -385,15 +388,15 @@ namespace rengine3d {
 		file->Read( buffer, file->Length() );
 		m_fileSystem->CloseFile( file );
 
-		tiXmlDocument = new TiXmlDocument();
+		tiXmlDocument = new tinyxml2::XMLDocument();
 		tiXmlDocument->Parse( buffer );
 
+		/*
 		TiXmlDeclaration *tiXmlDeclaration = (TiXmlDeclaration *) tiXmlDocument->RootElement()->Parent()->FirstChild();
-
 		SetVersion( tiXmlDeclaration->Version() );
 		SetEncoding( tiXmlDeclaration->Encoding() );
 		SetStandalone( tiXmlDeclaration->Standalone() );
-
+		*/
 		IXMLNode *root = ParseNode( (void *) tiXmlDocument->RootElement() );
 		SetRoot( root );
 
@@ -465,7 +468,7 @@ namespace rengine3d {
 
 
 	IXMLNode* CXML::ParseNode( void *node ) {
-		TiXmlNode *tiNode = (TiXmlNode *) node;
+		XMLNode *tiNode = (XMLNode *) node;
 
 		if ( !tiNode ) 	{
 			return 0;
@@ -473,48 +476,20 @@ namespace rengine3d {
 
 		IXMLNode *xmlNode = new CXMLNode();
 
-		switch ( tiNode->Type() ) {
-		case TI_NODE_ELEMENT: 
-			{
-				TiXmlElement *tiElement = tiNode->ToElement();
-				xmlNode->SetName( tiElement->Value() );
-				xmlNode->SetType( XML_NODE_ELEMENT );
+		XMLElement* tiElement = tiNode->ToElement();
+		xmlNode->SetName( tiElement->Value() );
+		xmlNode->SetType( XML_NODE_ELEMENT );
+		const XMLAttribute* tiAttribute = tiElement->FirstAttribute();
 
-				TiXmlAttribute *tiAttribute = tiElement->FirstAttribute();
-				while ( tiAttribute ) {
-					string_t value = tiAttribute->Value();
-					IXMLAttrib *attribute = new CXMLAttribute( tiAttribute->Name(), value.c_str() );
-					xmlNode->AddAttribute( attribute );
+		while ( tiAttribute ) {
+			string_t value = tiAttribute->Value();
+			IXMLAttrib *attribute = new CXMLAttribute( tiAttribute->Name(), value.c_str() );
+			xmlNode->AddAttribute( attribute );
 
-					tiAttribute = tiAttribute->Next();
-				}
-			} break;
-
-		case TI_NODE_COMMENT: 
-			{
-				TiXmlComment *tiComment = tiNode->ToComment();
-				xmlNode->SetType( XML_NODE_COMMENT );
-				xmlNode->SetName( "xml.comment" );
-				xmlNode->SetString( tiComment->Value() );
-
-			} break;
-
-		case TI_NODE_TEXT: 
-			{
-				TiXmlText *tiText = tiNode->ToText();
-				xmlNode->SetType( XML_NODE_TEXT );
-				xmlNode->SetName( "xml.text" );
-				string_t s;
-				s = tiText->Value();
-				xmlNode->SetString( s.c_str() );
-			} break;
-
-		default:
-			break;
+			tiAttribute = tiAttribute->Next();
 		}
 
-		TiXmlNode *tiXmlNode = tiNode->FirstChild();
-
+		XMLNode* tiXmlNode = tiNode->FirstChild();
 		IXMLNode *child = 0;
 		IXMLNode *childPrevious = 0;
 
@@ -536,6 +511,72 @@ namespace rengine3d {
 		}
 
 		return xmlNode;
+
+		/*
+		switch ( tiNode->Type() ) {
+		case TI_NODE_ELEMENT: 
+		{
+		TiXmlElement *tiElement = tiNode->ToElement();
+		xmlNode->SetName( tiElement->Value() );
+		xmlNode->SetType( XML_NODE_ELEMENT );
+
+		TiXmlAttribute *tiAttribute = tiElement->FirstAttribute();
+		while ( tiAttribute ) {
+		string_t value = tiAttribute->Value();
+		IXMLAttrib *attribute = new CXMLAttribute( tiAttribute->Name(), value.c_str() );
+		xmlNode->AddAttribute( attribute );
+
+		tiAttribute = tiAttribute->Next();
+		}
+		} break;
+
+		case TI_NODE_COMMENT: 
+		{
+		TiXmlComment *tiComment = tiNode->ToComment();
+		xmlNode->SetType( XML_NODE_COMMENT );
+		xmlNode->SetName( "xml.comment" );
+		xmlNode->SetString( tiComment->Value() );
+
+		} break;
+
+		case TI_NODE_TEXT: 
+		{
+		TiXmlText *tiText = tiNode->ToText();
+		xmlNode->SetType( XML_NODE_TEXT );
+		xmlNode->SetName( "xml.text" );
+		string_t s;
+		s = tiText->Value();
+		xmlNode->SetString( s.c_str() );
+		} break;
+
+		default:
+		break;
+		}
+
+		TiXmlNode *tiXmlNode = tiNode->FirstChild();
+
+		IXMLNode *child = 0;
+		IXMLNode *childPrevious = 0;
+
+		while ( tiXmlNode ) {
+		child = ParseNode( (void *) tiXmlNode );
+
+		if ( child ) {
+		child->SetParent( xmlNode );
+
+		if ( childPrevious ) {
+		childPrevious->SetNextSibling( child );
+		}
+
+		xmlNode->AddChild( child );
+		}
+
+		childPrevious = child;
+		tiXmlNode = tiXmlNode->NextSibling();
+		}
+
+		return xmlNode;
+		*/
 	}
 
 	void CXML::AppendString( string_t &sAppend, bool isElementText  ) {
@@ -617,13 +658,6 @@ namespace rengine3d {
 			s += GetEncoding();
 			s += "\"";
 		}
-/*
-		if ( this->GetStandalone() != "" ) {
-			s += " standalone=\"";
-			s += GetStandalone();
-			s += "\"";
-		}
-		*/
 		s += "?>";
 		AppendString(s);
 	}
@@ -705,4 +739,5 @@ namespace rengine3d {
 			AppendString( s );
 		}
 	}
+
 }

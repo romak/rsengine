@@ -68,6 +68,10 @@ namespace rengine3d {
 	}
 
 	bool CRenderDriverSDL::Init() {
+		if (m_initialized) {
+			return true;
+		}
+
 		Log("\tInitializing render driver SDL...\n");
 
 		if (!this->SetDisplayMode(r_width.GetInt(), r_height.GetInt(), r_bpp.GetInt(), r_multisampling.GetInt(), r_fullscreen.GetBool())) {
@@ -156,8 +160,6 @@ namespace rengine3d {
 		else
 			SDL_SetWindowGrab(m_window, SDL_FALSE);
 
-
-
 		this->SetVSync(v_sync.GetBool());
 
 		return true;
@@ -176,6 +178,7 @@ namespace rengine3d {
 			SDL_SetWindowFullscreen(m_window, flags);
 			SDL_SetWindowSize(m_window, m_width, m_height);
 			SDL_SetWindowGrab(m_window, SDL_FALSE);
+			SDL_ShowCursor(true);
 		}
 		SDL_GL_SwapWindow(m_window);
 	}

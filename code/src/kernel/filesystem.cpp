@@ -322,6 +322,7 @@ namespace rengine3d {
 
 	IXML* CFileSystem::CreateXML(void) {
 		return new CXML(this);
+		//return NULL;
 	}
 
 	void CFileSystem::RegisterArchiveReader( IArchive* archive ) {

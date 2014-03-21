@@ -20,11 +20,13 @@
 #ifndef __CXML_H__
 #define __CXML_H__
 
-#include "tinyxml/tinyxml.h"
+//#include "tinyxml/tinyxml.h"
 
 namespace rengine3d {
 
-	// *** tiny xml reader *** //
+
+
+	// tiny xml reader
 	class CXMLAttribute: public IXMLAttrib {
 	public:
 		CXMLAttribute( const char* name, const char* value );
@@ -151,5 +153,6 @@ namespace rengine3d {
 		int				m_bufferedSize;
 		int				m_blockCount;
 	};
+
 }
 #endif
