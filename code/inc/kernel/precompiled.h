@@ -78,4 +78,7 @@
 #include "render\imesh.h"
 #include "render\irenderdriver.h"
 
+#include "scene\icamera.h"
+#include "scene\iscene.h"
+
 #endif /* !__PRECOMPILED_H__ */

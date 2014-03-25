@@ -46,6 +46,9 @@
     <Filter Include="src\input\sdl">
       <UniqueIdentifier>{958efaf3-4a54-40cd-8aaa-903678bb78bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\scene">
+      <UniqueIdentifier>{000c995a-716e-4d2c-a5f0-6771fc00f22c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\platform.h">
@@ -260,6 +263,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\input\sdl\mouse_sdl.h">
       <Filter>src\input\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\iscene.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\icamera.h">
+      <Filter>inc\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

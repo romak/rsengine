@@ -243,8 +243,6 @@ namespace rengine3d {
 
 }
 
-
-
 #endif
 
 

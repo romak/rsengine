@@ -86,8 +86,10 @@ namespace rengine3d {
 		SetAlias( "home", dest );
 		string_t home = GetAlias( "home" );
 		SetAlias( "bin", home+"bin/win32/" );
-		SetAlias( "bin", home+"data/" );
+		SetAlias( "data", home+"data/" );
 #endif
+
+		Log("\t\tHome:%s\n", GetAlias("home").c_str());
 		m_initialized = true;
 
 		return m_initialized;

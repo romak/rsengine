@@ -201,6 +201,7 @@ namespace rengine3d {
 		}else {
 			Log("\t%s id = %d\n", m_name.c_str(), m_id);
 		}
+
 		count++;
 		for (node = m_child; node; node = node->m_sibling) {
 			node->PrintHierarchy(count);

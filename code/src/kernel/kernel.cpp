@@ -165,7 +165,7 @@ namespace rengine3d {
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
 		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
 
-		this->LoadConfig("../../../../data/config/default.cfg");
+//		this->LoadConfig("../../../../data/config/default.cfg");
 
 		if (!InitSubSystems() ){
 			return false;
@@ -187,7 +187,7 @@ namespace rengine3d {
 
 		Log("Shutdown Engine...\n");
 
-		this->SaveConfig("default.cfg");
+//		this->SaveConfig("default.cfg");
 
 		ReleaseSubSystems();
 

@@ -59,6 +59,8 @@
     <ClInclude Include="..\..\inc\render\irenderdriver.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
+    <ClInclude Include="..\..\inc\scene\icamera.h" />
+    <ClInclude Include="..\..\inc\scene\iscene.h" />
     <ClInclude Include="..\..\src\input\sdl\inputsystem_sdl.h" />
     <ClInclude Include="..\..\src\input\sdl\keyboard_sdl.h" />
     <ClInclude Include="..\..\src\input\sdl\mouse_sdl.h" />
