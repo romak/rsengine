@@ -324,7 +324,6 @@ namespace rengine3d {
 
 	IXML* CFileSystem::CreateXML(void) {
 		return new CXML(this);
-		//return NULL;
 	}
 
 	void CFileSystem::RegisterArchiveReader( IArchive* archive ) {
@@ -336,7 +335,7 @@ namespace rengine3d {
 		m_archiveFactory.push_back( archive );
 	}
 
-	// --- Help-in functions ---
+	// Help-in functions
 	CHAR wide_to_narrow(WCHAR w){
 		return CHAR(w);
 	}
