@@ -60,7 +60,10 @@
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\inc\scene\icamera.h" />
+    <ClInclude Include="..\..\inc\scene\icamera2d.h" />
+    <ClInclude Include="..\..\inc\scene\icamera3d.h" />
     <ClInclude Include="..\..\inc\scene\iscene.h" />
+    <ClInclude Include="..\..\inc\scene\object3d.h" />
     <ClInclude Include="..\..\src\input\sdl\inputsystem_sdl.h" />
     <ClInclude Include="..\..\src\input\sdl\keyboard_sdl.h" />
     <ClInclude Include="..\..\src\input\sdl\mouse_sdl.h" />
@@ -84,6 +87,8 @@
     <ClInclude Include="..\..\src\kernel\win\systemwin.h" />
     <ClInclude Include="..\..\src\kernel\xml.h" />
     <ClInclude Include="..\..\src\render\sdl\renderdriver_sdl.h" />
+    <ClInclude Include="..\..\src\scene\camera3d.h" />
+    <ClInclude Include="..\..\src\scene\scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\input\sdl\inputsystem_sdl.cpp" />
@@ -114,6 +119,8 @@
     <ClCompile Include="..\..\src\kernel\win\systemwin.cpp" />
     <ClCompile Include="..\..\src\kernel\xml.cpp" />
     <ClCompile Include="..\..\src\render\sdl\renderdriver_sdl.cpp" />
+    <ClCompile Include="..\..\src\scene\camera3d.cpp" />
+    <ClCompile Include="..\..\src\scene\scene.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}</ProjectGuid>

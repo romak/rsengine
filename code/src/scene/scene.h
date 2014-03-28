@@ -17,27 +17,24 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __ICAMERA_H__
-#define __ICAMERA_H__
+#ifndef __CSCENE_H__
+#define __CSCENE_H__
 
 namespace rengine3d {
 
-	typedef enum 
-	{
-		cameraType_2D,
-		cameraType_3D,
-		cameraType_Last
-	}cameraType_t;
-
-	class ICamera: public CObject3D {
+	class CScene: public IScene {
 	public:
-		ICamera(){};
-		virtual ~ICamera(){};
-		virtual void SetModelViewMatrix(IRenderDriver* renderDriver) = 0;
-		virtual void SetProjectionMatrix(IRenderDriver* renderDriver) = 0;
+		CScene();
+		virtual ~CScene();
 
-		virtual cameraType_t GetType(void) = 0;
+		virtual void AddCamera3D(ICamera3D* camera);
+		virtual ICamera3D* CreateCamera3D(void); 
+
+	private:
+		CNode*	m_root;
+		CNode*	m_cameraNode;
 	};
+
 }
 
 #endif

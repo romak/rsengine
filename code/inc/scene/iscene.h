@@ -26,6 +26,9 @@ namespace rengine3d {
 	public:
 		IScene(){};
 		virtual ~IScene(){};
+
+		virtual void AddCamera3D(ICamera3D* camera) = 0; 
+		virtual ICamera3D* CreateCamera3D(void) = 0; 
 	};
 }
 

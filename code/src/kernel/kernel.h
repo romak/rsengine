@@ -52,6 +52,9 @@ namespace rengine3d {
 		virtual IUpdateSystem* GetUpdateSystem(void){ return m_updateSystem;};
 		virtual IInputSystem* GetInputSystem(void)			{ return m_inputSystem;	   };
 		virtual IRenderDriver* GetRenderDriver(void);
+
+		virtual IScene* GetScene(void)				{ return m_scene;};
+
 		virtual void SetLogFileName(string_t fileName)	{ m_logFileName = fileName;	};
 
 		virtual void Run() ;
@@ -84,6 +87,7 @@ namespace rengine3d {
 		IRenderDriver*		m_renderDriver;
 		IInputSystem*		m_inputSystem;
 		IConsole*			m_console;
+		IScene*				m_scene;
 	};
 
 }

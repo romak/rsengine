@@ -39,6 +39,8 @@
 #include "../input/sdl/inputsystem_sdl.h"
 #endif
 
+#include "../scene/scene.h"
+
 namespace rengine3d {
 
 	IKernel*	CKernel::m_kernel	= NULL;
@@ -155,6 +157,8 @@ namespace rengine3d {
 #endif
 		varSystem		= m_varSystem;
 
+		m_scene			= new CScene();
+
 		this->RegisterSubSystem(m_system);
 
 		this->RegisterSubSystem(m_fileSystem);
@@ -164,8 +168,6 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
 		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
-
-//		this->LoadConfig("../../../../data/config/default.cfg");
 
 		if (!InitSubSystems() ){
 			return false;
@@ -187,10 +189,9 @@ namespace rengine3d {
 
 		Log("Shutdown Engine...\n");
 
-//		this->SaveConfig("default.cfg");
-
 		ReleaseSubSystems();
 
+		SafeDelete(m_scene);
 		SafeDelete(m_logWriter);
 		SafeDelete(m_log);
 

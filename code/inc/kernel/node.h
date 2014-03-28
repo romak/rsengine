@@ -25,6 +25,7 @@ namespace rengine3d {
 	class CNode: public CRefCount {
 	public:
 		CNode(const string_t& name);
+		CNode();
 		~CNode();
 
 		CNode* GetChild() const;
@@ -58,8 +59,16 @@ namespace rengine3d {
 	};
 
 	r_inline CNode::CNode(const string_t& name) {
-
 		m_name		= name;
+		m_id		= MakeCRC(m_name.c_str());
+		m_parent	= NULL;
+		m_child		= NULL;
+		m_sibling	= NULL;
+	}
+
+	r_inline CNode::CNode() {
+
+		m_name		= "";
 		m_id		= MakeCRC(m_name.c_str());
 		m_parent	= NULL;
 		m_child		= NULL;
@@ -138,7 +147,7 @@ namespace rengine3d {
 			parent->m_child = this;
 		}
 
-		AddRef();
+		//AddRef();
 	}
 
 	r_inline CNode* CNode::GetRoot() const {

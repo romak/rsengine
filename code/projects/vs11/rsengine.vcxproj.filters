@@ -49,6 +49,9 @@
     <Filter Include="inc\scene">
       <UniqueIdentifier>{000c995a-716e-4d2c-a5f0-6771fc00f22c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{dec55be1-5c7f-4bff-acca-c21d9d9883d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\kernel\platform.h">
@@ -270,6 +273,21 @@
     <ClInclude Include="..\..\inc\scene\icamera.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\scene\icamera2d.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\icamera3d.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\camera3d.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\object3d.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scene\scene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -346,6 +364,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\input\sdl\mouse_sdl.cpp">
       <Filter>src\input\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\camera3d.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\scene\scene.cpp">
+      <Filter>src\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

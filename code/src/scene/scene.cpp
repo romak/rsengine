@@ -17,27 +17,30 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __ICAMERA_H__
-#define __ICAMERA_H__
+#pragma hdrstop
+#include "kernel/precompiled.h"
+#include "scene.h"
+#include "camera3d.h"
 
 namespace rengine3d {
 
-	typedef enum 
-	{
-		cameraType_2D,
-		cameraType_3D,
-		cameraType_Last
-	}cameraType_t;
+	CScene::CScene() {
+		m_root			= new CNode("root");
+		m_cameraNode	= new CNode("camera");
 
-	class ICamera: public CObject3D {
-	public:
-		ICamera(){};
-		virtual ~ICamera(){};
-		virtual void SetModelViewMatrix(IRenderDriver* renderDriver) = 0;
-		virtual void SetProjectionMatrix(IRenderDriver* renderDriver) = 0;
+		m_cameraNode->Attach(m_root);
+	}
 
-		virtual cameraType_t GetType(void) = 0;
-	};
+	CScene::~CScene() {
+		SafeDelete(m_root);
+	}
+
+	void CScene::AddCamera3D(ICamera3D* camera) {
+	}
+
+	ICamera3D* CScene::CreateCamera3D(void) {
+		return new CCamera3D();
+	}
+
+
 }
-
-#endif

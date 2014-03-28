@@ -71,14 +71,20 @@
 #include "kernel\imutex.h"
 #include "kernel\isystem.h"
 #include "kernel\iconsole.h"
-#include "kernel\ikernel.h"
+
+#include "scene\object3d.h"
+#include "scene\icamera.h"
+#include "scene\icamera2d.h"
+#include "scene\icamera3d.h"
+#include "scene\iscene.h"
 
 #include "render\rendertypes.h"
 #include "render\rendervertex.h"
 #include "render\imesh.h"
 #include "render\irenderdriver.h"
 
-#include "scene\icamera.h"
-#include "scene\iscene.h"
+#include "kernel\ikernel.h"
+
+
 
 #endif /* !__PRECOMPILED_H__ */
