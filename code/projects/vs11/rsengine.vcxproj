@@ -32,6 +32,8 @@
     <ClInclude Include="..\..\inc\kernel\ilog.h" />
     <ClInclude Include="..\..\inc\kernel\ilogwriter.h" />
     <ClInclude Include="..\..\inc\kernel\imutex.h" />
+    <ClInclude Include="..\..\inc\kernel\inode.h" />
+    <ClInclude Include="..\..\inc\kernel\irefcount.h" />
     <ClInclude Include="..\..\inc\kernel\isubsystem.h" />
     <ClInclude Include="..\..\inc\kernel\isystem.h" />
     <ClInclude Include="..\..\inc\kernel\isystemevent.h" />
@@ -40,10 +42,8 @@
     <ClInclude Include="..\..\inc\kernel\ivarsystem.h" />
     <ClInclude Include="..\..\inc\kernel\ixml.h" />
     <ClInclude Include="..\..\inc\kernel\kerneltypes.h" />
-    <ClInclude Include="..\..\inc\kernel\node.h" />
     <ClInclude Include="..\..\inc\kernel\platform.h" />
     <ClInclude Include="..\..\inc\kernel\precompiled.h" />
-    <ClInclude Include="..\..\inc\kernel\refcount.h" />
     <ClInclude Include="..\..\inc\mathlib\boundbox.h" />
     <ClInclude Include="..\..\inc\mathlib\boundsphere.h" />
     <ClInclude Include="..\..\inc\mathlib\frustum.h" />
@@ -62,8 +62,8 @@
     <ClInclude Include="..\..\inc\scene\icamera.h" />
     <ClInclude Include="..\..\inc\scene\icamera2d.h" />
     <ClInclude Include="..\..\inc\scene\icamera3d.h" />
+    <ClInclude Include="..\..\inc\scene\iobject3d.h" />
     <ClInclude Include="..\..\inc\scene\iscene.h" />
-    <ClInclude Include="..\..\inc\scene\object3d.h" />
     <ClInclude Include="..\..\src\input\sdl\inputsystem_sdl.h" />
     <ClInclude Include="..\..\src\input\sdl\keyboard_sdl.h" />
     <ClInclude Include="..\..\src\input\sdl\mouse_sdl.h" />

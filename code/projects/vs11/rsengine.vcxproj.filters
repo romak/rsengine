@@ -66,9 +66,6 @@
     <ClInclude Include="..\..\inc\kernel\debug.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\kernel\refcount.h">
-      <Filter>inc\kernel</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\kernel\args.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
@@ -148,9 +145,6 @@
       <Filter>inc\kernel</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\kernel\ivarsystem.h">
-      <Filter>inc\kernel</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\inc\kernel\node.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\input\actionkeyboard.h">
@@ -282,11 +276,17 @@
     <ClInclude Include="..\..\src\scene\camera3d.h">
       <Filter>src\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\scene\object3d.h">
-      <Filter>src\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\scene\scene.h">
       <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\inode.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\irefcount.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\iobject3d.h">
+      <Filter>inc\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

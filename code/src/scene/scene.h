@@ -31,8 +31,8 @@ namespace rengine3d {
 		virtual ICamera3D* CreateCamera3D(void); 
 
 	private:
-		CNode*	m_root;
-		CNode*	m_cameraNode;
+		INode*	m_root;
+		INode*	m_cameraNode;
 	};
 
 }

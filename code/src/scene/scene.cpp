@@ -25,10 +25,10 @@
 namespace rengine3d {
 
 	CScene::CScene() {
-		m_root			= new CNode("root");
-		m_cameraNode	= new CNode("camera");
+		m_root			= new INode("root");
+		//m_cameraNode	= new INode("camera");
 
-		m_cameraNode->Attach(m_root);
+		//m_cameraNode->Attach(m_root);
 	}
 
 	CScene::~CScene() {

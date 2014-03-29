@@ -22,7 +22,7 @@
 
 namespace rengine3d {
 
-	class IInputDevice: public CRefCount {
+	class IInputDevice: public IRefCount {
 	public:
 		IInputDevice(){};
 		virtual ~IInputDevice(){};

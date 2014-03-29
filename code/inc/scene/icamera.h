@@ -29,7 +29,7 @@ namespace rengine3d {
 		cameraType_Last
 	}cameraType_t;
 
-	class ICamera: public CObject3D {
+	class ICamera: public IObject3D {
 	public:
 		ICamera(){};
 		virtual ~ICamera(){};

@@ -17,48 +17,60 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CNODE_H__
-#define __CNODE_H__
+#ifndef __INODE_H__
+#define __INODE_H__
 
 namespace rengine3d {
 
-	class CNode: public CRefCount {
+#define SerialiseBase(baseClass, rootNode)							\
+	IXMLNode* baseClassNode =  rootNode->AddChildElement(#baseClass); \
+	baseClass::Serialize(baseClassNode);							  \
+
+#define DeserialiseBase(baseClass, rootNode)												\
+	IXMLNode* baseClassNode = rootNode->GetChildElement(baseClass::GetClassName().c_str());	\
+	baseClass::Deserialize (baseClassNode);
+
+	class INode: public IRefCount {
 	public:
-		CNode(const string_t& name);
-		CNode();
-		~CNode();
+		INode(const string_t& name);
+		INode();
+		virtual ~INode();
 
-		CNode* GetChild() const;
-		CNode* GetParent() const;
-		CNode* GetSibling() const;
+		INode* GetChild() const;
+		INode* GetParent() const;
+		INode* GetSibling() const;
 
-		CNode* GetRoot() const;
-		CNode* GetFirst() const;
-		CNode* GetNext() const;
-		CNode* GetLast() const;
-		CNode* GetPrev() const;
+		INode* GetRoot() const;
+		INode* GetFirst() const;
+		INode* GetNext() const;
+		INode* GetLast() const;
+		INode* GetPrev() const;
 
-		void Clear();
+		virtual void Clear();
 
-		void Detach();
-		void Attach(CNode* parent, bool addFirst = false);
+		virtual void Detach();
+		virtual void Attach(INode* parent, bool addFirst = false);
 
-		void PrintHierarchy(int count = 0);
+		virtual void PrintHierarchy(int count = 0);
 
-		string_t GetName() const { return m_name; };
-		void SetName(const string_t& name) { m_name = name; m_id = MakeCRC(m_name.c_str()); };
+		string_t GetName() const			{ return m_name; };
+		void SetName(const string_t& name)	{ m_name = name; m_id = MakeCRC(m_name.c_str()); };
 
 		int GetId() { return m_id; };
 
+		virtual void Serialize(IXMLNode* rootNode) const; 
+		virtual bool Deserialize(IXMLNode* rootNode);
+
 	protected:
 		string_t	m_name;
-		CNode*		m_parent;
-		CNode*		m_child;
-		CNode*		m_sibling;
+		string_t	m_parentName; // for serialization
+		INode*		m_parent;
+		INode*		m_child;
+		INode*		m_sibling;
 		int			m_id;
 	};
 
-	r_inline CNode::CNode(const string_t& name) {
+	r_inline INode::INode(const string_t& name) {
 		m_name		= name;
 		m_id		= MakeCRC(m_name.c_str());
 		m_parent	= NULL;
@@ -66,7 +78,7 @@ namespace rengine3d {
 		m_sibling	= NULL;
 	}
 
-	r_inline CNode::CNode() {
+	r_inline INode::INode() {
 
 		m_name		= "";
 		m_id		= MakeCRC(m_name.c_str());
@@ -75,9 +87,9 @@ namespace rengine3d {
 		m_sibling	= NULL;
 	}
 
-	r_inline CNode::~CNode(){
-		CNode* ptr;
-		CNode* tmp;
+	r_inline INode::~INode(){
+		INode* ptr;
+		INode* tmp;
 
 		if (m_child) {
 			for (ptr = m_child; ptr && ptr->Release(); ptr = tmp) {
@@ -94,30 +106,30 @@ namespace rengine3d {
 		}
 	}
 
-	r_inline CNode* CNode::GetChild() const {
+	r_inline INode* INode::GetChild() const {
 		return m_child;
 	}
 
-	r_inline CNode* CNode::GetParent() const {
+	r_inline INode* INode::GetParent() const {
 		return m_parent;
 	}
 
-	r_inline CNode* CNode::GetSibling() const {
+	r_inline INode* INode::GetSibling() const {
 		return m_sibling;
 	}
 
-	r_inline void CNode::Clear() {
+	r_inline void INode::Clear() {
 		m_parent	= NULL;
 		m_child		= NULL;
 		m_sibling	= NULL;
 	}
 
-	r_inline void CNode::Detach() {
+	r_inline void INode::Detach() {
 		if (m_parent) {
 			if (m_parent->m_child == this) {
 				m_parent->m_child = m_sibling;
 			} else {
-				CNode *ptr;
+				INode *ptr;
 				for (ptr = m_parent->m_child; ptr->m_sibling != this; ptr = ptr->m_sibling)	{
 				}
 				ptr->m_sibling = m_sibling;
@@ -128,8 +140,8 @@ namespace rengine3d {
 		}
 	}
 
-	r_inline void CNode::Attach(CNode* parent, bool addFirst) {
-		CNode* obj;
+	r_inline void INode::Attach(INode* parent, bool addFirst) {
+		INode* obj;
 
 		m_parent = parent;
 		if (m_parent->m_child) {
@@ -150,61 +162,61 @@ namespace rengine3d {
 		//AddRef();
 	}
 
-	r_inline CNode* CNode::GetRoot() const {
-		const CNode* root;
+	r_inline INode* INode::GetRoot() const {
+		const INode* root;
 		for (root = this; root->m_parent; root = root->m_parent){
 		}
-		return (CNode*)root;
+		return (INode*)root;
 	}
 
-	r_inline CNode* CNode::GetFirst() const {
-		CNode* ptr;
-		for (ptr = (CNode*)this; ptr->m_child; ptr = ptr->m_child){
+	r_inline INode* INode::GetFirst() const {
+		INode* ptr;
+		for (ptr = (INode*)this; ptr->m_child; ptr = ptr->m_child){
 		}
 		return ptr;
 	}
 
-	r_inline CNode* CNode::GetNext() const {
-		CNode* x;
-		CNode* ptr;
+	r_inline INode* INode::GetNext() const {
+		INode* x;
+		INode* ptr;
 
 		if (m_sibling) {
 			return m_sibling->GetFirst();
 		}
 
-		x = (CNode*)this;
+		x = (INode*)this;
 		for (ptr = m_parent; ptr && (x == ptr->m_sibling); ptr = ptr->m_parent) {
 			x = ptr;
 		}
 		return ptr;
 	}
 
-	r_inline CNode* CNode::GetLast() const {
-		CNode* ptr;
+	r_inline INode* INode::GetLast() const {
+		INode* ptr;
 
-		for (ptr = (CNode *)this; ptr->m_sibling; ptr = ptr->m_sibling) {
+		for (ptr = (INode *)this; ptr->m_sibling; ptr = ptr->m_sibling) {
 		}
 		return ptr;
 	}
 
-	r_inline CNode* CNode::GetPrev() const {
-		CNode*		x;
-		CNode*		ptr;
+	r_inline INode* INode::GetPrev() const {
+		INode*		x;
+		INode*		ptr;
 
 		if (m_child) {
 			return m_child->GetNext();
 		}
 
-		x = (CNode*)this;
+		x = (INode*)this;
 		for (ptr = m_parent; ptr && (x == ptr->m_child); ptr = ptr->m_child) {
 			x = ptr;
 		}
 		return ptr;
 	}
 
-	r_inline void CNode::PrintHierarchy(int count) {
-		CNode*	node;
-		
+	r_inline void INode::PrintHierarchy(int count) {
+		INode*	node;
+
 		if (m_child) {
 			Log("%s   id = %d\n", m_name.c_str(), m_id);
 		}else {
@@ -216,6 +228,23 @@ namespace rengine3d {
 			node->PrintHierarchy(count);
 		} 
 	}
+
+	r_inline void INode::Serialize(IXMLNode* rootNode) const {
+		rootNode->SetAttribute("name", m_name.c_str());
+		if (m_parent) {
+			rootNode->SetAttribute("parent", m_parent->GetName().c_str());
+		}
+	}
+
+	r_inline bool INode::Deserialize(IXMLNode* rootNode) {
+		SetName(rootNode->GetAttribute("name")->GetString());
+		if (rootNode->FindAttribute("parent")) {
+			m_parentName = rootNode->GetAttribute("parent")->GetString();
+		}
+
+		return true;
+	}
+
 
 }
 

@@ -22,7 +22,7 @@
 
 namespace rengine3d {
 
-	class IUpdateable: public CRefCount, public ISystemEvent {
+	class IUpdateable: public IRefCount, public ISystemEvent {
 	public:
 		IUpdateable(){};
 		IUpdateable(const string_t& name): m_updatableName(name){};

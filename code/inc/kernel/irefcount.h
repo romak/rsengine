@@ -17,14 +17,14 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __REFCOUNT_H__
-#define __REFCOUNT_H__
+#ifndef __IREFCOUNT_H__
+#define __IREFCOUNT_H__
 
 namespace rengine3d {
 
-	class CRefCount {
+	class IRefCount {
 	public:
-		CRefCount(): m_refCount(1) {}
+		IRefCount(): m_refCount(1) {}
 
 		void AddRef() {
 			m_refCount++;
@@ -44,7 +44,7 @@ namespace rengine3d {
 			return m_refCount;
 		}
 	protected:
-		virtual ~CRefCount(){
+		virtual ~IRefCount(){
 		}
 
 	private:
