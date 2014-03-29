@@ -22,6 +22,9 @@
 
 namespace rengine3d {
 
+//#include "mathlib\quat.h"
+//	class CQuat;
+
 	//! 3D вектор
 	class CVec3 {
 	public:
@@ -84,6 +87,8 @@ namespace rengine3d {
 
 		void Scale( const CVec3& vec, float scale );
 		CVec3 Scale( float scale );
+
+//		void ApplyQuaternion(CQuat quat);
 
 	public:
 		real x,y,z;
@@ -156,6 +161,9 @@ namespace rengine3d {
 	r_inline CVec3 CVec3::Scale( float scale ) {
 		return CVec3(this->x * scale, this->y * scale, this->z * scale );
 	}
-
+/*
+	r_inline void CVec3::ApplyQuaternion(CQuat quat) {
+	}
+*/
 }
 #endif

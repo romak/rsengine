@@ -17,62 +17,72 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __QUAT_H__
-#define __QUAT_H__
+#ifndef __CQUAT_H__
+#define __CQUAT_H__
 
 namespace rengine3d {
 
 	//!  ласс дл€ работы с  ватернионами (четырехмерное комплексное число, используемое дл€ представлени€ вращени€ в трехмерном пространстве)
 	//! ќдним из наиболее полезных свойств кватернионов €вл€етс€ достижение гладкой анимации при интерпол€ции
 
+	class CVec3;
+	class CVec4;
+	class CMat4;
+
+	class CQuat {
+	public:
+		CQuat(){};
+	};
+
+/*
 	class CQuat {
 	public:
 		CQuat() {}
-		CQuat(float w_, float x_, float y_, float z_);
-		CQuat(float headDegrees, float pitchDegrees, float rollDegrees);
-		CQuat(const CVec3 &axis, float degrees);
+		CQuat(real w_, real x_, real y_, real z_);
+		CQuat(real headDegrees, real pitchDegrees, real rollDegrees);
+		//CQuat(const CVec3& axis, real degrees);
 
 		~CQuat() {}
 
 		CQuat &operator+=(const CQuat &rhs);
 		CQuat &operator-=(const CQuat &rhs);
 		CQuat &operator*=(const CQuat &rhs);
-		CQuat &operator*=(float scalar);
-		CQuat &operator/=(float scalar);
+		CQuat &operator*=(real scalar);
+		CQuat &operator/=(real scalar);
 
 		CQuat operator+(const CQuat &rhs) const;
 		CQuat operator-(const CQuat &rhs) const;
 		CQuat operator*(const CQuat &rhs) const;
-		CQuat operator*(float scalar) const;
-		CQuat operator/(float scalar) const;
+		CQuat operator*(real scalar) const;
+		CQuat operator/(real scalar) const;
 
 		void Identity();
 
-		CQuat Slerp(const CQuat& a, const CQuat& b, float t);
+		CQuat Slerp(const CQuat& a, const CQuat& b, real t);
 
-		void FromAxisAngle(const CVec3 &axis, float degrees);
-		void FromHeadPitchRoll(float headDegrees, float pitchDegrees, float rollDegrees);
-		void FromMatrix(const CMat4 &m);
+//		void SetFromAxisAngle(CVec3 axis, real degrees);
+		void FromHeadPitchRoll(real headDegrees, real pitchDegrees, real rollDegrees);
+		void SetFromRotationMatrix(const CMat4 &m);
 		CMat4 ToMatrix4() const;
 
 	public:
-		float w, x, y, z;
+		real w, x, y, z;
 	};
 
-	r_inline CQuat operator*(float lhs, const CQuat &rhs) {
+	r_inline CQuat operator*(real lhs, const CQuat &rhs) {
 		return rhs * lhs;
 	}
 
-	r_inline CQuat::CQuat(float w_, float x_, float y_, float z_)
+	r_inline CQuat::CQuat(real w_, real x_, real y_, real z_)
 		: w(w_), x(x_), y(y_), z(z_) {}
 
-	r_inline CQuat::CQuat(float headDegrees, float pitchDegrees, float rollDegrees)	{
+	r_inline CQuat::CQuat(real headDegrees, real pitchDegrees, real rollDegrees)	{
 		FromHeadPitchRoll(headDegrees, pitchDegrees, rollDegrees);
 	}
 
-	r_inline CQuat::CQuat(const CVec3 &axis, float degrees) {
-		FromAxisAngle(axis, degrees);
-	}
+	//r_inline CQuat::CQuat(const CVec3 &axis, real degrees) {
+	//	SetFromAxisAngle(axis, degrees);
+	//}
 
 	r_inline CQuat &CQuat::operator+=(const CQuat &rhs)	{
 		w += rhs.w, x += rhs.x, y += rhs.y, z += rhs.z;
@@ -96,12 +106,12 @@ namespace rengine3d {
 		return *this;
 	}
 
-	r_inline CQuat &CQuat::operator*=(float scalar){
+	r_inline CQuat &CQuat::operator*=(real scalar){
 		w *= scalar, x *= scalar, y *= scalar, z *= scalar;
 		return *this;
 	}
 
-	r_inline CQuat &CQuat::operator/=(float scalar)	{
+	r_inline CQuat &CQuat::operator/=(real scalar)	{
 		w /= scalar, x /= scalar, y /= scalar, z /= scalar;
 		return *this;
 	}
@@ -124,13 +134,13 @@ namespace rengine3d {
 		return tmp;
 	}
 
-	r_inline CQuat CQuat::operator*(float scalar) const {
+	r_inline CQuat CQuat::operator*(real scalar) const {
 		CQuat tmp(*this);
 		tmp *= scalar;
 		return tmp;
 	}
 
-	r_inline CQuat CQuat::operator/(float scalar) const {
+	r_inline CQuat CQuat::operator/(real scalar) const {
 		CQuat tmp(*this);
 		tmp /= scalar;
 		return tmp;
@@ -140,7 +150,7 @@ namespace rengine3d {
 		w = 1.0f, x = y = z = 0.0f;
 	}
 
-	r_inline CQuat CQuat::Slerp(const CQuat& a, const CQuat& b, float t) {
+	r_inline CQuat CQuat::Slerp(const CQuat& a, const CQuat& b, real t) {
 		// Smoothly interpolates from quaternion 'a' to quaternion 'b' using
 		// spherical linear interpolation.
 		// 
@@ -156,11 +166,11 @@ namespace rengine3d {
 		// Animation and Rendering Techniques" (ACM Press 1992).
 
 		CQuat result;
-		float omega = 0.0f;
-		float cosom = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
-		float sinom = 0.0f;
-		float scale0 = 0.0f;
-		float scale1 = 0.0f;
+		real omega = 0.0f;
+		real cosom = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
+		real sinom = 0.0f;
+		real scale0 = 0.0f;
+		real scale1 = 0.0f;
 
 		if ((1.0f + cosom) > EPSILON)
 		{
@@ -208,23 +218,23 @@ namespace rengine3d {
 
 	}
 
-	r_inline void CQuat::FromAxisAngle(const CVec3 &axis, float degrees) {
-		float halfTheta = DegreesToRadians(degrees) * 0.5f;
-		float s = sinf(halfTheta);
+	r_inline void CQuat::SetFromAxisAngle(CVec3 axis, real degrees) {
+		real halfTheta = DegreesToRadians(degrees) * 0.5f;
+		real s = sinf(halfTheta);
 		w = cosf(halfTheta), x = axis.x * s, y = axis.y * s, z = axis.z * s;
 	}
 
-	r_inline void CQuat::FromHeadPitchRoll(float headDegrees, float pitchDegrees, float rollDegrees) {
+	r_inline void CQuat::FromHeadPitchRoll(real headDegrees, real pitchDegrees, real rollDegrees) {
 	}
 
-	r_inline void CQuat::FromMatrix(const CMat4 &m) {
+	r_inline void CQuat::SetFromRotationMatrix(const CMat4 &m) {
 		// Creates a quaternion from a rotation matrix. 
 		// The algorithm used is from Allan and Mark Watt's "Advanced 
 		// Animation and Rendering Techniques" (ACM Press 1992).
 
-		float s = 0.0f;
-		float q[4] = {0.0f};
-		float trace = m[0][0] + m[1][1] + m[2][2];
+		real s = 0.0f;
+		real q[4] = {0.0f};
+		real trace = m[0][0] + m[1][1] + m[2][2];
 
 		if (trace > 0.0f)
 		{
@@ -268,18 +278,18 @@ namespace rengine3d {
 		//  | 2(xz + wy)		2(yz - wx)			1 - 2(x^2 + y^2)	0  |
 		//  | 0					0					0					1  |
 
-		float x2 = x + x; 
-		float y2 = y + y; 
-		float z2 = z + z;
-		float xx = x * x2;
-		float xy = x * y2;
-		float xz = x * z2;
-		float yy = y * y2;
-		float yz = y * z2;
-		float zz = z * z2;
-		float wx = w * x2;
-		float wy = w * y2;
-		float wz = w * z2;
+		real x2 = x + x; 
+		real y2 = y + y; 
+		real z2 = z + z;
+		real xx = x * x2;
+		real xy = x * y2;
+		real xz = x * z2;
+		real yy = y * y2;
+		real yz = y * z2;
+		real zz = z * z2;
+		real wx = w * x2;
+		real wy = w * y2;
+		real wz = w * z2;
 
 		CMat4 m;
 
@@ -305,7 +315,7 @@ namespace rengine3d {
 
 		return m;
 	}
-
+*/
 }
 
 #endif

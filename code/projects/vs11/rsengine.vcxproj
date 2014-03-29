@@ -32,7 +32,6 @@
     <ClInclude Include="..\..\inc\kernel\ilog.h" />
     <ClInclude Include="..\..\inc\kernel\ilogwriter.h" />
     <ClInclude Include="..\..\inc\kernel\imutex.h" />
-    <ClInclude Include="..\..\inc\kernel\inode.h" />
     <ClInclude Include="..\..\inc\kernel\irefcount.h" />
     <ClInclude Include="..\..\inc\kernel\isubsystem.h" />
     <ClInclude Include="..\..\inc\kernel\isystem.h" />
@@ -62,6 +61,7 @@
     <ClInclude Include="..\..\inc\scene\icamera.h" />
     <ClInclude Include="..\..\inc\scene\icamera2d.h" />
     <ClInclude Include="..\..\inc\scene\icamera3d.h" />
+    <ClInclude Include="..\..\inc\scene\inode.h" />
     <ClInclude Include="..\..\inc\scene\iobject3d.h" />
     <ClInclude Include="..\..\inc\scene\iscene.h" />
     <ClInclude Include="..\..\src\input\sdl\inputsystem_sdl.h" />

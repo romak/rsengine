@@ -34,7 +34,7 @@ namespace rengine3d {
 		virtual void SetRotationFromAxisAngle(CVec3 axis, real angle);
 		virtual void SetRotationFromEuler(CVec3 euler);
 		virtual void SetRotationFromMatrix(CMat4 matrix);
-		virtual void SetRotationFromQuaternion(CQuat quat);
+		//virtual void SetRotationFromQuaternion(CQuat quat);
 
 		virtual void RotateOnAxis(CVec3 axis, real angle);
 		virtual void RotateX(real angle);
@@ -68,6 +68,8 @@ namespace rengine3d {
 
 		CMat4	m_matrix;
 		CMat4	m_worldMatrix;
+
+//		CTransform	m_transform;
 	};
 
 
@@ -102,27 +104,38 @@ namespace rengine3d {
 	}
 
 	r_inline void IObject3D::SetRotationFromAxisAngle(CVec3 axis, real angle) {
+//		m_quaternion.SetFromAxisAngle(axis, angle);
+
 	}
 
 	r_inline void IObject3D::SetRotationFromEuler(CVec3 euler) {
 	}
 
 	r_inline void IObject3D::SetRotationFromMatrix(CMat4 matrix) {
+//		m_quaternion.SetFromRotationMatrix(matrix);
 	}
-
+/*
 	r_inline void IObject3D::SetRotationFromQuaternion(CQuat quat) {
+		m_quaternion = quat;
 	}
-
+*/
 	r_inline void IObject3D::RotateOnAxis(CVec3 axis, real angle) {
+//		CQuat q1;
+//		q1.SetFromAxisAngle(axis, angle);
+//		m_quaternion *= q1;
+
 	}
 
 	r_inline void IObject3D::RotateX(real angle) {
+		this->RotateOnAxis(CVec3(1,0,0), angle);
 	}
 
 	r_inline void IObject3D::RotateY(real angle) {
+		this->RotateOnAxis(CVec3(0,1,0), angle);
 	}
 
 	r_inline void IObject3D::RotateZ(real angle) {
+		this->RotateOnAxis(CVec3(0,0,1), angle);
 	}
 
 	r_inline void IObject3D::TranslateOnAxis(CVec3 axis, real dist) {

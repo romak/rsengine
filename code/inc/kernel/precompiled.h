@@ -66,12 +66,12 @@
 #include "kernel\iarchive.h"
 #include "kernel\ilog.h"
 #include "kernel\ilogwriter.h"
-#include "kernel\inode.h"
 #include "kernel\iupdatesystem.h"
 #include "kernel\imutex.h"
 #include "kernel\isystem.h"
 #include "kernel\iconsole.h"
 
+#include "scene\inode.h"
 #include "scene\iobject3d.h"
 #include "scene\icamera.h"
 #include "scene\icamera2d.h"
@@ -84,7 +84,5 @@
 #include "render\irenderdriver.h"
 
 #include "kernel\ikernel.h"
-
-
 
 #endif /* !__PRECOMPILED_H__ */

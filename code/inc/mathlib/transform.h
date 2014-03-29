@@ -21,7 +21,7 @@
 #define __TRANSFORM_H__
 
 namespace rengine3d {
-
+/*
 	class CTransform {
 	public:
 		CTransform();
@@ -51,7 +51,6 @@ namespace rengine3d {
 		CVec3		m_forward;
 		CVec3		m_right;
 		CVec3		m_up;
-		//CTransform	m_parent;
 		bool		m_needUpdate;
 	};
 
@@ -105,7 +104,7 @@ namespace rengine3d {
 	r_inline bool CTransform::IsNeedUpdate(void) {
 		return m_needUpdate;
 	}
-
+	*/
 }
 
 #endif

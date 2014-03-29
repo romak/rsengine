@@ -24,18 +24,18 @@ namespace rengine3d {
 
 	class CMat4 {
 		friend CVec3 operator*(const CVec3 &lhs, const CMat4 &rhs);
-		friend CMat4 operator*(float scalar, const CMat4 &rhs);
+		friend CMat4 operator*(real scalar, const CMat4 &rhs);
 
 	public:
 		CMat4() {}
-		CMat4(float m11, float m12, float m13, float m14,
-			float m21, float m22, float m23, float m24,
-			float m31, float m32, float m33, float m34,
-			float m41, float m42, float m43, float m44);
+		CMat4(real m11, real m12, real m13, real m14,
+			real m21, real m22, real m23, real m24,
+			real m31, real m32, real m33, real m34,
+			real m41, real m42, real m43, real m44);
 		~CMat4() {}
 
-		float *operator[](int row);
-		const float *operator[](int row) const;
+		real *operator[](int row);
+		const real *operator[](int row) const;
 
 		bool operator==(const CMat4 &rhs) const;		
 		bool operator!=(const CMat4 &rhs) const;
@@ -43,29 +43,29 @@ namespace rengine3d {
 		CMat4 &operator+=(const CMat4 &rhs);
 		CMat4 &operator-=(const CMat4 &rhs);
 		CMat4 &operator*=(const CMat4 &rhs);
-		CMat4 &operator*=(float scalar);
-		CMat4 &operator/=(float scalar);
+		CMat4 &operator*=(real scalar);
+		CMat4 &operator/=(real scalar);
 
 		CMat4 operator+(const CMat4 &rhs) const;
 		CMat4 operator-(const CMat4 &rhs) const;
 		CMat4 operator*(const CMat4 &rhs) const;
-		CMat4 operator*(float scalar) const;
-		CMat4 operator/(float scalar) const;
+		CMat4 operator*(real scalar) const;
+		CMat4 operator/(real scalar) const;
 
 		void Identity();
 		void Perspective(real fov, real aspect, real znear, real zfar);
-		void Rotate(const CVec3& axis, float degrees);
-		void Scale(float sx, float sy, float sz);
-		void Translate(float tx, float ty, float tz);
+		void Rotate(const CVec3& axis, real degrees);
+		void Scale(real sx, real sy, real sz);
+		void Translate(real tx, real ty, real tz);
 
 		CVec3 GetForward(void) const;
 		CVec3 GetRight(void) const;
 		CVec3 GetUp(void) const;
 
-		const float *ToFloatPtr( void ) const;
+		const real *TorealPtr( void ) const;
 
 	private:
-		float m[4][4];
+		real m[4][4];
 	};
 
 	r_inline CVec3 operator*(const CVec3 &lhs, const CMat4 &rhs) {
@@ -74,25 +74,25 @@ namespace rengine3d {
 			(lhs.x * rhs[0][2]) + (lhs.y * rhs[1][2]) + (lhs.z * rhs[2][2]));
 	}
 
-	r_inline CMat4 operator*(float scalar, const CMat4 &rhs) {
+	r_inline CMat4 operator*(real scalar, const CMat4 &rhs) {
 		return rhs * scalar;
 	}
 
-	r_inline CMat4::CMat4(float m11, float m12, float m13, float m14,
-		float m21, float m22, float m23, float m24,
-		float m31, float m32, float m33, float m34,
-		float m41, float m42, float m43, float m44)	{
+	r_inline CMat4::CMat4(real m11, real m12, real m13, real m14,
+		real m21, real m22, real m23, real m24,
+		real m31, real m32, real m33, real m34,
+		real m41, real m42, real m43, real m44)	{
 			m[0][0] = m11, m[0][1] = m12, m[0][2] = m13, m[0][3] = m14;
 			m[1][0] = m21, m[1][1] = m22, m[1][2] = m23, m[1][3] = m24;
 			m[2][0] = m31, m[2][1] = m32, m[2][2] = m33, m[2][3] = m34;
 			m[3][0] = m41, m[3][1] = m42, m[3][2] = m43, m[3][3] = m44;
 	}
 
-	r_inline float *CMat4::operator[](int row){
+	r_inline real *CMat4::operator[](int row){
 		return m[row];
 	}
 
-	r_inline const float *CMat4::operator[](int row) const {
+	r_inline const real *CMat4::operator[](int row) const {
 		return m[row];
 	}
 
@@ -166,7 +166,7 @@ namespace rengine3d {
 		return *this;
 	}
 
-	r_inline CMat4 &CMat4::operator*=(float scalar)	{
+	r_inline CMat4 &CMat4::operator*=(real scalar)	{
 		m[0][0] *= scalar, m[0][1] *= scalar, m[0][2] *= scalar, m[0][3] *= scalar;
 		m[1][0] *= scalar, m[1][1] *= scalar, m[1][2] *= scalar, m[1][3] *= scalar;
 		m[2][0] *= scalar, m[2][1] *= scalar, m[2][2] *= scalar, m[2][3] *= scalar;
@@ -174,7 +174,7 @@ namespace rengine3d {
 		return *this;
 	}
 
-	r_inline CMat4 &CMat4::operator/=(float scalar)	{
+	r_inline CMat4 &CMat4::operator/=(real scalar)	{
 		m[0][0] /= scalar, m[0][1] /= scalar, m[0][2] /= scalar, m[0][3] /= scalar;
 		m[1][0] /= scalar, m[1][1] /= scalar, m[1][2] /= scalar, m[1][3] /= scalar;
 		m[2][0] /= scalar, m[2][1] /= scalar, m[2][2] /= scalar, m[2][3] /= scalar;
@@ -200,13 +200,13 @@ namespace rengine3d {
 		return tmp;
 	}
 
-	r_inline CMat4 CMat4::operator*(float scalar) const	{
+	r_inline CMat4 CMat4::operator*(real scalar) const	{
 		CMat4 tmp(*this);
 		tmp *= scalar;
 		return tmp;
 	}
 
-	r_inline CMat4 CMat4::operator/(float scalar) const	{
+	r_inline CMat4 CMat4::operator/(real scalar) const	{
 		CMat4 tmp(*this);
 		tmp /= scalar;
 		return tmp;
@@ -220,11 +220,11 @@ namespace rengine3d {
 	}
 
 	r_inline void CMat4::Perspective( real fov, real aspect, real znear, real zfar ) {
-		float e = 1.0f / tanf((fov * DEG2RAD ) / 2.0f);
-		float aspectInv = 1.0f / aspect;
-		float fovy = 2.0f * atanf(aspectInv / e);
-		float xScale = 1.0f / tanf(0.5f * fovy);
-		float yScale = xScale / aspectInv;
+		real e = 1.0f / tanf((fov * DEG2RAD ) / 2.0f);
+		real aspectInv = 1.0f / aspect;
+		real fovy = 2.0f * atanf(aspectInv / e);
+		real xScale = 1.0f / tanf(0.5f * fovy);
+		real yScale = xScale / aspectInv;
 
 		m[0][0] = xScale;
 		m[0][1] = 0.0f;
@@ -248,11 +248,11 @@ namespace rengine3d {
 
 	}
 
-	r_inline const float* CMat4::ToFloatPtr( void ) const {
+	r_inline const real* CMat4::TorealPtr( void ) const {
 		return m[0];
 	}
 
-	r_inline void CMat4::Rotate(const CVec3& axis, float degrees)	{
+	r_inline void CMat4::Rotate(const CVec3& axis, real degrees)	{
 		// Creates a rotation matrix about the specified axis.
 		// The axis must be a unit vector. The angle must be in degrees.
 		//
@@ -269,11 +269,11 @@ namespace rengine3d {
 
 		degrees = DegreesToRadians(degrees);
 
-		float x = axis.x;
-		float y = axis.y;
-		float z = axis.z;
-		float c = cosf(degrees);
-		float s = sinf(degrees);
+		real x = axis.x;
+		real y = axis.y;
+		real z = axis.z;
+		real c = cosf(degrees);
+		real s = sinf(degrees);
 
 		m[0][0] = (x * x) * (1.0f - c) + c;
 		m[0][1] = (x * y) * (1.0f - c) + (z * s);
@@ -297,7 +297,7 @@ namespace rengine3d {
 	}
 
 
-	r_inline void CMat4::Scale(float sx, float sy, float sz){
+	r_inline void CMat4::Scale(real sx, real sy, real sz){
 		// Creates a scaling matrix.
 		//
 		//                 | sx   0    0    0 |
@@ -311,7 +311,7 @@ namespace rengine3d {
 		m[3][0] = 0.0f, m[3][1] = 0.0f, m[3][2] = 0.0f, m[3][3] = 1.0f;
 	}
 
-	r_inline void CMat4::Translate(float tx, float ty, float tz) {
+	r_inline void CMat4::Translate(real tx, real ty, real tz) {
 		// Creates a translation matrix.
 		//
 		//                 | 1    0    0    0 |

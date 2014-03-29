@@ -279,13 +279,13 @@
     <ClInclude Include="..\..\src\scene\scene.h">
       <Filter>src\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\kernel\inode.h">
-      <Filter>inc\kernel</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\kernel\irefcount.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
     <ClInclude Include="..\..\inc\scene\iobject3d.h">
+      <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\scene\inode.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
   </ItemGroup>
