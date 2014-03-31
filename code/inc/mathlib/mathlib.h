@@ -30,11 +30,11 @@
 
 namespace rengine3d {
 
+	class CQuat;
 	class CVec2;
 	class CVec3;
 	class CVec4;
 	class CMat4;
-	class CQuat;
 	class CRay;
 	class CBoundBox;
 	class CBoundSphere;

@@ -23,7 +23,7 @@
 namespace rengine3d {
 
 //#include "mathlib\quat.h"
-//	class CQuat;
+	//class CQuat;
 
 	//! 3D вектор
 	class CVec3 {
@@ -32,7 +32,6 @@ namespace rengine3d {
 		CVec3(): x(0.0f), y(0.0f), z(0.0f) {}
 		CVec3( real x, real y, real z ): x(x), y(y),z(z) {}
 		CVec3( const CVec3& vec ): x(vec.x), y(vec.y), z(vec.z) {}
-
 
 		CVec3 operator*( real f ) const	{ return CVec3( x * f, y * f, z * f ); }
 		const CVec3 operator/( real f ) const	{ return CVec3( x / f, y / f, z / f ); }
@@ -88,7 +87,7 @@ namespace rengine3d {
 		void Scale( const CVec3& vec, float scale );
 		CVec3 Scale( float scale );
 
-//		void ApplyQuaternion(CQuat quat);
+//		void ApplyQuaternion(CQuat q){};
 
 	public:
 		real x,y,z;

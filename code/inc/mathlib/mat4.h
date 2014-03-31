@@ -27,7 +27,7 @@ namespace rengine3d {
 		friend CMat4 operator*(real scalar, const CMat4 &rhs);
 
 	public:
-		CMat4() {}
+		CMat4() { this->Identity();}
 		CMat4(real m11, real m12, real m13, real m14,
 			real m21, real m22, real m23, real m24,
 			real m31, real m32, real m33, real m34,
@@ -52,6 +52,8 @@ namespace rengine3d {
 		CMat4 operator*(real scalar) const;
 		CMat4 operator/(real scalar) const;
 
+		void Set(real n11, real n12, real n13, real n14, real n21, real n22, real n23, real n24, real n31, real n32, real n33, real n34, real n41, real n42, real n43, real n44);
+
 		real Determinant(void) const;
 		void Decompose(CVec3& pos, CQuat& quat, CVec3& scale) const;
 		void Compose(CVec3& pos, CQuat& quat, CVec3& scale);
@@ -62,6 +64,8 @@ namespace rengine3d {
 		void Scale(real sx, real sy, real sz);
 		void Translate(real tx, real ty, real tz);
 
+		CMat4 MakeRotationFromQuaternion(real x, real y, real z, real w);
+
 		CVec3 GetForward(void) const;
 		CVec3 GetRight(void) const;
 		CVec3 GetUp(void) const;
@@ -71,9 +75,10 @@ namespace rengine3d {
 		const real *TorealPtr( void ) const;
 
 	private:
-		real m[4][4];
-		real x[16];
-
+		union {
+			real m[4][4];
+			real m_elements[16];
+		};
 	};
 
 	r_inline CVec3 operator*(const CVec3 &lhs, const CMat4 &rhs) {
@@ -304,7 +309,6 @@ namespace rengine3d {
 		m[3][3] = 1.0f;
 	}
 
-
 	r_inline void CMat4::Scale(real sx, real sy, real sz){
 		// Creates a scaling matrix.
 		//
@@ -372,7 +376,6 @@ namespace rengine3d {
 		return mat;
 	}
 
-
 	r_inline real CMat4::Determinant(void) const {
 		return 
 			m[0][3]*m[1][2]*m[2][1]*m[3][0] - m[0][2]*m[1][3]*m[2][1]*m[3][0] - m[0][3]*m[1][1]*m[2][2]*m[3][0] + m[0][1]*m[1][3]*m[2][2]*m[3][0] +
@@ -384,7 +387,7 @@ namespace rengine3d {
 	}
 
 	r_inline void CMat4::Compose(CVec3& pos, CQuat& quat, CVec3& scale) {
-//		this->MakeRotationFromQuaternion( quat );
+		//this->MakeRotationFromQuaternion( quat );
 	}
 
 	r_inline void CMat4::Decompose( CVec3& pos, CQuat& quat, CVec3& scale ) const {
@@ -408,14 +411,14 @@ namespace rengine3d {
 		// -Cos[z]*Sin[y]+Cos[y]*Sin[x]*Sin[z]  Cos[y]*Cos[z]*Sin[x]+Sin[y]*Sin[z]  Cos[x]*Cos[y]
 
 		rot.x = asinf( -m[2][1] / scale.z );
-		
+
 		// Special case: Cos[x] == 0 (when Sin[x] is +/-1)
 		real f = fabsf( m[2][1] / scale.z );
 		if( f > 0.999f && f < 1.001f ) {
 			// Pin arbitrarily one of y or z to zero
 			// Mathematical equivalent of gimbal lock
 			rot.y = 0;
-			
+
 			// Now: Cos[x] = 0, Sin[x] = +/-1, Cos[y] = 1, Sin[y] = 0
 			// => m[0][0] = Cos[z] and m[1][0] = Sin[z]
 			rot.z = atan2f( -m[1][0] / scale.y, m[0][0] / scale.x );
@@ -427,8 +430,39 @@ namespace rengine3d {
 		}
 
 		//CMat4 mrot;
+	}
 
+	r_inline CMat4 CMat4::MakeRotationFromQuaternion(real x, real y, real z, real w) {
+		CMat4 r;
 
+		r[0][0] = 1.0f - (y*y*2 + z*z*2);
+		r[1][0] = x*y*2 - w*z*2;
+		r[2][0] = x*z*2 + w*y*2;
+		r[3][0] = 0;
+
+		r[0][1] = x*y*2 + w*z*2;
+		r[1][1] = 1.0f - (x*x*2 + z*z*2);
+		r[2][1] = y*z*2 - w*x*2;
+		r[3][1] = 0;
+
+		r[0][2] = x*z*2 - w*y*2;
+		r[1][2] = y*z*2 + w*x*2;
+		r[2][2] = 1.0f - (x*x*2 + y*y*2);
+		r[3][2] = 0;
+
+		r[0][3] = 0;
+		r[1][3] = 0;
+		r[2][3] = 0;
+		r[3][3] = 1;
+
+		return r;
+	}
+
+	r_inline void CMat4::Set(real n11, real n12, real n13, real n14, real n21, real n22, real n23, real n24, real n31, real n32, real n33, real n34, real n41, real n42, real n43, real n44) {
+		m_elements[0] = n11; m_elements[4] = n12; m_elements[8] = n13; m_elements[12] = n14;
+		m_elements[1] = n21; m_elements[5] = n22; m_elements[9] = n23; m_elements[13] = n24;
+		m_elements[2] = n31; m_elements[6] = n32; m_elements[10] = n33; m_elements[14] = n34;
+		m_elements[3] = n41; m_elements[7] = n42; m_elements[11] = n43; m_elements[15] = n44;
 	}
 
 }

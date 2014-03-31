@@ -21,10 +21,7 @@
 #define __CQUAT_H__
 
 namespace rengine3d {
-
-	//!  ласс дл€ работы с  ватернионами (четырехмерное комплексное число, используемое дл€ представлени€ вращени€ в трехмерном пространстве)
-	//! ќдним из наиболее полезных свойств кватернионов €вл€етс€ достижение гладкой анимации при интерпол€ции
-
+	class CVec3;
 	class CQuat {
 	public:
 		CQuat();
@@ -264,12 +261,6 @@ namespace rengine3d {
 
 	r_inline CQuat CQuat::GetInverse(void) const {
 		return CQuat(-m_v.x, -m_v.y, -m_v.z, m_w);
-	}
-
-	r_inline CVec3 CQuat::Rotate(const CVec3& vec) const {
-		// v' = q * v * q^-1
-		// (where v is the quat. with w=0, xyz=vec)
-		return (*this * CQuat(vec.x, vec.y, vec.z, 0.f) * GetInverse()).m_v;
 	}
 
 	r_inline void CQuat::ToMatrix(CMat4& result) const {

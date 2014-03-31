@@ -57,6 +57,7 @@ namespace rengine3d {
 		bool	m_receiveShadow;
 		bool	m_matrixAutoUpdate;
 		bool	m_rotationAutoUpdate;
+		bool	m_matrixWorldNeedsUpdate;
 
 		CVec3	m_scale;
 		CVec3	m_position;
@@ -74,12 +75,13 @@ namespace rengine3d {
 
 
 	r_inline IObject3D::IObject3D() {
-		m_visible				= false;
-		m_frustumCulled			= true;
-		m_castShadow			= false;
-		m_receiveShadow			= false;
-		m_matrixAutoUpdate		= true;
-		m_rotationAutoUpdate	= true;
+		m_visible					= false;
+		m_frustumCulled				= true;
+		m_castShadow				= false;
+		m_receiveShadow				= false;
+		m_matrixAutoUpdate			= true;
+		m_rotationAutoUpdate		= true;
+		m_matrixWorldNeedsUpdate	= true;
 
 		m_scale			= CVec3(1,1,1);
 
@@ -93,14 +95,15 @@ namespace rengine3d {
 
 	r_inline void IObject3D::ApplyMatrix(CMat4 matrix) {
 		CMat4 mat = this->m_matrix * matrix;
-		//this.matrix.multiplyMatrices( matrix, this.matrix );
-
+		m_matrix.Decompose(m_position, m_quaternion, m_scale);
 	}
 
 	r_inline void IObject3D::UpdateMatrixWorld(bool force) {
 	}
 
 	r_inline void IObject3D::UpdateMatrix(void) {
+		this->m_matrix.Compose(m_position, m_quaternion, m_scale);
+		m_matrixWorldNeedsUpdate	= true;
 	}
 
 	r_inline void IObject3D::SetRotationFromAxisAngle(const CVec3& axis, real angle) {
@@ -109,10 +112,11 @@ namespace rengine3d {
 	}
 
 	r_inline void IObject3D::SetRotationFromEuler(CVec3 euler) {
+		m_quaternion.SetFromEulerAngles(euler.x, euler.y, euler.z);
 	}
 
 	r_inline void IObject3D::SetRotationFromMatrix(CMat4 matrix) {
-//		m_quaternion.SetFromRotationMatrix(matrix);
+		m_quaternion.SetFromRotationMatrix(matrix);
 	}
 
 	r_inline void IObject3D::SetRotationFromQuaternion(CQuat quat) {
@@ -120,10 +124,9 @@ namespace rengine3d {
 	}
 
 	r_inline void IObject3D::RotateOnAxis(CVec3 axis, real angle) {
-//		CQuat q1;
-//		q1.SetFromAxisAngle(axis, angle);
-//		m_quaternion *= q1;
-
+		CQuat q1;
+		q1.SetFromAxisAngle(axis, angle);
+		m_quaternion *= q1;
 	}
 
 	r_inline void IObject3D::RotateX(real angle) {

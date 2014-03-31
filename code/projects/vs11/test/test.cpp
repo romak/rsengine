@@ -47,6 +47,15 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 
 	renderDriver->SetWindowCaption("#test application#");
 
+	CVec3 axis = CVec3(1,0,0);
+	real angle = 10;
+	CQuat q1;
+	q1.SetFromAxisAngle(axis, angle);
+
+	CMat4 m;
+	m.Scale(1,0,0);
+
+
 }
 
 CMainApp::~CMainApp() {
