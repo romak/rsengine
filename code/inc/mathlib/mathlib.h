@@ -41,6 +41,8 @@ namespace rengine3d {
 	class CFrustum;
 	class CRect;
 
+	#define SQR(x)	((x) * (x))
+
 	//! Константа для числа PI.
 	const real PI			= 3.14159265359f;
 

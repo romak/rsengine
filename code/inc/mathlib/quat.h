@@ -25,206 +25,140 @@ namespace rengine3d {
 	//!  ласс дл€ работы с  ватернионами (четырехмерное комплексное число, используемое дл€ представлени€ вращени€ в трехмерном пространстве)
 	//! ќдним из наиболее полезных свойств кватернионов €вл€етс€ достижение гладкой анимации при интерпол€ции
 
-	class CVec3;
-	class CVec4;
-	class CMat4;
-
 	class CQuat {
 	public:
-		CQuat(){};
-	};
+		CQuat();
+		CQuat(real x, real y, real z, real w);
 
-/*
-	class CQuat {
-	public:
-		CQuat() {}
-		CQuat(real w_, real x_, real y_, real z_);
-		CQuat(real headDegrees, real pitchDegrees, real rollDegrees);
-		//CQuat(const CVec3& axis, real degrees);
+		CQuat operator + (const CQuat& quat) const;
+		CQuat &operator += (const CQuat& quat);
+		CQuat operator - (const CQuat& quat) const;
+		CQuat &operator -= (const CQuat& quat);
+		CQuat operator * (const CQuat& quat) const;
+		CQuat &operator *= (const CQuat& quat);
+		CQuat operator * (real factor) const;
 
-		~CQuat() {}
-
-		CQuat &operator+=(const CQuat &rhs);
-		CQuat &operator-=(const CQuat &rhs);
-		CQuat &operator*=(const CQuat &rhs);
-		CQuat &operator*=(real scalar);
-		CQuat &operator/=(real scalar);
-
-		CQuat operator+(const CQuat &rhs) const;
-		CQuat operator-(const CQuat &rhs) const;
-		CQuat operator*(const CQuat &rhs) const;
-		CQuat operator*(real scalar) const;
-		CQuat operator/(real scalar) const;
-
-		void Identity();
-
-		CQuat Slerp(const CQuat& a, const CQuat& b, real t);
-
-//		void SetFromAxisAngle(CVec3 axis, real degrees);
-		void FromHeadPitchRoll(real headDegrees, real pitchDegrees, real rollDegrees);
+		real Dot(const CQuat& quat) const;
+		void SetFromAxisAngle(const CVec3& axis, real angle);
+		void SetFromEulerAngles (real x, real y, real z);
 		void SetFromRotationMatrix(const CMat4 &m);
-		CMat4 ToMatrix4() const;
-
+		void SetToAxisAngle(CVec3& axis, real& angle);
+		void Slerp(const CQuat& from, const CQuat& to, real ratio);
+		void Nlerp(const CQuat& from, const CQuat& to, real ratio);
+		void Normalize(void);
+		CQuat GetInverse(void) const;
+		CVec3 Rotate(const CVec3& vec) const;
+		void ToMatrix(CMat4& result) const;
+		CMat4 ToMatrix (void) const;
+		void Identity(void);
 	public:
-		real w, x, y, z;
+		CVec3	m_v;
+		real	m_w;
 	};
 
-	r_inline CQuat operator*(real lhs, const CQuat &rhs) {
-		return rhs * lhs;
+	r_inline CQuat::CQuat() {
+		m_w = 1.0f;
 	}
 
-	r_inline CQuat::CQuat(real w_, real x_, real y_, real z_)
-		: w(w_), x(x_), y(y_), z(z_) {}
-
-	r_inline CQuat::CQuat(real headDegrees, real pitchDegrees, real rollDegrees)	{
-		FromHeadPitchRoll(headDegrees, pitchDegrees, rollDegrees);
+	r_inline CQuat::CQuat(real x, real y, real z, real w) {
+		m_v.Set(x,y,z); m_w = w;
 	}
 
-	//r_inline CQuat::CQuat(const CVec3 &axis, real degrees) {
-	//	SetFromAxisAngle(axis, degrees);
-	//}
+	r_inline CQuat CQuat::operator + (const CQuat& quat) const {
+		CQuat temp;
+		temp.m_w = m_w + quat.m_w;
+		temp.m_v = m_v + quat.m_v;
+		return temp;
+	}
 
-	r_inline CQuat &CQuat::operator+=(const CQuat &rhs)	{
-		w += rhs.w, x += rhs.x, y += rhs.y, z += rhs.z;
+	r_inline CQuat &CQuat::operator -= (const CQuat& quat) {
+		*this = *this - quat;
 		return *this;
 	}
 
-	r_inline CQuat &CQuat::operator-=(const CQuat &rhs) {
-		w -= rhs.w, x -= rhs.x, y -= rhs.y, z -= rhs.z;
+	r_inline CQuat CQuat::operator - (const CQuat& quat) const {
+		CQuat temp;
+		temp.m_w = m_w - quat.m_w;
+		temp.m_v = m_v - quat.m_v;
+		return temp;
+	}
+
+	r_inline CQuat &CQuat::operator += (const CQuat& quat) {
+		*this = *this + quat;
 		return *this;
 	}
 
-	r_inline CQuat &CQuat::operator*=(const CQuat &rhs)	{
-		// Multiply so that rotations are applied in a left to right order.
-		CQuat tmp(
-			(w * rhs.w) - (x * rhs.x) - (y * rhs.y) - (z * rhs.z),
-			(w * rhs.x) + (x * rhs.w) - (y * rhs.z) + (z * rhs.y),
-			(w * rhs.y) + (x * rhs.z) + (y * rhs.w) - (z * rhs.x),
-			(w * rhs.z) - (x * rhs.y) + (y * rhs.x) + (z * rhs.w));
+	r_inline CQuat CQuat::operator * (const CQuat& quat) const {
+		CQuat temp;
+		temp.m_w = (m_w * quat.m_w) - (m_v.Dot(quat.m_v));
+		temp.m_v = (m_v.Cross(quat.m_v)) + (quat.m_v * m_w) + (m_v * quat.m_w);
+		return temp;
+	}
 
-		*this = tmp;
+	r_inline CQuat& CQuat::operator *= (const CQuat& quat) {
+		*this = *this * quat;
 		return *this;
 	}
 
-	r_inline CQuat &CQuat::operator*=(real scalar){
-		w *= scalar, x *= scalar, y *= scalar, z *= scalar;
-		return *this;
+	r_inline CQuat CQuat::operator * (real factor) const {
+		CQuat temp;
+		temp.m_w = m_w * factor;
+		temp.m_v = m_v * factor;
+		return temp;
 	}
 
-	r_inline CQuat &CQuat::operator/=(real scalar)	{
-		w /= scalar, x /= scalar, y /= scalar, z /= scalar;
-		return *this;
+	r_inline real CQuat::Dot(const CQuat& quat) const {
+		return
+			m_v.x * quat.m_v.x +
+			m_v.y * quat.m_v.y +
+			m_v.z * quat.m_v.z +
+			m_w   * quat.m_w;
 	}
 
-	r_inline CQuat CQuat::operator+(const CQuat &rhs) const {
-		CQuat tmp(*this);
-		tmp += rhs;
-		return tmp;
+	r_inline void CQuat::SetFromAxisAngle(const CVec3& axis, real angle) {
+		real sinHalfTheta=(real) sin(angle/2);
+		real cosHalfTheta=(real) cos(angle/2);
+
+		m_v.x = axis.x * sinHalfTheta;
+		m_v.y = axis.y * sinHalfTheta;
+		m_v.z = axis.z * sinHalfTheta;
+		m_w = cosHalfTheta;
 	}
 
-	r_inline CQuat CQuat::operator-(const CQuat &rhs) const {
-		CQuat tmp(*this);
-		tmp -= rhs;
-		return tmp;
+	r_inline void CQuat::SetToAxisAngle(CVec3& axis, real& angle) {
+		CQuat q = *this;
+		q.Normalize();
+		angle = acosf(q.m_w) * 2.f;
+		real  sin_a = sqrtf(1.f - q.m_w * q.m_w);
+		if (fabsf(sin_a) < 0.0005f) sin_a = 1.f;
+		axis.x = q.m_v.x / sin_a;
+		axis.y = q.m_v.y / sin_a;
+		axis.z = q.m_v.z / sin_a;
 	}
 
-	r_inline CQuat CQuat::operator*(const CQuat &rhs) const {
-		CQuat tmp(*this);
-		tmp *= rhs;
-		return tmp;
-	}
+	r_inline void CQuat::SetFromEulerAngles (real x, real y, real z) {
+		real cr, cp, cy;
+		real sr, sp, sy;
+		CQuat roll, pitch, yaw;
 
-	r_inline CQuat CQuat::operator*(real scalar) const {
-		CQuat tmp(*this);
-		tmp *= scalar;
-		return tmp;
-	}
+		cr = cosf(x * 0.5f);
+		cp = cosf(y * 0.5f);
+		cy = cosf(z * 0.5f);
 
-	r_inline CQuat CQuat::operator/(real scalar) const {
-		CQuat tmp(*this);
-		tmp /= scalar;
-		return tmp;
-	}
+		sr = sinf(x * 0.5f);
+		sp = sinf(y * 0.5f);
+		sy = sinf(z * 0.5f);
 
-	r_inline void CQuat::Identity(){
-		w = 1.0f, x = y = z = 0.0f;
-	}
+		roll.m_v = CVec3(sr, 0, 0);
+		roll.m_w = cr;
 
-	r_inline CQuat CQuat::Slerp(const CQuat& a, const CQuat& b, real t) {
-		// Smoothly interpolates from quaternion 'a' to quaternion 'b' using
-		// spherical linear interpolation.
-		// 
-		// Both quaternions must be unit length and represent absolute rotations.
-		// In particular quaternion 'b' must not be relative to quaternion 'a'.
-		// If 'b' is relative to 'a' make 'b' an absolute rotation by: b = a * b.
-		// 
-		// The interpolation parameter 't' is in the range [0,1]. When t = 0 the
-		// resulting quaternion will be 'a'. When t = 1 the resulting quaternion
-		// will be 'b'.
-		//
-		// The algorithm used is adapted from Allan and Mark Watt's "Advanced
-		// Animation and Rendering Techniques" (ACM Press 1992).
+		pitch.m_v = CVec3(0, sp, 0);
+		pitch.m_w = cp;
 
-		CQuat result;
-		real omega = 0.0f;
-		real cosom = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
-		real sinom = 0.0f;
-		real scale0 = 0.0f;
-		real scale1 = 0.0f;
+		yaw.m_v = CVec3(0, 0, sy);
+		yaw.m_w = cy;
 
-		if ((1.0f + cosom) > EPSILON)
-		{
-			// 'a' and 'b' quaternions are not opposite each other.
-
-			if ((1.0f - cosom) > EPSILON)
-			{
-				// Standard case - slerp.
-				omega = acosf(cosom);
-				sinom = sinf(omega);
-				scale0 = sinf((1.0f - t) * omega) / sinom;
-				scale1 = sinf(t * omega) / sinom;
-			}
-			else
-			{
-				// 'a' and 'b' quaternions are very close so lerp instead.
-				scale0 = 1.0f - t;
-				scale1 = t;
-			}
-
-			result.x = scale0 * a.x + scale1 * b.x;
-			result.y = scale0 * a.y + scale1 * b.y;
-			result.z = scale0 * a.z + scale1 * b.z;
-			result.w = scale0 * a.w + scale1 * b.w;
-		}
-		else
-		{
-			// 'a' and 'b' quaternions are opposite each other.
-
-			result.x = -b.y;
-			result.y = b.x;
-			result.z = -b.w;
-			result.w = b.z;
-
-			scale0 = sinf((1.0f - t) - HALF_PI);
-			scale1 = sinf(t * HALF_PI);
-
-			result.x = scale0 * a.x + scale1 * result.x;
-			result.y = scale0 * a.y + scale1 * result.y;
-			result.z = scale0 * a.z + scale1 * result.z;
-			result.w = scale0 * a.w + scale1 * result.w;
-		}
-
-		return result;
-
-	}
-
-	r_inline void CQuat::SetFromAxisAngle(CVec3 axis, real degrees) {
-		real halfTheta = DegreesToRadians(degrees) * 0.5f;
-		real s = sinf(halfTheta);
-		w = cosf(halfTheta), x = axis.x * s, y = axis.y * s, z = axis.z * s;
-	}
-
-	r_inline void CQuat::FromHeadPitchRoll(real headDegrees, real pitchDegrees, real rollDegrees) {
+		(*this) = yaw * pitch * roll;
 	}
 
 	r_inline void CQuat::SetFromRotationMatrix(const CMat4 &m) {
@@ -267,55 +201,125 @@ namespace rengine3d {
 			q[k] = (m[i][k] + m[k][i]) * s;
 		}
 
-		x = q[0], y = q[1], z = q[2], w = q[3];
+		m_v.x = q[0]; m_v.y = q[1]; m_v.z = q[2]; m_w = q[3];
 	}
 
-	r_inline CMat4 CQuat::ToMatrix4() const {
-		// Converts this quaternion to a rotation matrix.
-		//
-		//  | 1 - 2(y^2 + z^2)	2(xy + wz)			2(xz - wy)			0  |
-		//  | 2(xy - wz)		1 - 2(x^2 + z^2)	2(yz + wx)			0  |
-		//  | 2(xz + wy)		2(yz - wx)			1 - 2(x^2 + y^2)	0  |
-		//  | 0					0					0					1  |
+	r_inline void CQuat::Slerp(const CQuat& from, const CQuat& to, real ratio) {
+		real to1[4];
+		real omega, cosom, sinom, scale0, scale1;
 
-		real x2 = x + x; 
-		real y2 = y + y; 
-		real z2 = z + z;
-		real xx = x * x2;
-		real xy = x * y2;
-		real xz = x * z2;
-		real yy = y * y2;
-		real yz = y * z2;
-		real zz = z * z2;
-		real wx = w * x2;
-		real wy = w * y2;
-		real wz = w * z2;
+		cosom = from.Dot(to);
 
-		CMat4 m;
+		if (cosom < 0.0) {
+			cosom = -cosom;
+			to1[0] = -to.m_v.x;
+			to1[1] = -to.m_v.y;
+			to1[2] = -to.m_v.z;
+			to1[3] = -to.m_w;
+		} else {
+			to1[0] = to.m_v.x;
+			to1[1] = to.m_v.y;
+			to1[2] = to.m_v.z;
+			to1[3] = to.m_w;
+		}
 
-		m[0][0] = 1.0f - (yy + zz);
-		m[0][1] = xy + wz;
-		m[0][2] = xz - wy;
-		m[0][3] = 0.0f;
+		if ((1.0f - cosom) > EPSILON) {
+			// standard case (slerp)
+			omega = acosf(cosom);
+			sinom = sinf(omega);
+			scale0 = sinf((1.0f - ratio) * omega) / sinom;
+			scale1 = sinf(ratio * omega) / sinom;
+		} else {
+			// "from" and "to" quaternions are very close 
+			//  ... so we can do a linear interpolation
+			scale0 = 1.0f - ratio;
+			scale1 = ratio;
+		}
 
-		m[1][0] = xy - wz;
-		m[1][1] = 1.0f - (xx + zz);
-		m[1][2] = yz + wx;
-		m[1][3] = 0.0f;
-
-		m[2][0] = xz + wy;
-		m[2][1] = yz - wx;
-		m[2][2] = 1.0f - (xx + yy);
-		m[2][3] = 0.0f;
-
-		m[3][0] = 0.0f;
-		m[3][1] = 0.0f;
-		m[3][2] = 0.0f;
-		m[3][3] = 1.0f;
-
-		return m;
+		// calculate final values
+		m_v.x = scale0 * from.m_v.x + scale1 * to1[0];
+		m_v.y = scale0 * from.m_v.y + scale1 * to1[1];
+		m_v.z = scale0 * from.m_v.z + scale1 * to1[2];
+		m_w	  = scale0 * from.m_w + scale1 * to1[3];
 	}
-*/
+
+	r_inline void CQuat::Nlerp(const CQuat& from, const CQuat& to, real ratio) {
+		real c = from.Dot(to);
+		if (c < 0.f)
+			*this = from - (to + from) * ratio;
+		else
+			*this = from + (to - from) * ratio;
+
+		Normalize();
+	}
+
+	r_inline void CQuat::Normalize(void) {
+		real lensqrd = SQR(m_v.x) + SQR(m_v.y) + SQR(m_v.z) + SQR(m_w);
+		if (lensqrd > 0) {
+			real invlen=1.0f/sqrtf(lensqrd);
+			m_v *= invlen;
+			m_w *= invlen;
+		}
+	}
+
+	r_inline CQuat CQuat::GetInverse(void) const {
+		return CQuat(-m_v.x, -m_v.y, -m_v.z, m_w);
+	}
+
+	r_inline CVec3 CQuat::Rotate(const CVec3& vec) const {
+		// v' = q * v * q^-1
+		// (where v is the quat. with w=0, xyz=vec)
+		return (*this * CQuat(vec.x, vec.y, vec.z, 0.f) * GetInverse()).m_v;
+	}
+
+	r_inline void CQuat::ToMatrix(CMat4& result) const {
+		real wx, wy, wz, xx, xy, xz, yy, yz, zz;
+
+		xx = m_v.x * m_v.x * 2.f;
+		xy = m_v.x * m_v.y * 2.f;
+		xz = m_v.x * m_v.z * 2.f;
+
+		yy = m_v.y * m_v.y * 2.f;
+		yz = m_v.y * m_v.z * 2.f;
+
+		zz = m_v.z * m_v.z * 2.f;
+
+		wx = m_w * m_v.x * 2.f;
+		wy = m_w * m_v.y * 2.f;
+		wz = m_w * m_v.z * 2.f;
+
+		result[0][0] = 1.0f - (yy + zz);
+		result[0][1] = xy - wz;
+		result[0][2] = xz + wy;
+		result[0][3] = 0;
+
+		result[1][0] = xy + wz;
+		result[1][1] = 1.0f - (xx + zz);
+		result[1][2] = yz - wx;
+		result[1][3] = 0;
+
+		result[2][0] = xz - wy;
+		result[2][1] = yz + wx;
+		result[2][2] = 1.0f - (xx + yy);
+		result[2][3] = 0;
+
+		result[3][0] = 0;
+		result[3][1] = 0;
+		result[3][2] = 0;
+		result[3][3] = 1;
+	}
+
+	r_inline CMat4 CQuat::ToMatrix (void) const {
+		CMat4 result;
+		this->ToMatrix(result);
+		return result;
+	}
+
+	r_inline void CQuat::Identity(void){
+		m_v.Set(0,0,0);
+		m_w = 1.0f;
+	}
+
 }
 
 #endif

@@ -52,6 +52,10 @@ namespace rengine3d {
 		CMat4 operator*(real scalar) const;
 		CMat4 operator/(real scalar) const;
 
+		real Determinant(void) const;
+		void Decompose(CVec3& pos, CQuat& quat, CVec3& scale) const;
+		void Compose(CVec3& pos, CQuat& quat, CVec3& scale);
+
 		void Identity();
 		void Perspective(real fov, real aspect, real znear, real zfar);
 		void Rotate(const CVec3& axis, real degrees);
@@ -62,10 +66,14 @@ namespace rengine3d {
 		CVec3 GetRight(void) const;
 		CVec3 GetUp(void) const;
 
+		CMat4 GetInverse(void);
+
 		const real *TorealPtr( void ) const;
 
 	private:
 		real m[4][4];
+		real x[16];
+
 	};
 
 	r_inline CVec3 operator*(const CVec3 &lhs, const CMat4 &rhs) {
@@ -335,6 +343,92 @@ namespace rengine3d {
 
 	r_inline CVec3 CMat4::GetUp(void) const {
 		return CVec3(m[1][0], m[1][1], m[1][2]);
+	}
+
+	r_inline CMat4 CMat4::GetInverse(void) {
+		CMat4 mat;
+
+		real d = this->Determinant();
+		if( d == 0 ) return mat;
+		d = 1.0f / d;
+
+		m[0][0] = d * (m[1][2]*m[2][3]*m[3][1] - m[1][3]*m[2][2]*m[3][1] + m[1][3]*m[2][1]*m[3][2] - m[1][1]*m[2][3]*m[3][2] - m[1][2]*m[2][1]*m[3][3] + m[1][1]*m[2][2]*m[3][3]);
+		m[0][1] = d * (m[0][3]*m[2][2]*m[3][1] - m[0][2]*m[2][3]*m[3][1] - m[0][3]*m[2][1]*m[3][2] + m[0][1]*m[2][3]*m[3][2] + m[0][2]*m[2][1]*m[3][3] - m[0][1]*m[2][2]*m[3][3]);
+		m[0][2] = d * (m[0][2]*m[1][3]*m[3][1] - m[0][3]*m[1][2]*m[3][1] + m[0][3]*m[1][1]*m[3][2] - m[0][1]*m[1][3]*m[3][2] - m[0][2]*m[1][1]*m[3][3] + m[0][1]*m[1][2]*m[3][3]);
+		m[0][3] = d * (m[0][3]*m[1][2]*m[2][1] - m[0][2]*m[1][3]*m[2][1] - m[0][3]*m[1][1]*m[2][2] + m[0][1]*m[1][3]*m[2][2] + m[0][2]*m[1][1]*m[2][3] - m[0][1]*m[1][2]*m[2][3]);
+		m[1][0] = d * (m[1][3]*m[2][2]*m[3][0] - m[1][2]*m[2][3]*m[3][0] - m[1][3]*m[2][0]*m[3][2] + m[1][0]*m[2][3]*m[3][2] + m[1][2]*m[2][0]*m[3][3] - m[1][0]*m[2][2]*m[3][3]);
+		m[1][1] = d * (m[0][2]*m[2][3]*m[3][0] - m[0][3]*m[2][2]*m[3][0] + m[0][3]*m[2][0]*m[3][2] - m[0][0]*m[2][3]*m[3][2] - m[0][2]*m[2][0]*m[3][3] + m[0][0]*m[2][2]*m[3][3]);
+		m[1][2] = d * (m[0][3]*m[1][2]*m[3][0] - m[0][2]*m[1][3]*m[3][0] - m[0][3]*m[1][0]*m[3][2] + m[0][0]*m[1][3]*m[3][2] + m[0][2]*m[1][0]*m[3][3] - m[0][0]*m[1][2]*m[3][3]);
+		m[1][3] = d * (m[0][2]*m[1][3]*m[2][0] - m[0][3]*m[1][2]*m[2][0] + m[0][3]*m[1][0]*m[2][2] - m[0][0]*m[1][3]*m[2][2] - m[0][2]*m[1][0]*m[2][3] + m[0][0]*m[1][2]*m[2][3]);
+		m[2][0] = d * (m[1][1]*m[2][3]*m[3][0] - m[1][3]*m[2][1]*m[3][0] + m[1][3]*m[2][0]*m[3][1] - m[1][0]*m[2][3]*m[3][1] - m[1][1]*m[2][0]*m[3][3] + m[1][0]*m[2][1]*m[3][3]);
+		m[2][1] = d * (m[0][3]*m[2][1]*m[3][0] - m[0][1]*m[2][3]*m[3][0] - m[0][3]*m[2][0]*m[3][1] + m[0][0]*m[2][3]*m[3][1] + m[0][1]*m[2][0]*m[3][3] - m[0][0]*m[2][1]*m[3][3]);
+		m[2][2] = d * (m[0][1]*m[1][3]*m[3][0] - m[0][3]*m[1][1]*m[3][0] + m[0][3]*m[1][0]*m[3][1] - m[0][0]*m[1][3]*m[3][1] - m[0][1]*m[1][0]*m[3][3] + m[0][0]*m[1][1]*m[3][3]);
+		m[2][3] = d * (m[0][3]*m[1][1]*m[2][0] - m[0][1]*m[1][3]*m[2][0] - m[0][3]*m[1][0]*m[2][1] + m[0][0]*m[1][3]*m[2][1] + m[0][1]*m[1][0]*m[2][3] - m[0][0]*m[1][1]*m[2][3]);
+		m[3][0] = d * (m[1][2]*m[2][1]*m[3][0] - m[1][1]*m[2][2]*m[3][0] - m[1][2]*m[2][0]*m[3][1] + m[1][0]*m[2][2]*m[3][1] + m[1][1]*m[2][0]*m[3][2] - m[1][0]*m[2][1]*m[3][2]);
+		m[3][1] = d * (m[0][1]*m[2][2]*m[3][0] - m[0][2]*m[2][1]*m[3][0] + m[0][2]*m[2][0]*m[3][1] - m[0][0]*m[2][2]*m[3][1] - m[0][1]*m[2][0]*m[3][2] + m[0][0]*m[2][1]*m[3][2]);
+		m[3][2] = d * (m[0][2]*m[1][1]*m[3][0] - m[0][1]*m[1][2]*m[3][0] - m[0][2]*m[1][0]*m[3][1] + m[0][0]*m[1][2]*m[3][1] + m[0][1]*m[1][0]*m[3][2] - m[0][0]*m[1][1]*m[3][2]);
+		m[3][3] = d * (m[0][1]*m[1][2]*m[2][0] - m[0][2]*m[1][1]*m[2][0] + m[0][2]*m[1][0]*m[2][1] - m[0][0]*m[1][2]*m[2][1] - m[0][1]*m[1][0]*m[2][2] + m[0][0]*m[1][1]*m[2][2]);
+
+		return mat;
+	}
+
+
+	r_inline real CMat4::Determinant(void) const {
+		return 
+			m[0][3]*m[1][2]*m[2][1]*m[3][0] - m[0][2]*m[1][3]*m[2][1]*m[3][0] - m[0][3]*m[1][1]*m[2][2]*m[3][0] + m[0][1]*m[1][3]*m[2][2]*m[3][0] +
+			m[0][2]*m[1][1]*m[2][3]*m[3][0] - m[0][1]*m[1][2]*m[2][3]*m[3][0] - m[0][3]*m[1][2]*m[2][0]*m[3][1] + m[0][2]*m[1][3]*m[2][0]*m[3][1] +
+			m[0][3]*m[1][0]*m[2][2]*m[3][1] - m[0][0]*m[1][3]*m[2][2]*m[3][1] - m[0][2]*m[1][0]*m[2][3]*m[3][1] + m[0][0]*m[1][2]*m[2][3]*m[3][1] +
+			m[0][3]*m[1][1]*m[2][0]*m[3][2] - m[0][1]*m[1][3]*m[2][0]*m[3][2] - m[0][3]*m[1][0]*m[2][1]*m[3][2] + m[0][0]*m[1][3]*m[2][1]*m[3][2] +
+			m[0][1]*m[1][0]*m[2][3]*m[3][2] - m[0][0]*m[1][1]*m[2][3]*m[3][2] - m[0][2]*m[1][1]*m[2][0]*m[3][3] + m[0][1]*m[1][2]*m[2][0]*m[3][3] +
+			m[0][2]*m[1][0]*m[2][1]*m[3][3] - m[0][0]*m[1][2]*m[2][1]*m[3][3] - m[0][1]*m[1][0]*m[2][2]*m[3][3] + m[0][0]*m[1][1]*m[2][2]*m[3][3];
+	}
+
+	r_inline void CMat4::Compose(CVec3& pos, CQuat& quat, CVec3& scale) {
+//		this->MakeRotationFromQuaternion( quat );
+	}
+
+	r_inline void CMat4::Decompose( CVec3& pos, CQuat& quat, CVec3& scale ) const {
+		pos = CVec3( m[3][0], m[3][1], m[3][2] );
+		CVec3 rot;
+
+		scale.x = sqrtf( m[0][0] * m[0][0] + m[0][1] * m[0][1] + m[0][2] * m[0][2] );
+		scale.y = sqrtf( m[1][0] * m[1][0] + m[1][1] * m[1][1] + m[1][2] * m[1][2] );
+		scale.z = sqrtf( m[2][0] * m[2][0] + m[2][1] * m[2][1] + m[2][2] * m[2][2] );
+
+		if( scale.x == 0 || scale.y == 0 || scale.z == 0 ) return;
+
+		// Detect negative scale with determinant and flip one arbitrary axis
+		if( Determinant() < 0 ) 
+			scale.x = -scale.x;
+
+		// Combined rotation matrix YXZ
+		//
+		// Cos[y]*Cos[z]+Sin[x]*Sin[y]*Sin[z]   Cos[z]*Sin[x]*Sin[y]-Cos[y]*Sin[z]  Cos[x]*Sin[y]	
+		// Cos[x]*Sin[z]                        Cos[x]*Cos[z]                       -Sin[x]
+		// -Cos[z]*Sin[y]+Cos[y]*Sin[x]*Sin[z]  Cos[y]*Cos[z]*Sin[x]+Sin[y]*Sin[z]  Cos[x]*Cos[y]
+
+		rot.x = asinf( -m[2][1] / scale.z );
+		
+		// Special case: Cos[x] == 0 (when Sin[x] is +/-1)
+		real f = fabsf( m[2][1] / scale.z );
+		if( f > 0.999f && f < 1.001f ) {
+			// Pin arbitrarily one of y or z to zero
+			// Mathematical equivalent of gimbal lock
+			rot.y = 0;
+			
+			// Now: Cos[x] = 0, Sin[x] = +/-1, Cos[y] = 1, Sin[y] = 0
+			// => m[0][0] = Cos[z] and m[1][0] = Sin[z]
+			rot.z = atan2f( -m[1][0] / scale.y, m[0][0] / scale.x );
+		}
+		// Standard case
+		else {
+			rot.y = atan2f( m[2][0] / scale.z, m[2][2] / scale.z );
+			rot.z = atan2f( m[0][1] / scale.x, m[1][1] / scale.y );
+		}
+
+		//CMat4 mrot;
+
+
 	}
 
 }
