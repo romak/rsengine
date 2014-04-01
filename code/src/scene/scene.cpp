@@ -26,20 +26,30 @@ namespace rengine3d {
 
 	CScene::CScene() {
 		m_root			= new INode("root");
-		//m_cameraNode	= new INode("camera");
-
-		//m_cameraNode->Attach(m_root);
 	}
 
 	CScene::~CScene() {
+
+		for ( cameraList_t::iterator it = m_cameraList.begin(); it != m_cameraList.end(); ++it ) {
+			SafeDelete(*it);
+		}
+
+		m_cameraList.clear();
+
 		SafeDelete(m_root);
 	}
 
-	void CScene::AddCamera3D(ICamera3D* camera) {
+	void CScene::OnUpdate(real timeStep) {
+
 	}
 
-	ICamera3D* CScene::CreateCamera3D(void) {
-		return new CCamera3D();
+	void CScene::OnDraw(void) {
+	}
+
+	ICamera3D* CScene::CreateCamera3D(const string_t& name) {
+		ICamera3D* camera = new CCamera3D(name);
+		m_cameraList.push_back(camera);
+		return camera;
 	}
 
 

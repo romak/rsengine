@@ -55,8 +55,8 @@ namespace rengine3d {
 		void Set(real n11, real n12, real n13, real n14, real n21, real n22, real n23, real n24, real n31, real n32, real n33, real n34, real n41, real n42, real n43, real n44);
 
 		real Determinant(void) const;
-		void Decompose(CVec3& pos, CQuat& quat, CVec3& scale) const;
-		void Compose(CVec3& pos, CQuat& quat, CVec3& scale);
+		void Decompose(CVec3& pos, CVec3& rot, CVec3& scale) const;
+		void Compose(CVec3& pos, CVec3& rot, CVec3& scale);
 
 		void Identity();
 		void Perspective(real fov, real aspect, real znear, real zfar);
@@ -101,7 +101,7 @@ namespace rengine3d {
 			m[3][0] = m41, m[3][1] = m42, m[3][2] = m43, m[3][3] = m44;
 	}
 
-	r_inline real *CMat4::operator[](int row){
+	r_inline real* CMat4::operator[](int row){
 		return m[row];
 	}
 
@@ -266,20 +266,6 @@ namespace rengine3d {
 	}
 
 	r_inline void CMat4::Rotate(const CVec3& axis, real degrees)	{
-		// Creates a rotation matrix about the specified axis.
-		// The axis must be a unit vector. The angle must be in degrees.
-		//
-		// Let u = axis of rotation = (x, y, z)
-		//
-		//             | x^2(1 - c) + c  xy(1 - c) + zs  xz(1 - c) - ys   0 |
-		// Ru(angle) = | yx(1 - c) - zs  y^2(1 - c) + c  yz(1 - c) + xs   0 |
-		//             | zx(1 - c) - ys  zy(1 - c) - xs  z^2(1 - c) + c   0 |
-		//             |      0              0                0           1 |
-		//
-		// where,
-		//	c = cos(angle)
-		//  s = sin(angle)
-
 		degrees = DegreesToRadians(degrees);
 
 		real x = axis.x;
@@ -310,31 +296,15 @@ namespace rengine3d {
 	}
 
 	r_inline void CMat4::Scale(real sx, real sy, real sz){
-		// Creates a scaling matrix.
-		//
-		//                 | sx   0    0    0 |
-		// S(sx, sy, sz) = | 0    sy   0    0 |
-		//                 | 0    0    sz   0 |
-		//                 | 0    0    0    1 |
-
-		m[0][0] = sx,   m[0][1] = 0.0f, m[0][2] = 0.0f, m[0][3] = 0.0f;
-		m[1][0] = 0.0f, m[1][1] = sy,   m[1][2] = 0.0f, m[1][3] = 0.0f;
-		m[2][0] = 0.0f, m[2][1] = 0.0f, m[2][2] = sz,   m[2][3] = 0.0f;
-		m[3][0] = 0.0f, m[3][1] = 0.0f, m[3][2] = 0.0f, m[3][3] = 1.0f;
+		m[0][0] = sx;
+		m[1][1] = sy;
+		m[2][2] = sz;
 	}
 
 	r_inline void CMat4::Translate(real tx, real ty, real tz) {
-		// Creates a translation matrix.
-		//
-		//                 | 1    0    0    0 |
-		// T(tx, ty, tz) = | 0    1    0    0 |
-		//                 | 0    0    1    0 |
-		//                 | tx   ty   tz   1 |
-
-		m[0][0] = 1.0f, m[0][1] = 0.0f, m[0][2] = 0.0f, m[0][3] = 0.0f;
-		m[1][0] = 0.0f, m[1][1] = 1.0f, m[1][2] = 0.0f, m[1][3] = 0.0f;
-		m[2][0] = 0.0f, m[2][1] = 0.0f, m[2][2] = 1.0f, m[2][3] = 0.0f;
-		m[3][0] = tx,   m[3][1] = ty,   m[3][2] = tz,   m[3][3] = 1.0f;
+		m[3][0] = tx;
+		m[3][1] = ty;
+		m[3][2] = tz;
 	}
 
 	r_inline CVec3 CMat4::GetForward(void) const {
@@ -386,14 +356,14 @@ namespace rengine3d {
 			m[0][2]*m[1][0]*m[2][1]*m[3][3] - m[0][0]*m[1][2]*m[2][1]*m[3][3] - m[0][1]*m[1][0]*m[2][2]*m[3][3] + m[0][0]*m[1][1]*m[2][2]*m[3][3];
 	}
 
-	r_inline void CMat4::Compose(CVec3& pos, CQuat& quat, CVec3& scale) {
+	r_inline void CMat4::Compose(CVec3& pos, CVec3& rot, CVec3& scale) {
 		//this->MakeRotationFromQuaternion( quat );
 	}
 
-	r_inline void CMat4::Decompose( CVec3& pos, CQuat& quat, CVec3& scale ) const {
+	r_inline void CMat4::Decompose( CVec3& pos, CVec3& rot, CVec3& scale ) const {
 		pos = CVec3( m[3][0], m[3][1], m[3][2] );
-		CVec3 rot;
 
+		// Scale is length of columns
 		scale.x = sqrtf( m[0][0] * m[0][0] + m[0][1] * m[0][1] + m[0][2] * m[0][2] );
 		scale.y = sqrtf( m[1][0] * m[1][0] + m[1][1] * m[1][1] + m[1][2] * m[1][2] );
 		scale.z = sqrtf( m[2][0] * m[2][0] + m[2][1] * m[2][1] + m[2][2] * m[2][2] );
@@ -401,20 +371,14 @@ namespace rengine3d {
 		if( scale.x == 0 || scale.y == 0 || scale.z == 0 ) return;
 
 		// Detect negative scale with determinant and flip one arbitrary axis
-		if( Determinant() < 0 ) 
-			scale.x = -scale.x;
-
-		// Combined rotation matrix YXZ
-		//
-		// Cos[y]*Cos[z]+Sin[x]*Sin[y]*Sin[z]   Cos[z]*Sin[x]*Sin[y]-Cos[y]*Sin[z]  Cos[x]*Sin[y]	
-		// Cos[x]*Sin[z]                        Cos[x]*Cos[z]                       -Sin[x]
-		// -Cos[z]*Sin[y]+Cos[y]*Sin[x]*Sin[z]  Cos[y]*Cos[z]*Sin[x]+Sin[y]*Sin[z]  Cos[x]*Cos[y]
+		if( Determinant() < 0 ) scale.x = -scale.x;
 
 		rot.x = asinf( -m[2][1] / scale.z );
 
 		// Special case: Cos[x] == 0 (when Sin[x] is +/-1)
 		real f = fabsf( m[2][1] / scale.z );
-		if( f > 0.999f && f < 1.001f ) {
+		if( f > 0.999f && f < 1.001f )
+		{
 			// Pin arbitrarily one of y or z to zero
 			// Mathematical equivalent of gimbal lock
 			rot.y = 0;
@@ -424,12 +388,12 @@ namespace rengine3d {
 			rot.z = atan2f( -m[1][0] / scale.y, m[0][0] / scale.x );
 		}
 		// Standard case
-		else {
+		else
+		{
 			rot.y = atan2f( m[2][0] / scale.z, m[2][2] / scale.z );
 			rot.z = atan2f( m[0][1] / scale.x, m[1][1] / scale.y );
 		}
 
-		//CMat4 mrot;
 	}
 
 	r_inline CMat4 CMat4::MakeRotationFromQuaternion(real x, real y, real z, real w) {

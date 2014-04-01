@@ -41,6 +41,12 @@ namespace rengine3d {
 	class CFrustum;
 	class CRect;
 
+	typedef std::vector<CVec3>			vec3List_t;
+	typedef vec3List_t::iterator		vec3ListIt_t;
+
+	typedef std::vector<CVec4>			vec4List_t;
+	typedef vec4List_t::iterator		vec4ListIt_t;
+
 	#define SQR(x)	((x) * (x))
 
 	//! Константа для числа PI.

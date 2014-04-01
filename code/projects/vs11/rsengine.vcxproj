@@ -50,10 +50,11 @@
     <ClInclude Include="..\..\inc\mathlib\mathlib.h" />
     <ClInclude Include="..\..\inc\mathlib\plane.h" />
     <ClInclude Include="..\..\inc\mathlib\quat.h" />
-    <ClInclude Include="..\..\inc\mathlib\transform.h" />
     <ClInclude Include="..\..\inc\mathlib\vec2.h" />
     <ClInclude Include="..\..\inc\mathlib\vec3.h" />
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
+    <ClInclude Include="..\..\inc\render\iface.h" />
+    <ClInclude Include="..\..\inc\render\igeometry.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\irenderdriver.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />

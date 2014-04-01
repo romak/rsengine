@@ -22,17 +22,23 @@
 
 namespace rengine3d {
 
+	typedef std::vector<ICamera*> cameraList_t;
+
 	class CScene: public IScene {
 	public:
 		CScene();
 		virtual ~CScene();
 
-		virtual void AddCamera3D(ICamera3D* camera);
-		virtual ICamera3D* CreateCamera3D(void); 
+		virtual void OnUpdate(real timeStep);
+		virtual void OnDraw(void);
+
+		virtual ICamera3D* CreateCamera3D(const string_t& name); 
 
 	private:
 		INode*	m_root;
-		INode*	m_cameraNode;
+
+		cameraList_t	m_cameraList;
+		ICamera*		m_activeCamera;
 	};
 
 }

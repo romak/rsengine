@@ -21,7 +21,7 @@
 #define __CQUAT_H__
 
 namespace rengine3d {
-	class CVec3;
+
 	class CQuat {
 	public:
 		CQuat();

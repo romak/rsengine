@@ -36,7 +36,6 @@
 #include "mathlib\boundsphere.h"
 #include "mathlib\plane.h"
 #include "mathlib\frustum.h"
-#include "mathlib\transform.h"
 
 #include "kernel\irefcount.h"
 #include "kernel\args.h"
@@ -71,17 +70,19 @@
 #include "kernel\isystem.h"
 #include "kernel\iconsole.h"
 
+#include "render\rendertypes.h"
+#include "render\rendervertex.h"
+#include "render\iface.h"
+#include "render\igeometry.h"
+#include "render\imesh.h"
+#include "render\irenderdriver.h"
+
 #include "scene\inode.h"
 #include "scene\iobject3d.h"
 #include "scene\icamera.h"
 #include "scene\icamera2d.h"
 #include "scene\icamera3d.h"
 #include "scene\iscene.h"
-
-#include "render\rendertypes.h"
-#include "render\rendervertex.h"
-#include "render\imesh.h"
-#include "render\irenderdriver.h"
 
 #include "kernel\ikernel.h"
 

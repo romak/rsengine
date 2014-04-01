@@ -129,9 +129,6 @@
     <ClInclude Include="..\..\inc\mathlib\quat.h">
       <Filter>inc\mathlib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\mathlib\transform.h">
-      <Filter>inc\mathlib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\kernel\imutex.h">
       <Filter>inc\kernel</Filter>
     </ClInclude>
@@ -287,6 +284,12 @@
     </ClInclude>
     <ClInclude Include="..\..\inc\scene\inode.h">
       <Filter>inc\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\igeometry.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\iface.h">
+      <Filter>inc\render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

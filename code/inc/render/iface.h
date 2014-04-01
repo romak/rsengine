@@ -17,18 +17,37 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __ISCENE_H__
-#define __ISCENE_H__
+#ifndef __IFACE_H__
+#define __IFACE_H__
 
 namespace rengine3d {
 
-	class IScene: public IUpdateable {
+	class IFace {
 	public:
-		IScene(){};
-		virtual ~IScene(){};
-
-		virtual ICamera3D* CreateCamera3D(const string_t& name) = 0; 
+		IFace(real a, real b, real c, CVec3 normal, CVec4 color, uint materialIndex);
+	public:
+		real		m_a;
+		real		m_b;
+		real		m_c;
+		CVec3		m_normal;
+		CVec4		m_color;
+		CVec3		m_center;
+		uint		m_material;
+		vec3List_t	m_normals;
+		vec3List_t	m_tangents;
+		vec4List_t	m_colors;
 	};
+
+	r_inline IFace::IFace(real a, real b, real c, CVec3 normal, CVec4 color, uint materialIndex) {
+		m_a			= a;
+		m_b			= b;
+		m_c			= c;
+		m_normal	= normal;
+
+		m_color		= color;
+		m_material	= materialIndex;
+	}
+
 }
 
 #endif

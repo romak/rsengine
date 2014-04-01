@@ -30,6 +30,11 @@ namespace rengine3d {
 		m_far		= 3000.0f;
 	}
 
+	CCamera3D::CCamera3D(const string_t& name) {
+		CCamera3D::CCamera3D();
+		m_name = name;
+	}
+
 	CCamera3D::CCamera3D(real fov, real aspect, real _near, real _far) {
 		m_fov		= fov;
 		m_aspect	= aspect;

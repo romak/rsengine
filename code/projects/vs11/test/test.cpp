@@ -23,6 +23,8 @@ private:
 	IKeyboardDevice*	keyboardDevice;
 	IMouseDevice*		mouseDevice;
 	IInputSystem*		inputSys;
+	ICamera3D*			camera;
+	IScene*				scene;
 };
 
 CMainApp::CMainApp(): IUpdateable("CMainApp") {	
@@ -40,22 +42,16 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 	inputSys		= kernel->GetInputSystem();
 	keyboardDevice	= inputSys->GetKeyboardDevice();
 	mouseDevice		= inputSys->GetMouseDevice();
+	scene			= kernel->GetScene();
+
+	camera = scene->CreateCamera3D("camera01");
 
 	updateSys->AddUpdater(this);
+	updateSys->AddUpdater(scene);
 
 	inputSys->AddAction(new CActionKeyboard("Escape", inputSys, key_ESCAPE));
 
 	renderDriver->SetWindowCaption("#test application#");
-
-	CVec3 axis = CVec3(1,0,0);
-	real angle = 10;
-	CQuat q1;
-	q1.SetFromAxisAngle(axis, angle);
-
-	CMat4 m;
-	m.Scale(1,0,0);
-
-
 }
 
 CMainApp::~CMainApp() {

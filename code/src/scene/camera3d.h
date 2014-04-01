@@ -25,6 +25,7 @@ namespace rengine3d {
 	class CCamera3D: public ICamera3D {
 	public:
 		CCamera3D();
+		CCamera3D(const string_t& name);
 		CCamera3D(real fov, real aspect, real near, real far);
 		virtual ~CCamera3D();
 
