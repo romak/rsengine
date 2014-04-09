@@ -263,6 +263,10 @@ namespace rengine3d {
 		return CQuat(-m_v.x, -m_v.y, -m_v.z, m_w);
 	}
 
+	r_inline CVec3 CQuat::Rotate(const CVec3& vec) const {
+		return (*this * CQuat(vec.x, vec.y, vec.z, 0.f) * GetInverse()).m_v;
+	}
+
 	r_inline void CQuat::ToMatrix(CMat4& result) const {
 		real wx, wy, wz, xx, xy, xz, yy, yz, zz;
 
@@ -307,7 +311,7 @@ namespace rengine3d {
 	}
 
 	r_inline void CQuat::Identity(void){
-		m_v.Set(0,0,0);
+		m_v.Set(0.0f, 0.0f, 0.0f);
 		m_w = 1.0f;
 	}
 

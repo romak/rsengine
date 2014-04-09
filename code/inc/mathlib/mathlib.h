@@ -47,7 +47,7 @@ namespace rengine3d {
 	typedef std::vector<CVec4>			vec4List_t;
 	typedef vec4List_t::iterator		vec4ListIt_t;
 
-	#define SQR(x)	((x) * (x))
+#define SQR(x)	((x) * (x))
 
 	//! Константа для числа PI.
 	const real PI			= 3.14159265359f;
@@ -86,18 +86,36 @@ namespace rengine3d {
 
 	}
 
-	r_inline float DegreesToRadians(float degrees){
+	r_inline float DegreesToRadians(float degrees) {
 		return (degrees * PI) / 180.0f;
 	}
 
-	r_inline bool CloseEnough(real f1, real f2){
+	r_inline bool CloseEnough(real f1, real f2) {
 		// Determines whether the two floating-point values f1 and f2 are
 		// close enough together that they can be considered equal.
 		return fabsf((f1 - f2) / ((f2 == 0.0f) ? 1.0f : f2)) < EPSILON;
 	}
 
-	r_inline float RadiansToDegrees(float radians){
+	r_inline float RadiansToDegrees(float radians) {
 		return (radians * 180.0f) / PI;
+	}
+
+	template <typename T>
+	r_inline T Interpolate(const T& a, const T& b, float l) {
+		return a + (b - a) * l;
+	}
+
+	template <typename T> 
+	r_inline T Clamp(T value, T min, T max){
+		if (value <= min) return min;
+		else if (value >= max) return max;
+		else return value;
+	}
+
+	r_inline float Sgn(float a) {
+		if (a > 0.0f) return 1.0f;
+		if (a < 0.0f) return -1.0f;
+		return 0.0f;
 	}
 
 }

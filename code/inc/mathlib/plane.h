@@ -39,10 +39,18 @@ namespace rengine3d {
 		void MakeFormPointNormal(const CVec3& p, const CVec3& normal);
 
 		void Normalize(void);
+
 		// if > 0 point in front of the plane
 		// if < 0 point in back of the plane
 		// if = 0 point on the plane
 		real Dot(const CPlane& plane, const CVec3& p);
+		real Dot(const CVec3& p);
+
+		real DistanceToPlane (const CVec3& point) const;
+
+		//calculates the intersection point of a line with this plane. Returns false if there is no intersection
+		bool FindLineSegIntersection (const CVec3& start, const CVec3& end, CVec3* intsect);
+		bool FindRayIntersection (const CVec3& start, const CVec3& direction, CVec3* intsect);
 	public:
 		CVec3	m_normal;
 		real	m_distance;
@@ -81,6 +89,36 @@ namespace rengine3d {
 
 	r_inline real CPlane::Dot(const CPlane& plane, const CVec3& p) {
 		return plane.m_normal.Dot(p) + plane.m_distance;
+	}
+
+	r_inline real CPlane::Dot(const CVec3& p) {
+		return this->m_normal.Dot(p) + this->m_distance;
+	}
+
+	r_inline real CPlane::DistanceToPlane (const CVec3& point) const {
+		return m_normal.x * point.x + m_normal.y * point.y + m_normal.z * point.z + m_distance;
+	}
+
+	r_inline bool CPlane::FindLineSegIntersection (const CVec3& start, const CVec3& end, CVec3* intsect) {
+		real dist1 = DistanceToPlane(start);
+		real dist2 = DistanceToPlane(end);
+
+		if ( (dist1 < 0 && dist2 < 0) || (dist1 >= 0 && dist2 >= 0) )
+			return false;
+
+		real t = (-dist1) / (dist2-dist1);
+		*intsect = Interpolate( start, end, t );
+
+		return true;
+	}
+
+	r_inline bool CPlane::FindRayIntersection (const CVec3& start, const CVec3& direction, CVec3* intsect) {
+		real dot = m_normal.Dot (direction);
+		if (dot == 0.0f)
+			return false;
+
+		*intsect = start - (direction * (DistanceToPlane (start) / dot));
+		return true;
 	}
 
 }

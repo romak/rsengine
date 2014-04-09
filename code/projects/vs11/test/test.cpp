@@ -52,6 +52,17 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 	inputSys->AddAction(new CActionKeyboard("Escape", inputSys, key_ESCAPE));
 
 	renderDriver->SetWindowCaption("#test application#");
+
+	CQuat q1;
+	CVec3 v1;
+	q1.Normalize();
+
+	v1 = q1.Rotate(CVec3(45,0,0));
+
+	real a,b,r;
+	a = 10;
+	b = 20;
+	r = Interpolate(a, b, 2);
 }
 
 CMainApp::~CMainApp() {
