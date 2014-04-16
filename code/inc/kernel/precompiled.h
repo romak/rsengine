@@ -72,6 +72,8 @@
 
 #include "render\rendertypes.h"
 #include "render\rendervertex.h"
+#include "render\iimage.h"
+#include "render\itexture.h"
 #include "render\iface.h"
 #include "render\igeometry.h"
 #include "render\imesh.h"

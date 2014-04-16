@@ -291,6 +291,15 @@
     <ClInclude Include="..\..\inc\render\iface.h">
       <Filter>inc\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\render\iimage.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\itexture.h">
+      <Filter>inc\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\render\sdl\texture_sdl.h">
+      <Filter>src\render\sdl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">
@@ -373,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\scene\scene.cpp">
       <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\render\sdl\texture_sdl.cpp">
+      <Filter>src\render\sdl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

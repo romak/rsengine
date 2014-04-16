@@ -55,8 +55,10 @@
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\iface.h" />
     <ClInclude Include="..\..\inc\render\igeometry.h" />
+    <ClInclude Include="..\..\inc\render\iimage.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\irenderdriver.h" />
+    <ClInclude Include="..\..\inc\render\itexture.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\inc\scene\icamera.h" />
@@ -88,6 +90,7 @@
     <ClInclude Include="..\..\src\kernel\win\systemwin.h" />
     <ClInclude Include="..\..\src\kernel\xml.h" />
     <ClInclude Include="..\..\src\render\sdl\renderdriver_sdl.h" />
+    <ClInclude Include="..\..\src\render\sdl\texture_sdl.h" />
     <ClInclude Include="..\..\src\scene\camera3d.h" />
     <ClInclude Include="..\..\src\scene\scene.h" />
   </ItemGroup>
@@ -120,6 +123,7 @@
     <ClCompile Include="..\..\src\kernel\win\systemwin.cpp" />
     <ClCompile Include="..\..\src\kernel\xml.cpp" />
     <ClCompile Include="..\..\src\render\sdl\renderdriver_sdl.cpp" />
+    <ClCompile Include="..\..\src\render\sdl\texture_sdl.cpp" />
     <ClCompile Include="..\..\src\scene\camera3d.cpp" />
     <ClCompile Include="..\..\src\scene\scene.cpp" />
   </ItemGroup>

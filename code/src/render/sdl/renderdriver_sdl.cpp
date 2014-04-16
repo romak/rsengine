@@ -24,6 +24,7 @@
 #include "sdl/SDL.h"
 #include <SDL\SDL_opengl.h>
 #include "renderdriver_sdl.h"
+#include "texture_sdl.h"
 
 #if PLATFORM == PLATFORM_WIN32
 #pragma comment(lib, "OpenGL32.lib")
