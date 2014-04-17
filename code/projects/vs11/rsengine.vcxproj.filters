@@ -285,9 +285,6 @@
     <ClInclude Include="..\..\inc\scene\inode.h">
       <Filter>inc\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\render\igeometry.h">
-      <Filter>inc\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\inc\render\iface.h">
       <Filter>inc\render</Filter>
     </ClInclude>
@@ -299,6 +296,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\render\sdl\texture_sdl.h">
       <Filter>src\render\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\render\itexturemanager.h">
+      <Filter>inc\render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

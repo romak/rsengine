@@ -25,6 +25,7 @@ namespace rengine3d {
 	class ISubMesh {
 	public:
 		ISubMesh();
+		ISubMesh(const string_t& name);
 		virtual ~ISubMesh();
 
 		void Clear(void);
@@ -34,6 +35,14 @@ namespace rengine3d {
 		void ClearTangents(void);
 		void ClearTexCoords(void);
 		void ClearColors(void);
+
+		virtual void ComputeCenter(void);
+		virtual void ComputeFaceNormals(void);
+		virtual void ComputeVertexNormals(void);
+		virtual void ComputeMorphNormals(void);
+		virtual void ComputeTangents(void);
+		virtual void ComputeBoundingBox(void);
+		virtual void MergeVertices(void);
 
 		void*  AllocIndices(uint size, indicesType_t type);
 		CVec4* AllocColors(uint size);
@@ -52,6 +61,9 @@ namespace rengine3d {
 		indicesType_t GetIndicesType() {return m_indicesType; }
 
 	protected:
+		string_t		m_name;
+		uint			m_id;
+
 		indicesType_t	m_indicesType;
 
 		uint			m_indicesSize;
@@ -68,11 +80,23 @@ namespace rengine3d {
 		CVec2*			m_texCoords;
 		void*			m_indices;
 
+		bool			m_hasTangents;
 		CBoundBox		m_boundBox;
 	};
 
 	r_inline ISubMesh::ISubMesh():m_colors(NULL),m_vertices(NULL),m_normals(NULL),m_tangents(NULL),m_texCoords(NULL),m_indices(NULL) {
 		m_indicesSize = 0; m_verticesSize = 0; m_normalsSize = 0; m_tangentsSize = 0; m_texCoordsSize = 0; m_colorsSize = 0;
+		m_id	= 0;
+		m_hasTangents = false;
+
+	}
+
+	r_inline ISubMesh::ISubMesh(const string_t& name):m_colors(NULL),m_vertices(NULL),m_normals(NULL),m_tangents(NULL),m_texCoords(NULL),m_indices(NULL) {
+		m_indicesSize = 0; m_verticesSize = 0; m_normalsSize = 0; m_tangentsSize = 0; m_texCoordsSize = 0; m_colorsSize = 0;
+		m_name	= name;
+		m_id	= MakeCRC(name.c_str());
+		m_hasTangents = false;
+
 	}
 
 	r_inline ISubMesh::~ISubMesh() {
@@ -190,7 +214,28 @@ namespace rengine3d {
 		return m_texCoords;
 	}
 
+	r_inline void ISubMesh::ComputeCenter(void) {
+	}
 
+	r_inline void ISubMesh::ComputeFaceNormals(void) {
+	}
+
+	r_inline void ISubMesh::ComputeVertexNormals(void) {
+	}
+
+	r_inline void ISubMesh::ComputeMorphNormals(void) {
+	}
+
+	r_inline void ISubMesh::ComputeTangents(void) {
+	}
+
+	r_inline void ISubMesh::ComputeBoundingBox(void) {
+	}
+
+	r_inline void ISubMesh::MergeVertices(void) {
+	}
+
+	// IMesh
 	class IMesh {
 	public:
 		IMesh();
@@ -227,7 +272,6 @@ namespace rengine3d {
 	r_inline void IMesh::ClearSubMeshes(void) {
 		m_numSubMeshes = 0;
 		SafeArrayDelete(m_subMeshes);
-
 	}
 
 	r_inline ISubMesh* IMesh::AllocSubMeshes(uint size) {

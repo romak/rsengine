@@ -54,11 +54,11 @@
     <ClInclude Include="..\..\inc\mathlib\vec3.h" />
     <ClInclude Include="..\..\inc\mathlib\vec4.h" />
     <ClInclude Include="..\..\inc\render\iface.h" />
-    <ClInclude Include="..\..\inc\render\igeometry.h" />
     <ClInclude Include="..\..\inc\render\iimage.h" />
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\irenderdriver.h" />
     <ClInclude Include="..\..\inc\render\itexture.h" />
+    <ClInclude Include="..\..\inc\render\itexturemanager.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\inc\scene\icamera.h" />

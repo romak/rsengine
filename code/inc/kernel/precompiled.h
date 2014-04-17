@@ -74,8 +74,8 @@
 #include "render\rendervertex.h"
 #include "render\iimage.h"
 #include "render\itexture.h"
+#include "render\itexturemanager.h"
 #include "render\iface.h"
-#include "render\igeometry.h"
 #include "render\imesh.h"
 #include "render\irenderdriver.h"
 

@@ -43,15 +43,16 @@ namespace rengine3d {
 		virtual bool SaveConfig( string_t fileName );
 
 		virtual ILog* GetLog( void );
-		virtual IFileSystem* GetFileSystem(void)	{ return m_fileSystem; };
-		virtual IVarSystem* GetVarSystem(void)		{ return m_varSystem;  };
-		virtual ICmdSystem* GetCmdSystem( void )	{ return m_cmdSystem;  }; 
-		virtual IConsole* GetConsole(void)			{ return m_console;	   };
+		virtual IFileSystem* GetFileSystem(void)	{ return m_fileSystem;};
+		virtual IVarSystem* GetVarSystem(void)		{ return m_varSystem;};
+		virtual ICmdSystem* GetCmdSystem( void )	{ return m_cmdSystem;}; 
+		virtual IConsole* GetConsole(void)			{ return m_console;};
 
-		virtual ISystem* GetSystem(void)			{ return m_system;	   };
+		virtual ISystem* GetSystem(void)			{ return m_system;};
 		virtual IUpdateSystem* GetUpdateSystem(void){ return m_updateSystem;};
-		virtual IInputSystem* GetInputSystem(void)			{ return m_inputSystem;	   };
-		virtual IRenderDriver* GetRenderDriver(void);
+		virtual IInputSystem* GetInputSystem(void)			{ return m_inputSystem;};
+		virtual IRenderDriver* GetRenderDriver(void)		{ return m_renderDriver;}
+		virtual ITextureManager* GetTextureManager(void)	{ return m_textureManager;};
 
 		virtual IScene* GetScene(void)				{ return m_scene;};
 
@@ -86,6 +87,7 @@ namespace rengine3d {
 		IUpdateSystem*		m_updateSystem;
 		IRenderDriver*		m_renderDriver;
 		IInputSystem*		m_inputSystem;
+		ITextureManager*	m_textureManager;
 		IConsole*			m_console;
 		IScene*				m_scene;
 	};

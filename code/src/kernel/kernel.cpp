@@ -216,10 +216,6 @@ namespace rengine3d {
 		return "0.0.1";
 	}
 
-	IRenderDriver* CKernel::GetRenderDriver(void)	{ 
-		return m_renderDriver;	
-	};
-
 	bool CKernel::RegisterSubSystem(ISubSystem* subSystem) {
 		if (!subSystem)
 			return false;
