@@ -11,10 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\deps\stb\stb_image.c" />
+    <ClCompile Include="..\..\src\deps\stb\stb_image_write.c" />
+    <ClCompile Include="..\..\src\deps\stb\stb_vorbis.c" />
     <ClCompile Include="..\..\src\deps\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\deps\unzip\unzip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\deps\stb\stb_image.h" />
+    <ClInclude Include="..\..\src\deps\stb\stb_image_write.h" />
+    <ClInclude Include="..\..\src\deps\stb\stb_vorbis.h" />
     <ClInclude Include="..\..\src\deps\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\src\deps\unzip\unzip.h" />
   </ItemGroup>

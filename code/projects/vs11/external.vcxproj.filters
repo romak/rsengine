@@ -7,6 +7,9 @@
     <Filter Include="tinyxml2">
       <UniqueIdentifier>{0ada341d-936e-440e-895d-7bdf99e945bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stb">
+      <UniqueIdentifier>{548cd4b8-75d8-4184-b9f5-dc96a5a64e13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\deps\unzip\unzip.cpp">
@@ -15,6 +18,15 @@
     <ClCompile Include="..\..\src\deps\tinyxml2\tinyxml2.cpp">
       <Filter>tinyxml2</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\deps\stb\stb_image.c">
+      <Filter>stb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\deps\stb\stb_image_write.c">
+      <Filter>stb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\deps\stb\stb_vorbis.c">
+      <Filter>stb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\deps\unzip\unzip.h">
@@ -22,6 +34,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\deps\tinyxml2\tinyxml2.h">
       <Filter>tinyxml2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\deps\stb\stb_image.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\deps\stb\stb_image_write.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\deps\stb\stb_vorbis.h">
+      <Filter>stb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
