@@ -12,11 +12,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\deps\stb\stb_image.c" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="..\..\src\deps\stb\stb_image_write.c" />
+    <ClCompile Include="..\..\src\deps\stb\stb_vorbis.c" />
+>>>>>>> d270b982c6217274f9fd3fe305b6b8ddc00dab5c
     <ClCompile Include="..\..\src\deps\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\deps\unzip\unzip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\deps\stb\stb_image.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="..\..\src\deps\stb\stb_image_write.h" />
+    <ClInclude Include="..\..\src\deps\stb\stb_vorbis.h" />
+>>>>>>> d270b982c6217274f9fd3fe305b6b8ddc00dab5c
     <ClInclude Include="..\..\src\deps\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\src\deps\unzip\unzip.h" />
   </ItemGroup>

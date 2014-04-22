@@ -213,3 +213,11 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+/code/src/deps/stb/stb_vorbis.h
+/code/src/deps/stb/stb_image_write.c
+/code/src/deps/stb/stb_image_write.h
+/code/src/deps/stb/stb_vorbis.c
+/code/src/deps/stb/stb_image_write.h
+/code/src/deps/stb/stb_vorbis.c
+/code/src/deps/stb/stb_vorbis.h
+/code/src/deps/stb/stb_image_write.c
