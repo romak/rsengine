@@ -49,6 +49,8 @@
 #include "kernel\ixml.h"
 #include "kernel\isystem.h"
 #include "kernel\iupdateable.h"
+#include "kernel\iresource.h"
+#include "kernel\iresourcemanager.h"
 
 #include "input\inputtypes.h"
 #include "input\iinputaction.h"
@@ -74,7 +76,6 @@
 #include "render\rendervertex.h"
 #include "render\iimage.h"
 #include "render\itexture.h"
-#include "render\itexturemanager.h"
 #include "render\iface.h"
 #include "render\imesh.h"
 #include "render\irenderdriver.h"

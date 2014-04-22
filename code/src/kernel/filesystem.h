@@ -26,6 +26,8 @@ namespace rengine3d {
 	typedef std::vector<IArchive*>			archives_t;
 	typedef std::vector<IArchive*>			archiveFactory_t;
 
+	typedef std::vector<IFile*>				filesList_t;
+
 	class CFileSystem: public IFileSystem {
 	public:
 		CFileSystem();
@@ -60,11 +62,10 @@ namespace rengine3d {
 
 		virtual string_t GetClassName() { return "CFileSystem"; };
 	private:
-		//bool				m_initialized;
-
 		assignMap_t			m_assigns;
 		archives_t			m_archives;
 		archiveFactory_t	m_archiveFactory;
+		filesList_t			m_files;
 
 	};
 

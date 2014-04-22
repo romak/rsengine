@@ -297,8 +297,14 @@
     <ClInclude Include="..\..\src\render\sdl\texture_sdl.h">
       <Filter>src\render\sdl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\inc\render\itexturemanager.h">
-      <Filter>inc\render</Filter>
+    <ClInclude Include="..\..\inc\kernel\iresource.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\iresourcemanager.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\kernel\resourcemanager.h">
+      <Filter>src\kernel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\render\sdl\texture_sdl.cpp">
       <Filter>src\render\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\kernel\resourcemanager.cpp">
+      <Filter>src\kernel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

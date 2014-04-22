@@ -31,6 +31,7 @@
 #include "console.h"
 #include "updatesystem.h"
 #include "enginevars.h"
+#include "resourcemanager.h"
 
 #ifdef  USE_SDL
 #include "sdl/SDL_config.h"
@@ -127,6 +128,8 @@ namespace rengine3d {
 		m_renderDriver	= NULL;
 		m_inputSystem	= NULL;
 		m_console		= NULL;
+		m_scene			= NULL;
+		m_resourceManager	= NULL;
 
 		m_quit			= false;
 		m_logFileName	= logFileName.GetString();
@@ -145,12 +148,13 @@ namespace rengine3d {
 		Log("Initializing Engine...\n");
 		Log("Build information: %s\n", BUILD_STRING);
 
-		m_system		= new CSystem();
-		m_fileSystem	= new CFileSystem();
-		m_varSystem		= new CVarSystem;
-		m_cmdSystem		= new CCmdSystem;
-		m_updateSystem	= new CUpdateSystem;
-		m_console		= new CConsole(this);
+		m_system			= new CSystem();
+		m_fileSystem		= new CFileSystem();
+		m_varSystem			= new CVarSystem;
+		m_cmdSystem			= new CCmdSystem;
+		m_updateSystem		= new CUpdateSystem;
+		m_console			= new CConsole(this);
+		m_resourceManager	= new CResourceManager(m_fileSystem);
 #ifdef  USE_SDL
 		m_renderDriver	= new CRenderDriverSDL(this);
 		m_inputSystem	= new CInputSystemSDL(m_renderDriver);
@@ -165,6 +169,7 @@ namespace rengine3d {
 		this->RegisterSubSystem(m_varSystem);
 		this->RegisterSubSystem(m_cmdSystem);
 		this->RegisterSubSystem(m_console);
+		this->RegisterSubSystem(m_resourceManager);
 		this->RegisterSubSystem(m_renderDriver);
 		this->RegisterSubSystem((ISubSystem*)m_updateSystem);
 		this->RegisterSubSystem((ISubSystem*)m_inputSystem);
@@ -174,7 +179,6 @@ namespace rengine3d {
 		}
 
 		m_updateSystem->AddUpdaterVariable(m_console);
-
 
 		Log("Registered %d subsystems.\n", m_subSystems.size());
 

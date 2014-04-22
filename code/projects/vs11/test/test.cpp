@@ -23,6 +23,7 @@ private:
 	IKeyboardDevice*	keyboardDevice;
 	IMouseDevice*		mouseDevice;
 	IInputSystem*		inputSys;
+	IResourceManager*	m_resourceManager;
 	ICamera3D*			camera;
 	IScene*				scene;
 };
@@ -43,7 +44,14 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 	keyboardDevice	= inputSys->GetKeyboardDevice();
 	mouseDevice		= inputSys->GetMouseDevice();
 	scene			= kernel->GetScene();
+	m_resourceManager	= kernel->GetResourceManager();
 
+	IResource* res = m_resourceManager->Add("textures/lensflare0.png", resourceType_t::Texture);
+	IResource* tempRes = m_resourceManager->Find("Textures/lensflare0.png", resourceType_t::Texture);
+
+	m_resourceManager->Load();
+
+	m_resourceManager->List(resourceType_t::All);
 	camera = scene->CreateCamera3D("camera01");
 
 	updateSys->AddUpdater(this);
@@ -52,17 +60,6 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 	inputSys->AddAction(new CActionKeyboard("Escape", inputSys, key_ESCAPE));
 
 	renderDriver->SetWindowCaption("#test application#");
-
-	CQuat q1;
-	CVec3 v1;
-	q1.Normalize();
-
-	v1 = q1.Rotate(CVec3(45,0,0));
-
-	real a,b,r;
-	a = 10;
-	b = 20;
-	r = Interpolate(a, b, 2);
 }
 
 CMainApp::~CMainApp() {

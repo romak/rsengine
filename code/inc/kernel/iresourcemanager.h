@@ -17,26 +17,32 @@
 * along with rsengine.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __TEXTURESDL_H__
-#define __TEXTURESDL_H__
+#ifndef __IRESOURCEMANAGER_H__
+#define __IRESOURCEMANAGER_H__
 
 namespace rengine3d {
 
-	class CTextureSDL: public ITexture {
+	typedef IResource *(*ResTypeFactoryFunc)(const string_t& name);
+
+	typedef struct {
+		string_t typeString;
+		ResTypeFactoryFunc factoryFunc;
+	} resourceRegInfo_t;
+
+	class IResourceManager: public ISubSystem {
 	public:
-		static IResource *FactoryFunc( const string_t& name) { return new CTextureSDL( name); }
+		IResourceManager(){};
+		virtual ~IResourceManager(){};
+		
+		virtual void RegisterType( uint type, const string_t& typeString, ResTypeFactoryFunc func) = 0;
 
-		CTextureSDL(const string_t& name);
-		virtual ~CTextureSDL();
-
-		virtual bool Load(const char* data, uint size);
-		virtual void UnLoad(void);
-	private:
-		bool LoadSTBI(const char* data, uint size);
-	private:
-
+		virtual void Clear(void) = 0;
+		virtual bool Load(void) = 0;
+		virtual IResource* Add(const string_t& name, resourceType_t type) = 0;
+		virtual void Remove(IResource* res) = 0;
+		virtual IResource* Find(const string_t& name, resourceType_t type) = 0;
+		virtual void List(resourceType_t type) = 0;
 	};
 
 }
-
 #endif

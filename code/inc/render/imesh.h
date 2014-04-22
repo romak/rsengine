@@ -22,7 +22,7 @@
 
 namespace rengine3d {
 
-	class ISubMesh {
+	class ISubMesh: public IRefCount {
 	public:
 		ISubMesh();
 		ISubMesh(const string_t& name);
@@ -236,7 +236,7 @@ namespace rengine3d {
 	}
 
 	// IMesh
-	class IMesh {
+	class IMesh: public IRefCount {
 	public:
 		IMesh();
 		virtual ~IMesh();

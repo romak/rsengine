@@ -60,7 +60,6 @@ namespace rengine3d {
 		time_t aclock;
 		time( &aclock );
 		struct tm * utcTime= localtime( &aclock );
-		//tm* utcTime = gmtime(&aclock);	
 
 		char buff[32];
 		sprintf(buff, "%02d:%02d:%02d: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
@@ -85,7 +84,13 @@ namespace rengine3d {
 		vsprintf_s(text, format, ap);
 		va_end(ap);
 		
-		string_t str = "Warning: ";
+		time_t aclock;
+		time( &aclock );
+		struct tm * utcTime= localtime( &aclock );
+
+		char buff[32];
+		sprintf(buff, "%02d:%02d:%02d: Warning: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
+		string_t str = buff;
 		str += text;
 
 		m_logWriter->Write(str);
@@ -105,8 +110,14 @@ namespace rengine3d {
 		va_start(ap, format);
 		vsprintf_s(text, format, ap);
 		va_end(ap);
-		
-		string_t str = "Error: ";
+
+		time_t aclock;
+		time( &aclock );
+		struct tm * utcTime= localtime( &aclock );
+
+		char buff[32];
+		sprintf(buff, "%02d:%02d:%02d: Warning: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
+		string_t str = buff;
 		str += text;
 
 		m_logWriter->Write(str);

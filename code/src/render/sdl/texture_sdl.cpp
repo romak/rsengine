@@ -20,7 +20,59 @@
 #pragma hdrstop
 #include "kernel/precompiled.h"
 #include "texture_sdl.h"
+#include "stb/stb_image.h"
 
 namespace rengine3d {
+
+	CTextureSDL::CTextureSDL(const string_t& name): ITexture(name) {
+	}
+
+	CTextureSDL::~CTextureSDL() {
+		this->UnLoad();
+	}
+
+	bool CTextureSDL::LoadSTBI(const char* data, uint size) {
+		bool hdr = false;
+		if( stbi_is_hdr_from_memory( (unsigned char *)data, size ) > 0 ) hdr = true;
+
+		int comps;
+		void *pixels = NULL;
+		if( hdr )
+			pixels = stbi_loadf_from_memory( (unsigned char *)data, size, &m_width, &m_height, &comps, 4 );
+		else
+			pixels = stbi_load_from_memory( (unsigned char *)data, size, &m_width, &m_height, &comps, 4 );
+
+		if( pixels == NULL )
+			return false;
+
+		// Swizzle RGBA -> BGRA
+		uint *ptr = (uint *)pixels;
+		for( uint i = 0, si = m_width * m_height; i < si; ++i ) {
+			uint col = *ptr;
+			*ptr++ = (col & 0xFF00FF00) | ((col & 0x000000FF) << 16) | ((col & 0x00FF0000) >> 16);
+		}
+
+		stbi_image_free(pixels);
+
+		return true;
+	}
+
+	bool CTextureSDL::Load(const char* data, uint size) {
+		if (m_loaded) {
+			return false;
+		}
+
+		if (data == NULL || size == 0) {
+			return false;
+		}
+
+		m_loaded = LoadSTBI(data, size);
+
+		return m_loaded;
+	}
+
+	void CTextureSDL::UnLoad(void) {
+		m_loaded = false;
+	}
 
 }

@@ -85,11 +85,12 @@ namespace rengine3d {
 
 		SetAlias( "home", dest );
 		string_t home = GetAlias( "home" );
-		SetAlias( "bin", home+"bin/win32/" );
-		SetAlias( "data", home+"data/" );
+		SetAlias( "bin", home+"bin/win32/debug/" );
+		SetAlias( "data", home+"../data/" );
 #endif
 
 		Log("\t\tHome:%s\n", GetAlias("home").c_str());
+		Log("\t\tData:%s\n", GetAlias("data").c_str());
 		m_initialized = true;
 
 		return m_initialized;
@@ -100,11 +101,17 @@ namespace rengine3d {
 
 		Log("\tShutdown FileSystem...\n");
 
+		for ( i = 0; i < m_files.size(); i++ )  {
+			SafeDelete(m_files[i]);
+		}
+
 		for ( i = 0; i < m_archives.size(); i++ ) 
 			SafeDelete(m_archives[i]);
 
 		for ( i = 0; i < m_archiveFactory.size(); i++ )
 			SafeDelete(m_archiveFactory[i]);
+
+		m_files.clear();
 
 		m_archives.clear();
 		m_archiveFactory.clear();
@@ -121,6 +128,7 @@ namespace rengine3d {
 	
 	#if PLATFORM == PLATFORM_WIN32
 		file = new CFile;
+		m_files.push_back(file);
 	#elif defined(PLATFORM_LINUX)
 	#else
 	#endif

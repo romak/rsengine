@@ -33,6 +33,8 @@
     <ClInclude Include="..\..\inc\kernel\ilogwriter.h" />
     <ClInclude Include="..\..\inc\kernel\imutex.h" />
     <ClInclude Include="..\..\inc\kernel\irefcount.h" />
+    <ClInclude Include="..\..\inc\kernel\iresource.h" />
+    <ClInclude Include="..\..\inc\kernel\iresourcemanager.h" />
     <ClInclude Include="..\..\inc\kernel\isubsystem.h" />
     <ClInclude Include="..\..\inc\kernel\isystem.h" />
     <ClInclude Include="..\..\inc\kernel\isystemevent.h" />
@@ -58,7 +60,6 @@
     <ClInclude Include="..\..\inc\render\imesh.h" />
     <ClInclude Include="..\..\inc\render\irenderdriver.h" />
     <ClInclude Include="..\..\inc\render\itexture.h" />
-    <ClInclude Include="..\..\inc\render\itexturemanager.h" />
     <ClInclude Include="..\..\inc\render\rendertypes.h" />
     <ClInclude Include="..\..\inc\render\rendervertex.h" />
     <ClInclude Include="..\..\inc\scene\icamera.h" />
@@ -82,6 +83,7 @@
     <ClInclude Include="..\..\src\kernel\log.h" />
     <ClInclude Include="..\..\src\kernel\logwritertext.h" />
     <ClInclude Include="..\..\src\kernel\mutex.h" />
+    <ClInclude Include="..\..\src\kernel\resourcemanager.h" />
     <ClInclude Include="..\..\src\kernel\system.h" />
     <ClInclude Include="..\..\src\kernel\updatesystem.h" />
     <ClInclude Include="..\..\src\kernel\varsystem.h" />
@@ -115,6 +117,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\src\kernel\resourcemanager.cpp" />
     <ClCompile Include="..\..\src\kernel\system.cpp" />
     <ClCompile Include="..\..\src\kernel\updatesystem.cpp" />
     <ClCompile Include="..\..\src\kernel\varsystem.cpp" />
