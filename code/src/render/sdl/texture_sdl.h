@@ -29,9 +29,13 @@ namespace rengine3d {
 		CTextureSDL(const string_t& name);
 		virtual ~CTextureSDL();
 
+		virtual bool CreateFromArray(unsigned char* data, uint width, uint height, uint depth, uint bpp);
+
 		virtual bool Load(const char* data, uint size);
 		virtual void UnLoad(void);
 	private:
+		uint InitCreation(int id);
+		void PostCreation(uint target);
 		bool LoadSTBI(const char* data, uint size);
 	private:
 

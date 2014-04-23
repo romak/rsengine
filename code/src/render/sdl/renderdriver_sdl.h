@@ -86,12 +86,16 @@ namespace rengine3d {
 		virtual void SetBlendActive(bool active);
 		virtual void SetBlendFunc(blendFunc_t src, blendFunc_t dst);
 
+		virtual void SetTexture(uint unit, ITexture* tex);
+		virtual void SetActiveTextureUnit(uint unit);
+		virtual void SetTextureEnv(textureParam_t param, int value);
+		virtual void SetTextureConstantColor(const CVec4& color);
+
 		virtual string_t GetName(void);
 		virtual string_t GetDescription(void);
 		virtual string_t GetVersion(void);
 	private:
 		void SetupOpenGL();
-		uint GetGLBlendEnum(blendFunc_t func);
 	private:
 		uint			m_width;
 		uint			m_height;
@@ -115,6 +119,9 @@ namespace rengine3d {
 		CVec2			m_virtualSize;
 
 		CPlane			m_clipPlanes[MAX_CLIP_PLANES];
+
+		ITexture*		m_currentTexture[MAX_TEXTURE_UNITS];
+
 	};
 }
 

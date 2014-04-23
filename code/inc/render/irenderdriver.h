@@ -81,6 +81,11 @@ namespace rengine3d {
 		virtual void SetBlendActive(bool active) = 0;
 		virtual void SetBlendFunc(blendFunc_t src, blendFunc_t dst) = 0;
 
+		// textures
+		virtual void SetTexture(uint unit, ITexture* tex) = 0;
+		virtual void SetActiveTextureUnit(uint unit) = 0;
+		virtual void SetTextureEnv(textureParam_t param, int value) = 0;
+		virtual void SetTextureConstantColor(const CVec4& color) = 0;
 	};
 
 }

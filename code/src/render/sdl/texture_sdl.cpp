@@ -21,8 +21,11 @@
 #include "kernel/precompiled.h"
 #include "texture_sdl.h"
 #include "stb/stb_image.h"
+#include "glee/GLee.h"
 
 namespace rengine3d {
+
+	extern uint GetGLTextureTargetEnum(textureTarget_t target);
 
 	CTextureSDL::CTextureSDL(const string_t& name): ITexture(name) {
 	}
@@ -52,6 +55,8 @@ namespace rengine3d {
 			*ptr++ = (col & 0xFF00FF00) | ((col & 0x000000FF) << 16) | ((col & 0x00FF0000) >> 16);
 		}
 
+		CreateFromArray((uchar*)pixels, m_width, m_height, m_depth, m_bpp);
+
 		stbi_image_free(pixels);
 
 		return true;
@@ -72,7 +77,74 @@ namespace rengine3d {
 	}
 
 	void CTextureSDL::UnLoad(void) {
+		glDeleteTextures(1,(GLuint *)&m_id);
 		m_loaded = false;
+	}
+
+	uint CTextureSDL::InitCreation(int id) {
+		GLenum GLTarget = GetGLTextureTargetEnum(m_target);
+
+		glEnable(GLTarget);
+		glBindTexture(GLTarget, id);
+
+		return GLTarget;
+	}
+
+	void CTextureSDL::PostCreation(uint target) {
+		if(m_useMipMaps && m_target != textureTarget_Rect) {
+			if(m_filter == textureFilter_Bilinear)
+				glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+			else
+				glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		} else {
+			glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		}
+
+		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(target,GL_TEXTURE_WRAP_S,GL_REPEAT);
+		glTexParameteri(target,GL_TEXTURE_WRAP_T,GL_REPEAT);
+		glTexParameteri(target,GL_TEXTURE_WRAP_R,GL_REPEAT);
+
+		glDisable(target);
+	}
+
+	bool CTextureSDL::CreateFromArray(unsigned char* data, uint width, uint height, uint depth, uint bpp) {
+		glGenTextures(1,(GLuint*)&m_id);
+		GLenum GLTarget = InitCreation(0);
+
+		int channels	= bpp;
+		GLenum format	= 0;
+
+		switch(channels)
+		{
+		case 1: format = GL_LUMINANCE; break;
+		case 2: format = GL_LUMINANCE_ALPHA; break;
+		case 3: format = GL_RGB; break;
+		case 4: format = GL_RGBA; break;
+		}
+
+		m_width		= width;
+		m_height	= height;
+		m_bpp		= bpp;
+		m_depth		= depth;
+
+		if(m_target == textureTarget_1D) {
+			glTexImage1D(GLTarget, 0, channels, width,0,format,GL_UNSIGNED_BYTE, data);
+		}
+		else if(m_target == textureTarget_2D) {
+			glTexImage2D(GLTarget, 0, channels, width, height,0, format, GL_UNSIGNED_BYTE, data);
+		}
+		else if(m_target == textureTarget_3D) {
+			glTexImage3D(GLTarget, 0, channels, width, height,depth,0, format, GL_UNSIGNED_BYTE, data);
+		}
+
+		if(m_useMipMaps && m_target != textureTarget_Rect && m_target != textureTarget_3D) {
+			glGenerateMipmapEXT( GetGLTextureTargetEnum(m_target) );
+		}
+
+		PostCreation(GLTarget);
+
+		return true;
 	}
 
 }

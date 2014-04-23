@@ -55,6 +55,7 @@
 #   define COMPILER		COMPILER_MSVC
 #   define COMP_VERSION _MSC_VER
 #	define COMPILER_STR "VS"
+#pragma warning ( disable : 4005 )
 #else
 #   pragma error "Eror! Unknown compiler!"
 #endif

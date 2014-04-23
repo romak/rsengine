@@ -18,6 +18,7 @@
 */
 
 #pragma hdrstop
+#include "glee/GLee.h"
 #include "kernel/precompiled.h"
 #include "../kernel/enginevars.h"
 #include "sdl/SDL_config.h"
@@ -31,6 +32,100 @@
 #endif
 
 namespace rengine3d {
+	// helper functions 
+
+	uint GetGLBlendEnum(blendFunc_t func) {
+		switch(func) {
+		case blendFunc_Zero:					return GL_ZERO;
+		case blendFunc_One:						return GL_ONE;
+		case blendFunc_SrcColor:				return GL_SRC_COLOR;
+		case blendFunc_OneMinusSrcColor:		return GL_ONE_MINUS_SRC_COLOR;
+		case blendFunc_DestColor:				return GL_DST_COLOR;
+		case blendFunc_OneMinusDestColor:		return GL_ONE_MINUS_DST_COLOR;
+		case blendFunc_SrcAlpha:				return GL_SRC_ALPHA;
+		case blendFunc_OneMinusSrcAlpha:		return GL_ONE_MINUS_SRC_ALPHA;
+		case blendFunc_DestAlpha:				return GL_DST_ALPHA;
+		case blendFunc_OneMinusDestAlpha:		return GL_ONE_MINUS_DST_ALPHA;
+		case blendFunc_SrcAlphaSaturate:		return GL_SRC_ALPHA_SATURATE;
+		}
+		return 0;
+	}
+
+
+	uint GetGLTextureTargetEnum(textureTarget_t target) {
+		switch(target)
+		{
+		case textureTarget_1D:		return GL_TEXTURE_1D;	
+		case textureTarget_2D:		return GL_TEXTURE_2D;
+		case textureTarget_Rect:	return GL_TEXTURE_RECTANGLE_NV;
+		case textureTarget_CubeMap:	return GL_TEXTURE_CUBE_MAP_ARB;
+		case textureTarget_3D:		return GL_TEXTURE_3D;
+		}
+		return 0;
+	}
+
+	uint GetGLTextureParamEnum(textureParam_t param) {
+		switch(param)
+		{
+		case textureParam_ColorFunc:	return GL_COMBINE_RGB_ARB;
+		case textureParam_AlphaFunc:	return GL_COMBINE_ALPHA_ARB;
+		case textureParam_ColorSource0:	return GL_SOURCE0_RGB_ARB;
+		case textureParam_ColorSource1:	return GL_SOURCE1_RGB_ARB;
+		case textureParam_ColorSource2:	return GL_SOURCE2_RGB_ARB;
+		case textureParam_AlphaSource0:	return GL_SOURCE0_ALPHA_ARB;
+		case textureParam_AlphaSource1:	return GL_SOURCE1_ALPHA_ARB;
+		case textureParam_AlphaSource2:	return GL_SOURCE2_ALPHA_ARB;
+		case textureParam_ColorOp0:		return GL_OPERAND0_RGB_ARB;
+		case textureParam_ColorOp1:		return GL_OPERAND1_RGB_ARB;
+		case textureParam_ColorOp2:		return GL_OPERAND2_RGB_ARB;
+		case textureParam_AlphaOp0:		return GL_OPERAND0_ALPHA_ARB;
+		case textureParam_AlphaOp1:		return GL_OPERAND1_ALPHA_ARB;
+		case textureParam_AlphaOp2:		return GL_OPERAND2_ALPHA_ARB;
+		case textureParam_ColorScale:	return GL_RGB_SCALE_ARB;
+		case textureParam_AlphaScale:	return GL_ALPHA_SCALE;	
+		}
+		return 0;
+	}
+
+	uint GetGLTextureFuncEnum(textureFunc_t func) {
+		switch(func)
+		{
+		case textureFunc_Modulate:		return GL_MODULATE;
+		case textureFunc_Replace:		return GL_REPLACE;
+		case textureFunc_Add:			return GL_ADD;
+		case textureFunc_Substract:	return GL_SUBTRACT_ARB;
+		case textureFunc_AddSigned:	return GL_ADD_SIGNED_ARB;
+		case textureFunc_Interpolate:	return GL_INTERPOLATE_ARB;
+		case textureFunc_Dot3RGB:		return GL_DOT3_RGB_ARB;
+		case textureFunc_Dot3RGBA:		return GL_DOT3_RGBA_ARB;
+		}
+		return 0;
+	}
+
+	uint GetGLTextureSourceEnum(textureSource_t src) {
+		switch(src)
+		{
+		case textureSource_Texture:		return GL_TEXTURE;
+		case textureSource_Constant:	return GL_CONSTANT_ARB;
+		case textureSource_Primary:		return GL_PRIMARY_COLOR_ARB;
+		case textureSource_Previous:	return GL_PREVIOUS_ARB;
+		}
+		return 0;
+	}
+
+	uint GetGLTextureOpEnum(textureOp_t op) {
+		switch(op)
+		{
+		case textureOp_Color:			return GL_SRC_COLOR;
+		case textureOp_OneMinusColor:	return GL_ONE_MINUS_SRC_COLOR;
+		case textureOp_Alpha:			return GL_SRC_ALPHA;
+		case textureOp_OneMinusAlpha:	return GL_ONE_MINUS_SRC_ALPHA;
+		}
+		return 0;
+
+	}
+
+
 
 	CRenderDriverSDL::CRenderDriverSDL(IKernel* kernel) {
 		m_width			= 800;
@@ -50,6 +145,10 @@ namespace rengine3d {
 		m_clearColor	= true;
 		m_clearDepth	= true;
 		m_clearStencil	= false;
+
+		for(int i=0;i < MAX_TEXTURE_UNITS;i++)
+			m_currentTexture[i] = NULL;
+
 	}
 
 	CRenderDriverSDL::~CRenderDriverSDL() {
@@ -152,6 +251,8 @@ namespace rengine3d {
 				return false;
 			}
 		}
+
+		GLeeInit();
 
 		if (!m_fs)
 			SDL_SetWindowSize(m_window, w, h);
@@ -433,23 +534,6 @@ namespace rengine3d {
 		glBlendFunc(GetGLBlendEnum(src),GetGLBlendEnum(dst));
 	}
 
-	uint CRenderDriverSDL::GetGLBlendEnum(blendFunc_t func) {
-		switch(func) {
-		case blendFunc_Zero:					return GL_ZERO;
-		case blendFunc_One:						return GL_ONE;
-		case blendFunc_SrcColor:				return GL_SRC_COLOR;
-		case blendFunc_OneMinusSrcColor:		return GL_ONE_MINUS_SRC_COLOR;
-		case blendFunc_DestColor:				return GL_DST_COLOR;
-		case blendFunc_OneMinusDestColor:		return GL_ONE_MINUS_DST_COLOR;
-		case blendFunc_SrcAlpha:				return GL_SRC_ALPHA;
-		case blendFunc_OneMinusSrcAlpha:		return GL_ONE_MINUS_SRC_ALPHA;
-		case blendFunc_DestAlpha:				return GL_DST_ALPHA;
-		case blendFunc_OneMinusDestAlpha:		return GL_ONE_MINUS_DST_ALPHA;
-		case blendFunc_SrcAlphaSaturate:		return GL_SRC_ALPHA_SATURATE;
-		}
-		return 0;
-	}
-
 	int CRenderDriverSDL::GetCaps(renderCaps_t rcaps) {
 		switch(rcaps) {
 
@@ -503,6 +587,65 @@ namespace rengine3d {
 
 		return 0;
 	}
+
+	void CRenderDriverSDL::SetTexture(uint unit, ITexture* tex) {
+
+		if(tex == m_currentTexture[unit]) 
+			return;
+
+		GLenum lastTarget = 0;
+		GLenum newTarget  = 0;
+
+		if (tex != NULL) 
+			newTarget = GetGLTextureTargetEnum(tex->GetTarget());
+
+		if(m_currentTexture[unit])
+			lastTarget = GetGLTextureTargetEnum(m_currentTexture[unit]->GetTarget());
+
+		if(GLEE_ARB_multitexture){
+			glActiveTextureARB(GL_TEXTURE0_ARB + unit);
+		}
+
+		if(tex == NULL)	{
+			glDisable(lastTarget);
+		} else {
+			if(newTarget != lastTarget) glDisable(lastTarget);
+			glBindTexture(newTarget, tex->GetId());
+			glEnable(newTarget);
+		}
+
+		m_currentTexture[unit] = tex;
+	}
+
+	void CRenderDriverSDL::SetActiveTextureUnit(uint unit) {
+		if(GLEE_ARB_multitexture)
+			glActiveTextureARB(GL_TEXTURE0_ARB + unit);
+	}
+
+	void CRenderDriverSDL::SetTextureEnv(textureParam_t param, int value) {
+		GLenum glParam = GetGLTextureParamEnum(param);
+		glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_COMBINE_ARB);
+
+		if(param==textureParam_ColorFunc || param==textureParam_AlphaFunc){
+			glTexEnvi(GL_TEXTURE_ENV,glParam,GetGLTextureFuncEnum((textureFunc_t)value));
+		}
+		else if(param>=textureParam_ColorSource0 && param<=textureParam_AlphaSource2){
+			glTexEnvi(GL_TEXTURE_ENV,glParam,GetGLTextureSourceEnum((textureSource_t)value));
+		}
+		else if(param>=textureParam_ColorOp0 && param<=textureParam_AlphaOp2){
+			glTexEnvi(GL_TEXTURE_ENV,glParam,GetGLTextureOpEnum((textureOp_t)value));
+		}
+		else {
+			glTexEnvi(GL_TEXTURE_ENV,glParam,value);
+		}
+	}
+
+	void CRenderDriverSDL::SetTextureConstantColor(const CVec4& color) {
+		float vColor[4] = {	color.x, color.y, color.z, color.w	};
+
+		glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, &vColor[0]);
+	}
+
 
 }
 

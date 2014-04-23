@@ -27,6 +27,9 @@ namespace rengine3d {
 		ITexture(const string_t& name);
 		virtual ~ITexture();
 
+		virtual bool CreateFromArray(unsigned char* data, uint width, uint height, uint depth, uint bpp) = 0;
+
+		uint GetId(void)						{return m_id;};
 		uint GetWidth(void)						{return m_width;};
 		uint GetHeight(void)					{return m_height;};
 		uint GetDepth(void)						{return m_depth;};
@@ -41,6 +44,7 @@ namespace rengine3d {
 		bool IsUseMipMaps(void)					{return m_useMipMaps;};
 		bool IsUseCompress(void)				{return m_useCompress;};
 
+		void SetId(uint id)						{m_id = id;};
 		void SetWidth(uint width)				{m_width = width;};
 		void SetHeight(uint height)				{m_height = height;};
 		void SetDepth(uint depth)				{m_depth = depth;};
@@ -59,6 +63,7 @@ namespace rengine3d {
 		int			m_height;
 		int			m_depth;
 		int			m_bpp;
+		uint		m_id;
 
 		textureType_t	m_textureType;
 		textureTarget_t	m_target;
@@ -71,8 +76,9 @@ namespace rengine3d {
 		bool			m_useCompress;
 	};
 
-	r_inline ITexture::ITexture(const string_t& name):m_height(0),m_width(0),m_depth(0),m_bpp(0),m_textureType(textureType_Normal),m_target(textureTarget_2D),m_wrapS(textureWrap_Repeat),
-		m_wrapT(textureWrap_Repeat),m_wrapR(textureWrap_Repeat),m_filter(textureFilter_Trilinear),m_anisotropyDegree(1.0f),m_useMipMaps(false),m_useCompress(false),IResource(name, resourceType_t ::Texture)
+	r_inline ITexture::ITexture(const string_t& name):m_height(0),m_width(0),m_depth(1),m_bpp(0),m_textureType(textureType_Normal),m_target(textureTarget_2D),m_wrapS(textureWrap_Repeat),
+		m_wrapT(textureWrap_Repeat),m_wrapR(textureWrap_Repeat),m_filter(textureFilter_Trilinear),m_anisotropyDegree(1.0f),m_useMipMaps(false),
+		m_useCompress(false),m_id(0),IResource(name, resourceType_t ::Texture)
 	{
 			
 	}

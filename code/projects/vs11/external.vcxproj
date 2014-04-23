@@ -11,8 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\deps\glee\GLee.c" />
     <ClCompile Include="..\..\src\deps\stb\stb_image.c" />
     <ClCompile Include="..\..\src\deps\tinyxml2\tinyxml2.cpp" />
+    <ClInclude Include="..\..\src\deps\glee\GLee.h" />
     <ClInclude Include="..\..\src\deps\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\src\deps\unzip\unzip.h" />
   </ItemGroup>
