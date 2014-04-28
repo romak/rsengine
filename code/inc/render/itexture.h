@@ -44,20 +44,20 @@ namespace rengine3d {
 		bool IsUseMipMaps(void)					{return m_useMipMaps;};
 		bool IsUseCompress(void)				{return m_useCompress;};
 
-		void SetId(uint id)						{m_id = id;};
-		void SetWidth(uint width)				{m_width = width;};
-		void SetHeight(uint height)				{m_height = height;};
-		void SetDepth(uint depth)				{m_depth = depth;};
-		void SetBpp(uint bpp)					{m_bpp = bpp;};
-		void SetTextureType(textureType_t type)	{m_textureType = type;};
-		void SetTarget(textureTarget_t target)	{m_target = target;};
-		void SetWrapS(textureWrap_t wrap)		{m_wrapS = wrap;};
-		void SetWrapT(textureWrap_t wrap)		{m_wrapT = wrap;};
-		void SetWrapR(textureWrap_t wrap)		{m_wrapR = wrap;};
-		void SetFilter(textureFilter_t filter)	{m_filter = filter;};
-		void SetAnisotropyDegree(real value)	{m_anisotropyDegree = value;};
-		void SetUseMipMaps(bool value)			{m_useMipMaps = value;};
-		void SetUseCompress(bool value)			{m_useCompress = value;};
+		virtual void SetId(uint id)						{m_id = id;};
+		virtual void SetWidth(uint width)				{m_width = width;};
+		virtual void SetHeight(uint height)				{m_height = height;};
+		virtual void SetDepth(uint depth)				{m_depth = depth;};
+		virtual void SetBpp(uint bpp)					{m_bpp = bpp;};
+		virtual void SetTextureType(textureType_t type)	{m_textureType = type;};
+		virtual void SetTarget(textureTarget_t target)	{m_target = target;};
+		virtual void SetWrapS(textureWrap_t wrap)		{m_wrapS = wrap;};
+		virtual void SetWrapT(textureWrap_t wrap)		{m_wrapT = wrap;};
+		virtual void SetWrapR(textureWrap_t wrap)		{m_wrapR = wrap;};
+		virtual void SetFilter(textureFilter_t filter)	{m_filter = filter;};
+		virtual void SetAnisotropyDegree(real value)	{m_anisotropyDegree = value;};
+		virtual void SetUseMipMaps(bool value)			{m_useMipMaps = value;};
+		virtual void SetUseCompress(bool value)			{m_useCompress = value;};
 	protected:
 		int			m_width;
 		int			m_height;
@@ -78,8 +78,7 @@ namespace rengine3d {
 
 	r_inline ITexture::ITexture(const string_t& name):m_height(0),m_width(0),m_depth(1),m_bpp(0),m_textureType(textureType_Normal),m_target(textureTarget_2D),m_wrapS(textureWrap_Repeat),
 		m_wrapT(textureWrap_Repeat),m_wrapR(textureWrap_Repeat),m_filter(textureFilter_Trilinear),m_anisotropyDegree(1.0f),m_useMipMaps(false),
-		m_useCompress(false),m_id(0),IResource(name, resourceType_t ::Texture)
-	{
+		m_useCompress(false),m_id(0),IResource(name, resourceType_t ::Texture) {
 			
 	}
 

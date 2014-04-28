@@ -126,7 +126,6 @@ namespace rengine3d {
 	}
 
 
-
 	CRenderDriverSDL::CRenderDriverSDL(IKernel* kernel) {
 		m_width			= 800;
 		m_height		= 600;
@@ -148,7 +147,6 @@ namespace rengine3d {
 
 		for(int i=0;i < MAX_TEXTURE_UNITS;i++)
 			m_currentTexture[i] = NULL;
-
 	}
 
 	CRenderDriverSDL::~CRenderDriverSDL() {
