@@ -45,18 +45,6 @@ namespace rengine3d {
 	CCamera3D::~CCamera3D() {
 	}
 
-	void CCamera3D::SetModelViewMatrix(IRenderDriver* renderDriver) {
-
-	}
-
-	void CCamera3D::SetProjectionMatrix(IRenderDriver* renderDriver) {
-
-	}
-
-	void CCamera3D::UpdateProjectionMatrix(void) {
-
-	}
-
 	real CCamera3D::GetFov(void) {
 		return m_fov;
 	}

@@ -28,8 +28,6 @@ namespace rengine3d {
 		ICamera3D(real fov, real aspect, real near, real far){};
 		virtual ~ICamera3D(){};
 
-		virtual void UpdateProjectionMatrix(void) = 0;
-
 		virtual real GetFov(void) = 0;
 		virtual real GetAspect(void) = 0;
 		virtual real GetNear(void) = 0;

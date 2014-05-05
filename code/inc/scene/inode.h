@@ -245,7 +245,6 @@ namespace rengine3d {
 		return true;
 	}
 
-
 }
 
 #endif

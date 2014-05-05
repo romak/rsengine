@@ -29,8 +29,6 @@ namespace rengine3d {
 		CCamera3D(real fov, real aspect, real near, real far);
 		virtual ~CCamera3D();
 
-		virtual void UpdateProjectionMatrix(void);
-
 		virtual real GetFov(void);
 		virtual real GetAspect(void);
 		virtual real GetNear(void);
@@ -40,9 +38,6 @@ namespace rengine3d {
 		virtual void SetAspect(real aspect);
 		virtual void SetNear(real near);
 		virtual void SetFar(real far);
-
-		virtual void SetModelViewMatrix(IRenderDriver* renderDriver);
-		virtual void SetProjectionMatrix(IRenderDriver* renderDriver);
 
 		virtual void SetLens(real focalLength, real frameHeight);
 		virtual void SetViewOffset(real fullWidth, real fullHeight, real x, real y, real width, real height);

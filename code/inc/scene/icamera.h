@@ -33,8 +33,6 @@ namespace rengine3d {
 	public:
 		ICamera(){};
 		virtual ~ICamera(){};
-		virtual void SetModelViewMatrix(IRenderDriver* renderDriver) = 0;
-		virtual void SetProjectionMatrix(IRenderDriver* renderDriver) = 0;
 
 		virtual cameraType_t GetType(void) = 0;
 	};
