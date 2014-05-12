@@ -33,7 +33,7 @@ namespace rengine3d {
 	public:
 		IResourceManager(){};
 		virtual ~IResourceManager(){};
-		
+
 		virtual void RegisterType( uint type, const string_t& typeString, ResTypeFactoryFunc func) = 0;
 
 		virtual void Clear(void) = 0;

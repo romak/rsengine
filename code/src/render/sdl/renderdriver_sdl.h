@@ -121,7 +121,6 @@ namespace rengine3d {
 		CPlane			m_clipPlanes[MAX_CLIP_PLANES];
 
 		ITexture*		m_currentTexture[MAX_TEXTURE_UNITS];
-
 	};
 }
 

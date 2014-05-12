@@ -118,6 +118,7 @@ namespace rengine3d {
 			}
 
 			SafeArrayDelete(data);
+			SafeDelete(file);
 
 		}
 
@@ -168,11 +169,12 @@ namespace rengine3d {
 		Log("Resources list:\n");
 
 		for ( resourcesMapIt_t it = m_resources.begin(); it != m_resources.end(); ++it ) {
+			string_t loaded =  (it->second->IsLoaded() ? "loaded" : "not loaded");
 			if (type == resourceType_t::All) {
-				Log("\t%s\n", it->second->GetName().c_str());
+				Log("\t%s - %s\n", it->second->GetName().c_str(), loaded.c_str());
 			} else {
 				if (it->second->GetType() == type) {
-					Log("\t%s\n", it->second->GetName().c_str());
+					Log("\t%s - %s\n", it->second->GetName().c_str(), loaded.c_str());
 				}
 			}
 		}

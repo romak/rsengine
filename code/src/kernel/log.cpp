@@ -116,7 +116,7 @@ namespace rengine3d {
 		struct tm * utcTime= localtime( &aclock );
 
 		char buff[32];
-		sprintf(buff, "%02d:%02d:%02d: Warning: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
+		sprintf(buff, "%02d:%02d:%02d: Error: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
 		string_t str = buff;
 		str += text;
 

@@ -67,6 +67,7 @@ typedef unsigned __int64	uint64;
 #include <stack>
 #include <bitset>
 #include <algorithm>
+#include <exception>
 
 // STL algorithms & functions
 #include <algorithm>

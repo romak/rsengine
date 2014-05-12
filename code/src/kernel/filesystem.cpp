@@ -125,13 +125,13 @@ namespace rengine3d {
 		string_t				fullPath;
 		assignMap_t::iterator	it;
 		IFile*					file;
-	
-	#if PLATFORM == PLATFORM_WIN32
+
+#if PLATFORM == PLATFORM_WIN32
 		file = new CFile;
 		m_files.push_back(file);
-	#elif defined(PLATFORM_LINUX)
-	#else
-	#endif
+#elif defined(PLATFORM_LINUX)
+#else
+#endif
 
 		// first try open file by OS path
 		if ( file->Open( relativePath, mode ) )

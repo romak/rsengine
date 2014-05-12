@@ -434,34 +434,41 @@ namespace rengine3d {
 			break;}
 		}
 	}
-
 #endif
 
 	void CKernel::Run() {
+
+		try {
 #ifdef  USE_SDL
-		SDL_Event Event;
+			SDL_Event Event;
+			//		char ss[2];
+			//		strcpy(ss,"2222");
 
-		while(!m_quit) {
+			while(!m_quit) {
+				while(SDL_PollEvent(&Event)) {
+					SDL_OnEvent(&Event);
+				}
 
-			while(SDL_PollEvent(&Event)) {
-				SDL_OnEvent(&Event);
+				//throw "zzzzzzzzzzzz";
+				//throw std::exception("1111");
+				m_inputSystem->Update(0);
+				m_updateSystem->OnUpdate(0);
+				m_inputSystem->EndUpdate();
+
+				//ss = (char*)"111";
+				// TODO: scene render
+
+				m_renderDriver->ClearScreen();
+				m_updateSystem->OnDraw();
+				m_renderDriver->SwapBuffers();
 			}
-
-			m_inputSystem->Update(0);
-
-			m_updateSystem->OnUpdate(0);
-
-			m_inputSystem->EndUpdate();
-
-			// TODO: scene render
-
-			m_renderDriver->ClearScreen();
-
-			m_updateSystem->OnDraw();
-
-			m_renderDriver->SwapBuffers();
-		}
 #endif
+		}
+		catch (const std::exception &ex) {
+			// TODO: exception processing			
+			Error("Main loop exception found: %s\n", ex.what());
+			this->Shutdown();
+		}
 	}
 
 	void CKernel::Quit(){

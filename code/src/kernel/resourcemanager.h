@@ -26,7 +26,7 @@ namespace rengine3d {
 		uint		type;
 	} resourceHash_t;
 
-//	typedef std::map<resourceHash_t*, IResource*>	resourcesMap_t;
+	//	typedef std::map<resourceHash_t*, IResource*>	resourcesMap_t;
 	typedef std::map<string_t, IResource*>	resourcesMap_t;
 	typedef resourcesMap_t::iterator				resourcesMapIt_t;
 
@@ -37,7 +37,7 @@ namespace rengine3d {
 	public:
 		CResourceManager(IFileSystem* fileSys);
 		virtual ~CResourceManager();
-		
+
 		virtual bool Init(void);
 		virtual void Shutdown(void);
 

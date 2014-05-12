@@ -337,6 +337,11 @@ namespace rengine3d {
 	}
 
 	void CRenderDriverSDL::ClearScreen(void) {
+
+		if (!r_clear.GetBool()) { 
+			return;
+		}
+
 		GLbitfield bitmask=0;
 
 		if(m_clearColor) 
