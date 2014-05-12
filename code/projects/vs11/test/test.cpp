@@ -46,7 +46,7 @@ CMainApp::CMainApp(): IUpdateable("CMainApp") {
 	scene			= kernel->GetScene();
 	m_resourceManager	= kernel->GetResourceManager();
 
-	IResource* res = m_resourceManager->Add("textures/lensflare0.png", resourceType_t::Texture);
+	IResource* res = m_resourceManager->Add("textures/lensflare10.png", resourceType_t::Texture);
 	IResource* tempRes = m_resourceManager->Find("Textures/lensflare0.png", resourceType_t::Texture);
 
 	m_resourceManager->Load();

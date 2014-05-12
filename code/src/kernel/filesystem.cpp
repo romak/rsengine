@@ -102,7 +102,7 @@ namespace rengine3d {
 		Log("\tShutdown FileSystem...\n");
 
 		for ( i = 0; i < m_files.size(); i++ )  {
-			SafeDelete(m_files[i]);
+			//SafeDelete(m_files[i]);
 		}
 
 		for ( i = 0; i < m_archives.size(); i++ ) 

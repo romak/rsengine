@@ -48,7 +48,7 @@ namespace rengine3d {
 		virtual void RegisterType( uint type, const string_t& typeString, ResTypeFactoryFunc func);
 
 		virtual void Clear(void);
-		virtual bool Load(void);
+		virtual bool Load(bool forceReload = false);
 		virtual IResource* Add(const string_t& name, resourceType_t type);
 		virtual void Remove(IResource* res);
 		virtual IResource* Find(const string_t& name, resourceType_t type);

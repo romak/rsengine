@@ -77,7 +77,7 @@ namespace rengine3d {
 		m_regInfo.clear();
 	}
 
-	bool CResourceManager::Load(void) {
+	bool CResourceManager::Load(bool forceReload) {
 		uint notLoaded = 0;
 
 		for ( resourcesMapIt_t it = m_resources.begin(); it != m_resources.end(); ++it ) {
@@ -95,9 +95,28 @@ namespace rengine3d {
 			char* data	= new char [size];
 			file->Read(data, size);
 
-			if (!it->second->Load(data, size)) {
-				notLoaded++;
+			if (forceReload) {
+				string_t strInfo = "Loading:"+it->second->GetName();
+				if (!it->second->Load(data, size)) {
+					notLoaded++;
+					strInfo += " - error.";
+				} else{
+					strInfo += " - ok.";
+				}
+				Log("%s\n", strInfo.c_str());
+			} else {
+				string_t strInfo = "Loading: "+it->second->GetName();
+				if (!it->second->IsLoaded()) {
+					if (!it->second->Load(data, size)) {
+						notLoaded++;
+						strInfo += " - error.";
+					}else {
+						strInfo += " - ok.";
+					}
+					Log("%s\n", strInfo.c_str());
+				}
 			}
+
 			SafeArrayDelete(data);
 
 		}
