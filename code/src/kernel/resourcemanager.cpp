@@ -119,7 +119,6 @@ namespace rengine3d {
 
 			SafeArrayDelete(data);
 			SafeDelete(file);
-
 		}
 
 		return true;
