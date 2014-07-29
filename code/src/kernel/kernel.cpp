@@ -34,8 +34,8 @@
 #include "resourcemanager.h"
 
 #ifdef  USE_SDL
-#include "sdl/SDL_config.h"
-#include "sdl/SDL.h"
+#include "sdl2/windows/sdl2/SDL_config.h"
+#include "sdl2/windows/sdl2/SDL.h"
 #include "../render/sdl/renderdriver_sdl.h"
 #include "../input/sdl/inputsystem_sdl.h"
 #endif

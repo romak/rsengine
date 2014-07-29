@@ -20,8 +20,8 @@
 #ifndef __CINPUTSYSTEM_SDL_H__
 #define __CINPUTSYSTEM_SDL_H__
 
-#include "sdl/SDL_config.h"
-#include "sdl/SDL.h"
+#include "sdl2/windows/sdl2/SDL_config.h"
+#include "sdl2/windows/sdl2/SDL.h"
 
 namespace rengine3d {
 

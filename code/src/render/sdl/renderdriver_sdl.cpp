@@ -21,9 +21,9 @@
 #include "glee/GLee.h"
 #include "kernel/precompiled.h"
 #include "../kernel/enginevars.h"
-#include "sdl/SDL_config.h"
-#include "sdl/SDL.h"
-#include <SDL\SDL_opengl.h>
+#include "sdl2/windows/sdl2/SDL_config.h"
+#include "sdl2/windows/sdl2/SDL.h"
+#include <sdl2/windows/sdl2/SDL_opengl.h>
 #include "renderdriver_sdl.h"
 #include "texture_sdl.h"
 
