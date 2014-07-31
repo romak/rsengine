@@ -39,11 +39,17 @@ namespace rengine3d {
 		virtual void Print(const char *format, ...);
 		virtual void Warning(const char *format, ...);
 		virtual void Error(const char *format, ...);
+		virtual void Log(logEvent_t* logEvent);
+	private:
+		logEvent_t MakeLogEvent(logEventType_t type, CVec4 color, uint module, logLevel_t level);
 	protected:
 		bool		m_enabled;
 		string_t	m_fileName;
 		ILogWriter*	m_logWriter;
 		logLevel_t	m_logLevel;
+		std::vector<logEvent_t> m_history;
+		std::vector<logEvent_t>::reverse_iterator m_history_it;
+
 	};
 }
 

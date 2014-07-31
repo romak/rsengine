@@ -186,6 +186,11 @@ namespace rengine3d {
 
 	void CRenderDriverSDL::Shutdown(void) {
 		Log("\tShutdown RenderDriverSDL...\n");
+		SDL_GL_DeleteContext(m_context);
+		if (m_fs) {
+			SDL_SetWindowFullscreen(m_window, 0);
+		}
+		SDL_DestroyWindow(m_window);
 		SDL_VideoQuit();
 		m_initialized = false;
 	}
@@ -268,8 +273,13 @@ namespace rengine3d {
 	void CRenderDriverSDL::SetFullScreen(bool fs) {
 		unsigned int flags =  SDL_WINDOW_OPENGL;
 		m_fs = fs;
+
 		if (fs) {
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+			SDL_DisplayMode desktopMode;
+
+			SDL_GetDesktopDisplayMode(0, &desktopMode);
+			SDL_SetWindowSize(m_window, desktopMode.w, desktopMode.h);
 			SDL_SetWindowFullscreen(m_window, flags);
 			SDL_SetWindowGrab(m_window, SDL_TRUE);
 			SDL_ShowCursor(false);
@@ -280,6 +290,7 @@ namespace rengine3d {
 			SDL_SetWindowGrab(m_window, SDL_FALSE);
 			SDL_ShowCursor(true);
 		}
+
 		SDL_GL_SwapWindow(m_window);
 	}
 
@@ -380,10 +391,17 @@ namespace rengine3d {
 		if(!GL_ARB_multisample || m_multiSampling<=0) 
 			return;
 
-		if(enable)
+		if(enable) {
 			glEnable(GL_MULTISAMPLE_ARB);
-		else
+			glEnable(GL_POINT_SMOOTH);
+			glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+			glEnable(GL_LINE_SMOOTH);
+			glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+			glEnable(GL_POLYGON_SMOOTH);
+			glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+		} else {
 			glDisable(GL_MULTISAMPLE_ARB);
+		}
 	}
 
 	void CRenderDriverSDL::SetGammaCorrection(float value) {

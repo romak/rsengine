@@ -27,6 +27,7 @@ namespace rengine3d {
 	}
 
 	CLog::~CLog() {
+		m_history.clear();
 	}
 
 	void CLog::SetEnabled(bool value) {
@@ -47,7 +48,8 @@ namespace rengine3d {
 	}
 
 	void CLog::Print(const char *format, ...) {
-		char	text[4096];
+		logEvent_t ev;
+		char	text[MAX_LOG_LENGHT];
 		va_list	ap;	
 
 		if (!m_enabled) 
@@ -57,24 +59,16 @@ namespace rengine3d {
 		vsprintf_s(text, format, ap);
 		va_end(ap);
 
-		time_t aclock;
-		time( &aclock );
-		struct tm * utcTime= localtime( &aclock );
+		MakeLogEvent(logEventType_Event, CVec4(0,0,0,0), 0, logLevel_Low);
 
-		char buff[32];
-		sprintf(buff, "%02d:%02d:%02d: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
-		string_t str = buff;
-		str += text;
+		ev.line = text;
 
-		m_logWriter->Write(str);
-
-#if defined(PLATFORM_WIN32) && defined(_DEBUG)
-		OutputDebugString(str.c_str());
-#endif
+		this->Log(&ev);
 	}
 
 	void CLog::Warning(const char *format, ...) {
-		char	text[4096];
+		logEvent_t ev;
+		char	text[MAX_LOG_LENGHT];
 		va_list	ap;	
 
 		if (!m_enabled) 
@@ -83,7 +77,24 @@ namespace rengine3d {
 		va_start(ap, format);
 		vsprintf_s(text, format, ap);
 		va_end(ap);
-		
+
+		MakeLogEvent(logEventType_Warning, CVec4(0,0,0,0), 0, logLevel_Medium);
+
+		ev.line = text;
+
+		this->Log(&ev);
+
+/*
+		char	text[MAX_LOG_LENGHT];
+		va_list	ap;	
+
+		if (!m_enabled) 
+			return;
+
+		va_start(ap, format);
+		vsprintf_s(text, format, ap);
+		va_end(ap);
+
 		time_t aclock;
 		time( &aclock );
 		struct tm * utcTime= localtime( &aclock );
@@ -98,10 +109,29 @@ namespace rengine3d {
 #if defined(PLATFORM_WIN32) && defined(_DEBUG)
 		OutputDebugStringA( str.c_str() );
 #endif
+*/
 	}
 
 	void CLog::Error(const char *format, ...) {
-		char	text[4096];
+		logEvent_t ev;
+		char	text[MAX_LOG_LENGHT];
+		va_list	ap;	
+
+		if (!m_enabled) 
+			return;
+
+		va_start(ap, format);
+		vsprintf_s(text, format, ap);
+		va_end(ap);
+
+		MakeLogEvent(logEventType_Error, CVec4(0,0,0,0), 0, logLevel_High);
+
+		ev.line = text;
+
+		this->Log(&ev);
+
+		/*
+		char	text[MAX_LOG_LENGHT];
 		va_list	ap;	
 
 		if (!m_enabled) 
@@ -125,6 +155,57 @@ namespace rengine3d {
 #if defined(PLATFORM_WIN32) && defined(_DEBUG)
 		OutputDebugStringA( str.c_str() );
 #endif
+		*/
+	}
+
+	logEvent_t CLog::MakeLogEvent(logEventType_t type, CVec4 color, uint module, logLevel_t level) {
+		logEvent_t ev;
+		ev.type = type;
+		ev.color = color;
+		ev.module = module;
+		ev.level = level;
+		return ev;
+	}
+
+	void CLog::Log(logEvent_t* logEvent) {
+
+		string_t str, strType;
+		time_t aclock;
+		time( &aclock );
+		struct tm * utcTime= localtime( &aclock );
+
+		switch (logEvent->type) {
+		case logEventType_Event: 
+			{
+				strType = " ";
+				break;
+			}
+		case logEventType_Warning: 
+			{
+				strType = "Warning: ";
+				break;
+			}
+		case logEventType_Error: 
+			{
+				strType = "Error: ";
+				break;
+			}
+		}
+		char buff[32];
+		sprintf(buff, "%02d:%02d:%02d: %s", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec, strType.c_str());
+		str = buff + logEvent->line;
+
+		if (m_history.size() == MAX_LOG_HISTORY)
+			m_history.erase(m_history.begin());
+
+		m_history.push_back(*logEvent);
+
+		m_logWriter->Write(str);
+
+#if defined(PLATFORM_WIN32) && defined(_DEBUG)
+		OutputDebugString(str.c_str());
+#endif
+
 	}
 
 }

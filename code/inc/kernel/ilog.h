@@ -22,6 +22,9 @@
 
 namespace rengine3d {
 
+	const int MAX_LOG_LENGHT	= 256;
+	const int MAX_LOG_HISTORY	= 128;
+
 	//! Структура содержащая описание типа лога
 	typedef enum {
 		logEventType_Unknown,
@@ -40,11 +43,11 @@ namespace rengine3d {
 
 	//! Описания сообщения выведенного в лог
 	typedef struct {
-		int			type;
-		string_t	srcFile;
-		string_t	funcName;
-		uint		line;
-		uint		time;
+		string_t		line;
+		logEventType_t	type;
+		CVec4			color;
+		uint			module;
+		logLevel_t		level;
 	}logEvent_t;
 
 	//! Интерфейс класса, для лога важных событий на протяжение работы движка
@@ -61,6 +64,7 @@ namespace rengine3d {
 		virtual void Print(const char *format, ...) = 0;
 		virtual void Warning(const char *format, ...) = 0;
 		virtual void Error(const char *format, ...) = 0;
+		virtual void Log(logEvent_t* logEvent) = 0;
 	};
 
 	extern void Log(const char *format, ...);
