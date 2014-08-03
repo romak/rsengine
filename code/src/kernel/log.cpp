@@ -59,7 +59,7 @@ namespace rengine3d {
 		vsprintf_s(text, format, ap);
 		va_end(ap);
 
-		MakeLogEvent(logEventType_Event, CVec4(0,0,0,0), 0, logLevel_Low);
+		ev = MakeLogEvent(logEventType_Event, CVec4(0,0,0,0), 0, logLevel_Low);
 
 		ev.line = text;
 
@@ -83,33 +83,6 @@ namespace rengine3d {
 		ev.line = text;
 
 		this->Log(&ev);
-
-/*
-		char	text[MAX_LOG_LENGHT];
-		va_list	ap;	
-
-		if (!m_enabled) 
-			return;
-
-		va_start(ap, format);
-		vsprintf_s(text, format, ap);
-		va_end(ap);
-
-		time_t aclock;
-		time( &aclock );
-		struct tm * utcTime= localtime( &aclock );
-
-		char buff[32];
-		sprintf(buff, "%02d:%02d:%02d: Warning: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
-		string_t str = buff;
-		str += text;
-
-		m_logWriter->Write(str);
-
-#if defined(PLATFORM_WIN32) && defined(_DEBUG)
-		OutputDebugStringA( str.c_str() );
-#endif
-*/
 	}
 
 	void CLog::Error(const char *format, ...) {
@@ -129,33 +102,6 @@ namespace rengine3d {
 		ev.line = text;
 
 		this->Log(&ev);
-
-		/*
-		char	text[MAX_LOG_LENGHT];
-		va_list	ap;	
-
-		if (!m_enabled) 
-			return;
-
-		va_start(ap, format);
-		vsprintf_s(text, format, ap);
-		va_end(ap);
-
-		time_t aclock;
-		time( &aclock );
-		struct tm * utcTime= localtime( &aclock );
-
-		char buff[32];
-		sprintf(buff, "%02d:%02d:%02d: Error: ", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec);
-		string_t str = buff;
-		str += text;
-
-		m_logWriter->Write(str);
-
-#if defined(PLATFORM_WIN32) && defined(_DEBUG)
-		OutputDebugStringA( str.c_str() );
-#endif
-		*/
 	}
 
 	logEvent_t CLog::MakeLogEvent(logEventType_t type, CVec4 color, uint module, logLevel_t level) {
@@ -172,7 +118,8 @@ namespace rengine3d {
 		string_t str, strType;
 		time_t aclock;
 		time( &aclock );
-		struct tm * utcTime= localtime( &aclock );
+
+		struct tm * utcTime= localtime( &aclock  );
 
 		switch (logEvent->type) {
 		case logEventType_Event: 
@@ -192,7 +139,8 @@ namespace rengine3d {
 			}
 		}
 		char buff[32];
-		sprintf(buff, "%02d:%02d:%02d: %s", utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec, strType.c_str());
+		sprintf(buff, "%02d-%02d-%04d %02d:%02d:%02d: %s", utcTime->tm_mday, utcTime->tm_mon+1, utcTime->tm_year+1900, 
+			utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec, strType.c_str());
 		str = buff + logEvent->line;
 
 		if (m_history.size() == MAX_LOG_HISTORY)
