@@ -141,7 +141,8 @@ namespace rengine3d {
 		char buff[32];
 		sprintf(buff, "%02d-%02d-%04d %02d:%02d:%02d: %s", utcTime->tm_mday, utcTime->tm_mon+1, utcTime->tm_year+1900, 
 			utcTime->tm_hour, utcTime->tm_min,utcTime->tm_sec, strType.c_str());
-		str = buff + logEvent->line;
+		str = buff + strType;
+		str = str + logEvent->line;
 
 		if (m_history.size() == MAX_LOG_HISTORY)
 			m_history.erase(m_history.begin());
