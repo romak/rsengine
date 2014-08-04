@@ -45,6 +45,7 @@
     <ClInclude Include="..\..\inc\kernel\kerneltypes.h" />
     <ClInclude Include="..\..\inc\kernel\platform.h" />
     <ClInclude Include="..\..\inc\kernel\precompiled.h" />
+    <ClInclude Include="..\..\inc\kernel\version.h" />
     <ClInclude Include="..\..\inc\mathlib\boundbox.h" />
     <ClInclude Include="..\..\inc\mathlib\boundsphere.h" />
     <ClInclude Include="..\..\inc\mathlib\frustum.h" />

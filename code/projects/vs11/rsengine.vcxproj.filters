@@ -306,6 +306,9 @@
     <ClInclude Include="..\..\src\kernel\resourcemanager.h">
       <Filter>src\kernel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\inc\kernel\version.h">
+      <Filter>inc\kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\kernel\precompiled.cpp">

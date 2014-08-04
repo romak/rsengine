@@ -20,6 +20,8 @@
 #ifndef __PLATFORM_H__
 #define __PLATFORM_H__
 
+#include "version.h"
+
 //! Define supported platforms
 #define PLATFORM_WIN32	1
 #define PLATFORM_LINUX	2
@@ -104,7 +106,8 @@
 	ARCHITECTURE_STR "-"\
 	BUILD_STR "-"\
 	__DATE__ "-"\
-	__TIME__
+	__TIME__ " v"\
+	RENGINE_VERSION_STRING 
 
 #endif
 
