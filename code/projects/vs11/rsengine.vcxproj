@@ -131,6 +131,9 @@
     <ClCompile Include="..\..\src\scene\camera3d.cpp" />
     <ClCompile Include="..\..\src\scene\scene.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4CDAA99A-A1DB-4FF8-AD9A-F498A22A42FF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
